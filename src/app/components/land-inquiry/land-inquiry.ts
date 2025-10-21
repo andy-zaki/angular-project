@@ -42,6 +42,15 @@ interface LandData {
   decisionData: string;
 }
 
+interface BuildingLocationData {
+  id: string;
+  code: string;
+  locationName: string;
+  coordinates: number;
+  status: string;
+  requiredStatus: string;
+}
+
 @Component({
   selector: 'app-land-inquiry',
   templateUrl: './land-inquiry.html',
@@ -56,6 +65,10 @@ export class LandInquiryComponent {
   protected isSearching = signal(false);
   protected hasSearched = signal(false);
   protected landData = signal<LandData | null>(null);
+  
+  // Building inquiry popup signals
+  protected showBuildingPopup = signal(false);
+  protected buildingData = signal<BuildingLocationData[]>([]);
   
   constructor() {
     this.searchForm = this.fb.group({
@@ -92,6 +105,16 @@ export class LandInquiryComponent {
 
   protected logout(): void {
     this.router.navigate(['/login']);
+  }
+
+  protected openBuildingInquiry(): void {
+    const mockBuildingData = this.generateMockBuildingData();
+    this.buildingData.set(mockBuildingData);
+    this.showBuildingPopup.set(true);
+  }
+
+  protected closeBuildingPopup(): void {
+    this.showBuildingPopup.set(false);
   }
 
   protected getFieldError(fieldName: string): string | null {
@@ -155,5 +178,50 @@ export class LandInquiryComponent {
     };
 
     return mockData;
+  }
+
+  private generateMockBuildingData(): BuildingLocationData[] {
+    return [
+      {
+        id: '01',
+        code: 'شمال',
+        locationName: 'شارع عبد الجواد',
+        coordinates: 6.87,
+        status: 'يوجد',
+        requiredStatus: 'مطلوب'
+      },
+      {
+        id: '02',
+        code: 'شمال شرق',
+        locationName: 'شارع عبد الجواد',
+        coordinates: 56.47,
+        status: 'يوجد',
+        requiredStatus: 'مطلوب'
+      },
+      {
+        id: '04',
+        code: 'جنوب شرق',
+        locationName: 'شارع سيدي بلال',
+        coordinates: 20.48,
+        status: 'يوجد',
+        requiredStatus: 'مطلوب'
+      },
+      {
+        id: '06',
+        code: 'شمال غرب',
+        locationName: 'شارع الزعيم',
+        coordinates: 21.65,
+        status: 'يوجد',
+        requiredStatus: 'مطلوب'
+      },
+      {
+        id: '08',
+        code: 'جنوب غرب',
+        locationName: 'ممر بعرض ...',
+        coordinates: 57.42,
+        status: 'يوجد',
+        requiredStatus: 'مطلوب'
+      }
+    ];
   }
 }

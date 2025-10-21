@@ -129,19 +129,28 @@
                   <span class="card-icon">🏢</span>
                   بيانات قطعة الأرض - {{ landData()?.referenceNumber }}
                 </h4>
-                <div class="status-badges">
-                  <span 
-                    class="status-badge approval"
-                    [class.approved]="landData()?.approvalStatus === 'معتمد'"
-                    [class.pending]="landData()?.approvalStatus === 'تحت المراجعة'">
-                    {{ landData()?.approvalStatus }}
-                  </span>
-                  <span 
-                    class="status-badge usage"
-                    [class.active]="landData()?.usageStatus === 'مستخدم'"
-                    [class.inactive]="landData()?.usageStatus === 'غير مستخدم'">
-                    {{ landData()?.usageStatus }}
-                  </span>
+                <div class="header-actions">
+                  <div class="status-badges">
+                    <span 
+                      class="status-badge approval"
+                      [class.approved]="landData()?.approvalStatus === 'معتمد'"
+                      [class.pending]="landData()?.approvalStatus === 'تحت المراجعة'">
+                      {{ landData()?.approvalStatus }}
+                    </span>
+                    <span 
+                      class="status-badge usage"
+                      [class.active]="landData()?.usageStatus === 'مستخدم'"
+                      [class.inactive]="landData()?.usageStatus === 'غير مستخدم'">
+                      {{ landData()?.usageStatus }}
+                    </span>
+                  </div>
+                  <button 
+                    class="building-inquiry-btn"
+                    (click)="openBuildingInquiry()"
+                    type="button">
+                    <span class="btn-icon">🏗️</span>
+                    <span>استعلام المبنى</span>
+                  </button>
                 </div>
               </div>
               
@@ -386,4 +395,67 @@
       
     </div>
   </main>
+
+  <!-- Building Inquiry Popup Modal -->
+  @if (showBuildingPopup()) {
+    <div class="popup-overlay" (click)="closeBuildingPopup()">
+      <div class="popup-content" (click)="$event.stopPropagation()">
+        <div class="popup-header">
+          <h3 class="popup-title">
+            <span class="popup-icon">🏗️</span>
+            استعلام المبنى - مواقع البناء
+          </h3>
+          <button 
+            class="close-btn"
+            (click)="closeBuildingPopup()"
+            type="button">
+            <span>✕</span>
+          </button>
+        </div>
+        
+        <div class="popup-body">
+          <div class="building-table-container">
+            <table class="building-data-table">
+              <thead>
+                <tr>
+                  <th>الكود</th>
+                  <th>اسم الموقع</th>
+                  <th>طول الحد</th>
+                  <th>الجار</th>
+                  <th>المطلوب</th>
+                  <th>منسوب نقطة البداء</th>
+                  <th>منسوب نقطة النهاية</th>
+                  <th>صفر</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (building of buildingData(); track building.id) {
+                  <tr class="building-row">
+                    <td class="building-id">{{ building.id }}</td>
+                    <td class="building-code">{{ building.code }}</td>
+                    <td class="location-name">{{ building.locationName }}</td>
+                    <td class="coordinates">{{ building.coordinates }}</td>
+                    <td class="status">{{ building.status }}</td>
+                    <td class="required-status">{{ building.requiredStatus }}</td>
+                    <td class="empty-field">صفر</td>
+                    <td class="empty-field">صفر</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="popup-footer">
+          <button 
+            class="close-popup-btn"
+            (click)="closeBuildingPopup()"
+            type="button">
+            <span class="btn-icon">✕</span>
+            <span>إغلاق</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

@@ -1,0 +1,124 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="login-title">Welcome Back</h1>
+      <p class="login-subtitle">Please sign in to your account</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- User Field -->
+      <div class="form-group">
+        <label for="user" class="form-label">User</label>
+        <input
+          type="text"
+          id="user"
+          formControlName="user"
+          class="form-input"
+          [class.error]="loginForm.get('user')?.touched && loginForm.get('user')?.errors"
+          placeholder="Enter your username"
+        />
+        <div class="error-message" *ngIf="getFieldError('user')">
+          {{ getFieldError('user') }}
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-input"
+          [class.error]="loginForm.get('password')?.touched && loginForm.get('password')?.errors"
+          placeholder="Enter your password"
+        />
+        <div class="error-message" *ngIf="getFieldError('password')">
+          {{ getFieldError('password') }}
+        </div>
+      </div>
+
+      <!-- Program/Procedure Field -->
+      <div class="form-group">
+        <label for="program" class="form-label">Program/Procedure</label>
+        <select
+          id="program"
+          formControlName="program"
+          class="form-select"
+          [class.error]="loginForm.get('program')?.touched && loginForm.get('program')?.errors"
+        >
+          <option value="">Select a program</option>
+          <option *ngFor="let program of programs" [value]="program.id">
+            {{ program.name }}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="getFieldError('program')">
+          {{ getFieldError('program') }}
+        </div>
+      </div>
+
+      <!-- Menu Field -->
+      <div class="form-group">
+        <label for="menu" class="form-label">Menu</label>
+        <select
+          id="menu"
+          formControlName="menu"
+          class="form-select"
+          [class.error]="loginForm.get('menu')?.touched && loginForm.get('menu')?.errors"
+        >
+          <option value="">Select a menu</option>
+          <option *ngFor="let menu of menus" [value]="menu.id">
+            {{ menu.name }}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="getFieldError('menu')">
+          {{ getFieldError('menu') }}
+        </div>
+      </div>
+
+      <!-- Current Library Field -->
+      <div class="form-group">
+        <label for="currentLibrary" class="form-label">Current Library</label>
+        <select
+          id="currentLibrary"
+          formControlName="currentLibrary"
+          class="form-select"
+          [class.error]="loginForm.get('currentLibrary')?.touched && loginForm.get('currentLibrary')?.errors"
+        >
+          <option value="">Select a library</option>
+          <option *ngFor="let library of libraries" [value]="library.id">
+            {{ library.name }}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="getFieldError('currentLibrary')">
+          {{ getFieldError('currentLibrary') }}
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="form-error" *ngIf="errorMessage()">
+        {{ errorMessage() }}
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="isLoading()"
+        [class.loading]="isLoading()"
+      >
+        <span *ngIf="!isLoading()">Sign In</span>
+        <span *ngIf="isLoading()" class="loading-text">
+          <span class="spinner"></span>
+          Signing In...
+        </span>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p class="footer-text">
+        Need help? Contact your system administrator
+      </p>
+    </div>
+  </div>
+</div>

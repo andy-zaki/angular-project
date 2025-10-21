@@ -1,0 +1,389 @@
+<div class="land-inquiry-container">
+  <!-- Header Section -->
+  <header class="land-inquiry-header">
+    <!-- Header Top Section -->
+    <div class="header-top">
+      <div class="organization-info">
+        <h1 class="organization-name">الهيئة العامة للابنية التعليمية</h1>
+        <p class="organization-subtitle">General Authority for Educational Buildings</p>
+      </div>
+      
+      <div class="header-actions">
+        <button 
+          class="back-button" 
+          (click)="goBack()" 
+          aria-label="العودة لقائمة المبنى التعليمي"
+          title="العودة لقائمة المبنى التعليمي"
+          type="button">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path 
+              d="M15 18L9 12L15 6" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>العودة</span>
+        </button>
+        
+        <button 
+          class="logout-button"
+          (click)="logout()"
+          aria-label="خروج من النظام وإنهاء الجلسة"
+          title="خروج من النظام"
+          type="button"
+        >
+          <span class="logout-icon" aria-hidden="true">🚪</span>
+          <span class="logout-text">خروج من النظام</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Header Bottom Section -->
+    <div class="header-bottom">
+      <div class="page-info">
+        <h2 class="page-title">الاستعلام عن بيانات قطع الأراضي</h2>
+        <p class="page-subtitle">البحث في قاعدة بيانات قطع الأراضي المخصصة للمباني التعليمية</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Section -->
+  <main class="land-inquiry-main">
+    <div class="content-container">
+      
+      <!-- Search Form -->
+      <div class="search-section">
+        <div class="search-card">
+          <h3 class="search-title">
+            <span class="search-icon">🔍</span>
+            بحث عن قطعة أرض
+          </h3>
+          
+          <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+            <div class="form-group">
+              <label for="referenceNumber" class="form-label">
+                الرقم التعريفي لقطعة الأرض
+                <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="referenceNumber"
+                formControlName="referenceNumber"
+                class="form-input"
+                [class.error]="getFieldError('referenceNumber')"
+                placeholder="أدخل الرقم التعريفي (مثال: 132513)"
+                autocomplete="off"
+              />
+              @if (getFieldError('referenceNumber')) {
+                <div class="error-message">
+                  {{ getFieldError('referenceNumber') }}
+                </div>
+              }
+            </div>
+            
+            <div class="form-actions">
+              <button 
+                type="submit" 
+                class="search-btn"
+                [disabled]="isSearching()"
+                [class.loading]="isSearching()">
+                @if (isSearching()) {
+                  <span class="spinner"></span>
+                  <span>جاري البحث...</span>
+                } @else {
+                  <span class="btn-icon">🔍</span>
+                  <span>بحث</span>
+                }
+              </button>
+              
+              <button 
+                type="button" 
+                class="reset-btn"
+                (click)="onReset()"
+                [disabled]="isSearching()">
+                <span class="btn-icon">🔄</span>
+                <span>إعادة تعيين</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      @if (hasSearched()) {
+        <div class="results-section">
+          @if (landData()) {
+            <div class="results-header">
+              <h3 class="results-title">
+                <span class="results-icon">📊</span>
+                نتائج البحث
+                <span class="results-count">(نتيجة واحدة)</span>
+              </h3>
+            </div>
+            
+            <div class="result-card">
+              <div class="card-header">
+                <h4 class="card-title">
+                  <span class="card-icon">🏢</span>
+                  بيانات قطعة الأرض - {{ landData()?.referenceNumber }}
+                </h4>
+                <div class="status-badges">
+                  <span 
+                    class="status-badge approval"
+                    [class.approved]="landData()?.approvalStatus === 'معتمد'"
+                    [class.pending]="landData()?.approvalStatus === 'تحت المراجعة'">
+                    {{ landData()?.approvalStatus }}
+                  </span>
+                  <span 
+                    class="status-badge usage"
+                    [class.active]="landData()?.usageStatus === 'مستخدم'"
+                    [class.inactive]="landData()?.usageStatus === 'غير مستخدم'">
+                    {{ landData()?.usageStatus }}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="card-content">
+                <div class="info-grid">
+                  <div class="info-section basic-info">
+                    <h5 class="section-title">
+                      <span class="section-icon">ℹ️</span>
+                      المعلومات الأساسية
+                    </h5>
+                    <div class="info-items">
+                      <div class="info-item">
+                        <span class="label">الرقم التعريفي:</span>
+                        <span class="value">{{ landData()?.identificationNumber }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">كود الأرض:</span>
+                        <span class="value">{{ landData()?.landCode }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">المقر:</span>
+                        <span class="value">{{ landData()?.headquarters }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">المركز/القسم:</span>
+                        <span class="value">{{ landData()?.centerDepartment }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">القرية:</span>
+                        <span class="value">{{ landData()?.village }}</span>
+                      </div>
+                      <div class="info-item highlight">
+                        <span class="label">المساحة الكلية:</span>
+                        <span class="value area">{{ landData()?.totalArea | number:'1.2-2' }} م²</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="info-section ownership-info">
+                    <h5 class="section-title">
+                      <span class="section-icon">👤</span>
+                      معلومات الملكية
+                    </h5>
+                    <div class="info-items">
+                      <div class="info-item">
+                        <span class="label">المالك الحالي:</span>
+                        <span class="value">{{ landData()?.currentOwner }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">المالك الأصلي:</span>
+                        <span class="value">{{ landData()?.originalOwner }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">المرحلة:</span>
+                        <span class="value">{{ landData()?.phase }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">النموذج:</span>
+                        <span class="value">{{ landData()?.model }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="info-section financial-info">
+                    <h5 class="section-title">
+                      <span class="section-icon">💰</span>
+                      المعلومات المالية
+                    </h5>
+                    <div class="info-items">
+                      <div class="info-item">
+                        <span class="label">تسعير اللجنة:</span>
+                        <span class="value price">{{ landData()?.committeePricing | number }} ج.م</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">سعر الشراء:</span>
+                        <span class="value price">{{ landData()?.purchasePrice | number }} ج.م</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">مفاوضات البيع:</span>
+                        <span class="value">{{ landData()?.saleNegotiations }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="info-section status-info">
+                    <h5 class="section-title">
+                      <span class="section-icon">📋</span>
+                      الحالة والمستندات
+                    </h5>
+                    <div class="info-items">
+                      <div class="info-item">
+                        <span class="label">الاعتماد:</span>
+                        <span 
+                          class="value status"
+                          [class.approved]="landData()?.approval === 'موافق'"
+                          [class.pending]="landData()?.approval === 'قيد الدراسة'">
+                          {{ landData()?.approval }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">التسكين:</span>
+                        <span class="value">{{ landData()?.housing }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">المستندات:</span>
+                        <span 
+                          class="value documents"
+                          [class.complete]="landData()?.documents === 'مكتملة'"
+                          [class.incomplete]="landData()?.documents === 'ناقصة'">
+                          {{ landData()?.documents }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">الخطة:</span>
+                        <span class="value">{{ landData()?.plan }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">إخطار الفرع:</span>
+                        <span class="value">{{ landData()?.branchNotification }}</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">موقف العقارية:</span>
+                        <span class="value">{{ landData()?.realEstateStatus }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="info-section availability-info">
+                    <h5 class="section-title">
+                      <span class="section-icon">📊</span>
+                      توفر البيانات والملاحظات
+                    </h5>
+                    <div class="info-items">
+                      <div class="info-item">
+                        <span class="label">حدود قطعة الأرض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.buildingBoundaries === 'موجود'"
+                          [class.unavailable]="landData()?.buildingBoundaries === 'غير موجود'">
+                          {{ landData()?.buildingBoundaries }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">بيانات الميزانية الشبكية:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.networkData === 'موجود'"
+                          [class.unavailable]="landData()?.networkData === 'غير موجود'">
+                          {{ landData()?.networkData }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">ملاحظات الميزانية الشبكية:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.networkObservations === 'موجود'"
+                          [class.unavailable]="landData()?.networkObservations === 'غير موجود'">
+                          {{ landData()?.networkObservations }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">مراقب قطعة الارض من إجمالى قطعة الارض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.landAreaFromTotal === 'موجود'"
+                          [class.unavailable]="landData()?.landAreaFromTotal === 'غير موجود'">
+                          {{ landData()?.landAreaFromTotal }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">ملاحظات معاينة قطعة الارض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.landInspectionDatabase === 'موجود'"
+                          [class.unavailable]="landData()?.landInspectionDatabase === 'غير موجود'">
+                          {{ landData()?.landInspectionDatabase }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">عوائق إنشاء قطعة الارض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.landCreationObstacles === 'موجود'"
+                          [class.unavailable]="landData()?.landCreationObstacles === 'غير موجود'">
+                          {{ landData()?.landCreationObstacles }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">مستندات قطعة الارض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.landConstructionData === 'موجود'"
+                          [class.unavailable]="landData()?.landConstructionData === 'غير موجود'">
+                          {{ landData()?.landConstructionData }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">مؤشر استلام قطعة الارض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.landReceiptDatabase === 'موجود'"
+                          [class.unavailable]="landData()?.landReceiptDatabase === 'غير موجود'">
+                          {{ landData()?.landReceiptDatabase }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">المبالغ المدفوعة للأرض:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.paidAmountsDatabase === 'موجود'"
+                          [class.unavailable]="landData()?.paidAmountsDatabase === 'غير موجود'">
+                          {{ landData()?.paidAmountsDatabase }}
+                        </span>
+                      </div>
+                      <div class="info-item">
+                        <span class="label">بيانات قرار التمليس:</span>
+                        <span 
+                          class="value availability"
+                          [class.available]="landData()?.decisionData === 'موجود'"
+                          [class.unavailable]="landData()?.decisionData === 'غير موجود'">
+                          {{ landData()?.decisionData }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } @else {
+            <div class="no-results">
+              <div class="no-results-icon">📭</div>
+              <h3 class="no-results-title">لا توجد نتائج</h3>
+              <p class="no-results-message">
+                لم يتم العثور على بيانات لهذا الرقم التعريفي.
+                <br>
+                تأكد من صحة الرقم وحاول مرة أخرى.
+              </p>
+            </div>
+          }
+        </div>
+      }
+      
+    </div>
+  </main>
+</div>

@@ -132,7 +132,13 @@ export class EducationalBuildingComponent {
   }
 
   private navigateToOption(optionKey: string): void {
-    // For now, show alert with the option. Later you can implement specific routes
+    // Check if this is the land data inquiry option
+    if (optionKey === 'land-data') {
+      this.router.navigate(['/land-inquiry']);
+      return;
+    }
+    
+    // For other options, show alert for now
     const option = this.buildingOptions.find(opt => opt.action.toString().includes(optionKey));
     alert(`تم اختيار: ${option?.title}\nسيتم تطوير هذه الميزة قريباً`);
   }

@@ -1,0 +1,159 @@
+import { Component, signal, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+interface LandData {
+  id: string;
+  referenceNumber: string;
+  usageStatus: string;
+  headquarters: string;
+  approvalStatus: string;
+  identificationNumber: string;
+  centerDepartment: string;
+  totalArea: number;
+  phase: string;
+  approval: string;
+  housing: string;
+  committeePricing: string;
+  purchasePrice: string;
+  saleNegotiations: string;
+  landCode: string;
+  village: string;
+  currentOwner: string;
+  originalOwner: string;
+  model: string;
+  documents: string;
+  plan: string;
+  branchNotification: string;
+  realEstateStatus: string;
+  // New availability fields
+  buildingBoundaries: string;
+  networkData: string;
+  networkObservations: string;
+  landAreaFromTotal: string;
+  landUseDatabase: string;
+  landInspectionDatabase: string;
+  landConstructionObstacles: string;
+  landCreationObstacles: string;
+  landConstructionData: string;
+  landReceiptDatabase: string;
+  paidAmountsDatabase: string;
+  decisionData: string;
+}
+
+@Component({
+  selector: 'app-land-inquiry',
+  templateUrl: './land-inquiry.html',
+  styleUrl: './land-inquiry.css',
+  imports: [CommonModule, ReactiveFormsModule]
+})
+export class LandInquiryComponent {
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  
+  protected searchForm: FormGroup;
+  protected isSearching = signal(false);
+  protected hasSearched = signal(false);
+  protected landData = signal<LandData | null>(null);
+  
+  constructor() {
+    this.searchForm = this.fb.group({
+      referenceNumber: ['', [Validators.required, Validators.minLength(3)]]
+    });
+  }
+
+  protected onSearch(): void {
+    if (this.searchForm.valid) {
+      this.isSearching.set(true);
+      
+      // Simulate API call delay
+      setTimeout(() => {
+        const referenceNumber = this.searchForm.get('referenceNumber')?.value;
+        const mockData = this.generateMockLandData(referenceNumber);
+        this.landData.set(mockData);
+        this.hasSearched.set(true);
+        this.isSearching.set(false);
+      }, 1500);
+    } else {
+      this.markFormGroupTouched();
+    }
+  }
+
+  protected onReset(): void {
+    this.searchForm.reset();
+    this.landData.set(null);
+    this.hasSearched.set(false);
+  }
+
+  protected goBack(): void {
+    this.router.navigate(['/educational-building']);
+  }
+
+  protected logout(): void {
+    this.router.navigate(['/login']);
+  }
+
+  protected getFieldError(fieldName: string): string | null {
+    const field = this.searchForm.get(fieldName);
+    if (field?.touched && field?.errors) {
+      if (field.errors['required']) {
+        return 'الرقم التعريفى مطلوب';
+      }
+      if (field.errors['minlength']) {
+        return 'الرقم التعريفى يجب أن يكون على الأقل 3 أرقام';
+      }
+    }
+    return null;
+  }
+
+  private markFormGroupTouched(): void {
+    Object.keys(this.searchForm.controls).forEach(key => {
+      this.searchForm.get(key)?.markAsTouched();
+    });
+  }
+
+  private generateMockLandData(referenceNumber: string): LandData {
+    // Generate mock data based on the specified fields - return single result
+    const mockData: LandData = {
+      id: '1',
+      referenceNumber: referenceNumber,
+      usageStatus: 'مستخدم',
+      headquarters: 'القاهرة - مدينة نصر',
+      approvalStatus: 'معتمد',
+      identificationNumber: '132513',
+      centerDepartment: 'قسم عين شمس',
+      totalArea: 1497.00,
+      phase: 'المرحلة الأولى',
+      approval: 'موافق',
+      housing: 'تم التسكين',
+      committeePricing: '150000',
+      purchasePrice: '125000',
+      saleNegotiations: 'مكتملة',
+      landCode: 'CAL505',
+      village: 'مدينة نصر',
+      currentOwner: 'الهيئة العامة للأبنية التعليمية',
+      originalOwner: 'ملك دولة',
+      model: 'النموذج أ',
+      documents: 'مكتملة',
+      plan: 'خطة 2024-2025',
+      branchNotification: 'تم الإخطار',
+      realEstateStatus: 'موقف العقارية: نشط',
+      // New availability fields
+      buildingBoundaries: 'موجود',
+      networkData: 'موجود',
+      networkObservations: 'غير موجود',
+      landAreaFromTotal: 'موجود',
+      landUseDatabase: 'موجود',
+      landInspectionDatabase: 'غير موجود',
+      landConstructionObstacles: 'موجود',
+      landCreationObstacles: 'غير موجود',
+      landConstructionData: 'موجود',
+      landReceiptDatabase: 'موجود',
+      paidAmountsDatabase: 'غير موجود',
+      decisionData: 'موجود'
+    };
+
+    return mockData;
+  }
+}

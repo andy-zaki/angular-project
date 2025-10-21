@@ -27,6 +27,10 @@ export const routes: Routes = [
     loadComponent: () => import('./components/educational-building/educational-building').then(m => m.EducationalBuildingComponent)
   },
   {
+    path: 'land-inquiry',
+    loadComponent: () => import('./components/land-inquiry/land-inquiry').then(m => m.LandInquiryComponent)
+  },
+  {
     path: '**',
     redirectTo: '/login'
   }

@@ -43,9 +43,9 @@ export class LoginComponent {
     //   program: ['', Validators.required],
     //   menu: ['', Validators.required],
     //   currentLibrary: ['', Validators.required]
-      program: [''], // Optional field
-      menu: [''], // Optional field
-      currentLibrary: [''] // Optional field
+      program: [''],
+      menu: [''], 
+      currentLibrary: [''] 
     });
   }
 

@@ -128,7 +128,7 @@ export class ApplicationsComponent {
   ];
 
   protected goBack(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/applications-menu']);
   }
 
   protected openApplication(app: Application): void {

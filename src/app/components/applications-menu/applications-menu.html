@@ -1,0 +1,94 @@
+<div class="applications-menu-container">
+  <!-- Header Section -->
+  <header class="applications-menu-header">
+    <!-- Header Top Section -->
+    <div class="header-top">
+      <div class="organization-info">
+        <h1 class="organization-name">الهيئة العامة للابنية التعليمية</h1>
+        <p class="organization-subtitle">General Authority for Educational Buildings</p>
+      </div>
+      
+      <div class="header-actions">
+        <button 
+          class="back-button" 
+          (click)="goBack()" 
+          aria-label="العودة للقائمة الرئيسية"
+          title="العودة للقائمة الرئيسية"
+          type="button">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path 
+              d="M15 18L9 12L15 6" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>العودة</span>
+        </button>
+        
+        <button 
+          class="logout-button"
+          (click)="logout()"
+          aria-label="خروج من النظام وإنهاء الجلسة"
+          title="خروج من النظام"
+          type="button"
+        >
+          <span class="logout-icon" aria-hidden="true">🚪</span>
+          <span class="logout-text">خروج من النظام</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Header Bottom Section -->
+    <div class="header-bottom">
+      <div class="page-info">
+        <h2 class="page-title">قائمة التطبيقات</h2>
+        <p class="page-subtitle">اختر نوع التطبيق المطلوب</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Menu Section -->
+  <main class="applications-menu-main">
+    <div class="menu-container">
+      <h2 class="menu-title">أنواع التطبيقات المتاحة</h2>
+      
+      <div class="menu-grid">
+        @for (option of applicationMenuOptions; track option.id) {
+          <div 
+            class="menu-card"
+            [style.--card-color]="option.color"
+            (click)="onMenuClick(option)"
+            [attr.aria-label]="option.title + ': ' + option.description"
+            tabindex="0"
+            (keydown.enter)="onMenuClick(option)"
+            (keydown.space)="onMenuClick(option)"
+            role="button"
+          >
+            <div class="card-icon">
+              <span class="icon">{{ option.icon }}</span>
+            </div>
+            
+            <div class="card-content">
+              <h3 class="card-title">{{ option.title }}</h3>
+              <p class="card-description">{{ option.description }}</p>
+            </div>
+            
+            <div class="card-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path 
+                  d="M8 12L16 12M16 12L12 8M16 12L12 16" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+</div>

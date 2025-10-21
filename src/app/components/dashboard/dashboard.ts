@@ -45,7 +45,7 @@ export class DashboardComponent {
   ];
 
   private navigateToApplications(): void {
-    this.router.navigate(['/applications']);
+    this.router.navigate(['/applications-menu']);
   }
 
   private navigateToDatabases(): void {

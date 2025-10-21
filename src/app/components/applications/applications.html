@@ -1,0 +1,82 @@
+<div class="applications-container">
+  <!-- Header Section -->
+  <header class="applications-header">
+    <div class="header-content">
+      <button class="back-button" (click)="goBack()" aria-label="العودة للقائمة الرئيسية">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path 
+            d="M15 18L9 12L15 6" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>العودة</span>
+      </button>
+      
+      <div class="header-title-section">
+        <h1 class="page-title">القائمة الرئيسية للتطبيقات</h1>
+        <p class="page-subtitle">اختر التطبيق المطلوب من القائمة أدناه</p>
+      </div>
+
+      <!-- Global Logout Button -->
+      <button 
+        class="logout-button"
+        (click)="router.navigate(['/login'])"
+        aria-label="خروج من النظام"
+        title="خروج من النظام"
+      >
+        <span class="logout-icon">🚪</span>
+        <span class="logout-text">خروج من النظام</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Applications Grid -->
+  <main class="applications-main">
+    <div class="applications-grid">
+      @for (app of applications; track app.id) {
+        <div 
+          class="application-card"
+          [style.--app-color]="app.color"
+          (click)="openApplication(app)"
+          [attr.aria-label]="app.name"
+          tabindex="0"
+          (keydown.enter)="openApplication(app)"
+          (keydown.space)="openApplication(app)"
+        >
+          <div class="app-icon">
+            <span class="icon">{{ app.icon }}</span>
+          </div>
+          
+          <div class="app-content">
+            <h3 class="app-name">{{ app.name }}</h3>
+            <p class="app-description">{{ app.description }}</p>
+            @if (app.category) {
+              <span class="app-category">{{ app.category }}</span>
+            }
+          </div>
+          
+          <div class="app-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path 
+                d="M9 18L15 12L9 6" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="applications-footer">
+    <p class="footer-text">عدد التطبيقات المتاحة: {{ applications.length }}</p>
+    <p class="footer-support">للدعم الفني أو الاستفسارات اتصل بالإدارة</p>
+  </footer>
+</div>

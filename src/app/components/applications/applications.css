@@ -1,0 +1,354 @@
+/* Applications Container */
+.applications-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Header Styles */
+.applications-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+/* Back Button */
+.back-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.back-button svg {
+  transform: scaleX(-1); /* Flip for RTL */
+}
+
+/* Header Title Section */
+.header-title-section {
+  flex: 1;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.025em;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Global Logout Button */
+.logout-button {
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.logout-button:hover {
+  background: rgba(239, 68, 68, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.logout-icon {
+  font-size: 16px;
+}
+
+.logout-text {
+  white-space: nowrap;
+}
+
+/* Main Content */
+.applications-main {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Applications Grid */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Application Cards */
+.application-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.application-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--app-color);
+  transition: width 0.3s ease;
+}
+
+.application-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-color: var(--app-color);
+}
+
+.application-card:hover::before {
+  width: 6px;
+}
+
+.application-card:focus {
+  outline: none;
+  border-color: var(--app-color);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* App Icon */
+.app-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--app-color), color-mix(in srgb, var(--app-color) 80%, #000));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-icon .icon {
+  font-size: 24px;
+  filter: brightness(1.1);
+}
+
+/* App Content */
+.app-content {
+  flex: 1;
+  text-align: right;
+}
+
+.app-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.app-description {
+  font-size: 13px;
+  color: #718096;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.app-category {
+  display: inline-block;
+  background: color-mix(in srgb, var(--app-color) 10%, transparent);
+  color: var(--app-color);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--app-color) 20%, transparent);
+}
+
+/* App Arrow */
+.app-arrow {
+  flex-shrink: 0;
+  color: var(--app-color);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  transform: scaleX(-1); /* Flip for RTL */
+}
+
+.application-card:hover .app-arrow {
+  opacity: 1;
+  transform: translateX(-4px) scaleX(-1);
+}
+
+/* Footer */
+.applications-footer {
+  background: #f1f5f9;
+  border-top: 1px solid #e2e8f0;
+  padding: 20px 32px;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.footer-support {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .applications-header {
+    padding: 16px 20px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-title-section {
+    order: -1;
+  }
+
+  .back-button,
+  .logout-button {
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .logout-text {
+    display: none;
+  }
+
+  .applications-main {
+    padding: 20px 16px;
+  }
+
+  .applications-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .application-card {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .app-content {
+    text-align: center;
+  }
+
+  .app-arrow {
+    display: none;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .applications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .application-card {
+    padding: 16px;
+  }
+
+  .app-name {
+    font-size: 15px;
+  }
+
+  .app-description {
+    font-size: 12px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .application-card,
+  .back-button,
+  .logout-button,
+  .app-arrow,
+  .application-card::before {
+    transition: none;
+  }
+
+  .application-card:hover {
+    transform: none;
+  }
+
+  .application-card:hover .app-arrow {
+    transform: scaleX(-1);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .application-card {
+    border: 2px solid #000;
+  }
+
+  .application-card:hover,
+  .application-card:focus {
+    border-color: var(--app-color);
+    outline: 2px solid #000;
+  }
+}

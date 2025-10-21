@@ -45,8 +45,7 @@ export class DashboardComponent {
   ];
 
   private navigateToApplications(): void {
-    // For now, just show an alert - you can implement actual navigation later
-    alert('تم النقر على تطبيقات - سيتم تطوير هذه الميزة قريباً');
+    this.router.navigate(['/applications']);
   }
 
   private navigateToDatabases(): void {

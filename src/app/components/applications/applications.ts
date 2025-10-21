@@ -132,8 +132,13 @@ export class ApplicationsComponent {
   }
 
   protected openApplication(app: Application): void {
-    // For now, show alert with application name
-    // In the future, you can navigate to specific application pages
+    // Check if this is the educational building app
+    if (app.id === 1 && app.name === 'المبنى التعليمى') {
+      this.router.navigate(['/educational-building']);
+      return;
+    }
+    
+    // For other applications, show alert for now
     alert(`تم اختيار تطبيق: ${app.name}\nسيتم تطوير هذا التطبيق قريباً`);
   }
 

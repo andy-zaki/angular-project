@@ -23,6 +23,10 @@ export const routes: Routes = [
     loadComponent: () => import('./components/applications/applications').then(m => m.ApplicationsComponent)
   },
   {
+    path: 'educational-building',
+    loadComponent: () => import('./components/educational-building/educational-building').then(m => m.EducationalBuildingComponent)
+  },
+  {
     path: '**',
     redirectTo: '/login'
   }

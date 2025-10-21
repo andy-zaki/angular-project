@@ -55,9 +55,8 @@ export class LoginComponent {
       setTimeout(() => {
         console.log('Login form submitted:', this.loginForm.value);
         this.isLoading.set(false);
-        // Here you would typically call an authentication service
-        // For now, we'll just show success
-        alert('Login successful!');
+        // Navigate to dashboard on successful login
+        this.router.navigate(['/dashboard']);
       }, 1500);
     } else {
       this.errorMessage.set('Please fill in all required fields correctly.');

@@ -1,0 +1,51 @@
+<app-header [pageTitle]="'استعلام عن المبنى'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>استعلام عن المبنى</h1>
+    <p class="subtitle">{{ buildingDetails.name }}</p>
+
+    <div class="details-card">
+      <div class="card-header">
+        <h2>{{ buildingDetails.name }}</h2>
+        <span class="status-badge">{{ buildingDetails.status }}</span>
+      </div>
+
+      <div class="card-content">
+        <div class="detail-item">
+          <label>حالة الإيجار (Status):</label>
+          <span>{{ buildingDetails.status }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>المستأجر (Tenant):</label>
+          <span>{{ buildingDetails.tenant }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>تاريخ بداية الإيجار (Start Date):</label>
+          <span>{{ buildingDetails.rentalStartDate }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>تاريخ نهاية الإيجار (End Date):</label>
+          <span>{{ buildingDetails.rentalEndDate }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>الإيجار السنوي (Annual Rent):</label>
+          <span>{{ buildingDetails.annualRent }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="editStatus()" class="btn btn-warning">
+        ✎ تعديل الموقف
+      </button>
+      <button (click)="navigateBack()" class="btn btn-secondary">
+        ← العودة
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<app-header [pageTitle]="'استعلام عن بيانات قطع الأراضي'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>استعلام عن بيانات قطع الأراضي</h1>
+    <p class="subtitle">إدخال الرقم التعريفي للقطعة</p>
+
+    <form (ngSubmit)="navigateToLandCoordinates()" class="inquiry-form">
+      <div class="form-group">
+        <label for="govNumber">الرقم الحكومي (Government Number):</label>
+        <input
+          type="text"
+          id="govNumber"
+          [(ngModel)]="governmentNumber"
+          name="governmentNumber"
+          placeholder="أدخل الرقم الحكومي"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          🔍 استعلام
+        </button>
+        <button type="button" (click)="navigateBack()" class="btn btn-secondary">
+          ← العودة
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

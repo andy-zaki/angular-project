@@ -1,0 +1,52 @@
+<app-header [pageTitle]="'تعديل موقف المباني المؤجرة'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>تعديل موقف المباني المؤجرة</h1>
+
+    <form (ngSubmit)="submitModification()" class="modify-form">
+      <div class="form-section">
+        <h3>تحديث بيانات الإيجار</h3>
+
+        <div class="form-group">
+          <label>حالة الإيجار (Rental Status):</label>
+          <select [(ngModel)]="modifyData.status" name="status" class="form-input">
+            <option value="مؤجرة">مؤجرة (Rented)</option>
+            <option value="شاغرة">شاغرة (Vacant)</option>
+            <option value="تحت الصيانة">تحت الصيانة (Under Maintenance)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>المستأجر (Tenant):</label>
+          <input [(ngModel)]="modifyData.tenant" name="tenant" type="text" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>تاريخ بداية الإيجار (Start Date):</label>
+          <input [(ngModel)]="modifyData.rentalStartDate" name="startDate" type="date" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>تاريخ نهاية الإيجار (End Date):</label>
+          <input [(ngModel)]="modifyData.rentalEndDate" name="endDate" type="date" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>الإيجار السنوي (Annual Rent):</label>
+          <input [(ngModel)]="modifyData.annualRent" name="annualRent" type="number" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>ملاحظات (Notes):</label>
+          <textarea [(ngModel)]="modifyData.notes" name="notes" class="form-input" rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">✓ حفظ التعديلات</button>
+        <button type="button" (click)="navigateBack()" class="btn btn-secondary">← العودة</button>
+      </div>
+    </form>
+  </div>
+</div>

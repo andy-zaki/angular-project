@@ -1,0 +1,20 @@
+<app-header [pageTitle]="'برنامج الاستعلام للمواقف'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>برنامج الاستعلام للمواقف (2)</h1>
+    <p class="subtitle">إدارة موقف المباني المؤجرة</p>
+
+    <div class="program-card">
+      <h3>بيان بموقف المباني المؤجرة</h3>
+      <p>عرض وإدارة حالة المباني المؤجرة للجهات المختلفة</p>
+      <button (click)="navigateTo('/rental-buildings-list')" class="btn btn-primary">
+        اختر ← 
+      </button>
+    </div>
+
+    <button (click)="navigateBack()" class="btn btn-secondary">
+      ← العودة
+    </button>
+  </div>
+</div>

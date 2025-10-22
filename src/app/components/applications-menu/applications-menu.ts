@@ -32,9 +32,9 @@ export class ApplicationsMenuComponent {
     },
     {
       id: 2,
-      title: 'برنامج الاستعلام للمواقف',
-      description: 'نظام الاستعلام عن المواقف والحجوزات',
-      icon: '🅿️',
+      title: 'برنامج الاستعلام للمواقف (2)',
+      description: 'نظام الاستعلام عن موقف المباني المؤجرة',
+      icon: '�',
       color: '#10b981',
       action: () => this.navigateToParkingInquiry()
     }
@@ -57,7 +57,6 @@ export class ApplicationsMenuComponent {
   }
 
   private navigateToParkingInquiry(): void {
-    // For now, just show an alert. Later you can implement this route
-    alert('برنامج الاستعلام للمواقف سيتم تطويره قريباً');
+    this.router.navigate(['/rental-buildings-status']);
   }
 }

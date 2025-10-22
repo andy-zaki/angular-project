@@ -1,0 +1,34 @@
+<app-header [pageTitle]="'تسجيل بيانات الفراغات'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>تسجيل بيانات الفراغات</h1>
+
+    <div class="spaces-table">
+      <table>
+        <thead>
+          <tr>
+            <th>اسم الفراغ (Space Name)</th>
+            <th>الطابق (Floor)</th>
+            <th>المساحة (Area)</th>
+            <th>السعة (Capacity)</th>
+            <th>الحالة (Status)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let space of spaces" [class.needs-maintenance]="space.status.includes('يحتاج')">
+            <td>{{ space.name }}</td>
+            <td>{{ space.floor }}</td>
+            <td>{{ space.area }}</td>
+            <td>{{ space.capacity }}</td>
+            <td>{{ space.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button (click)="navigateBack()" class="btn btn-secondary">
+      ← العودة
+    </button>
+  </div>
+</div>

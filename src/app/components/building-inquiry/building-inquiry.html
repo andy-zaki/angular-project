@@ -1,0 +1,58 @@
+<app-header [pageTitle]="'استعلام المبنى'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>استعلام المبنى</h1>
+    <p class="subtitle">الرقم الحكومي: {{ governmentNumber }}</p>
+
+    <div class="building-card">
+      <div class="card-header">
+        <h2>{{ buildingData.name }}</h2>
+        <span class="badge">{{ buildingData.type }}</span>
+      </div>
+
+      <div class="card-content">
+        <div class="info-item">
+          <label>النوع (Type):</label>
+          <span>{{ buildingData.type }}</span>
+        </div>
+
+        <div class="info-item">
+          <label>المساحة (Area):</label>
+          <span>{{ buildingData.area }}</span>
+        </div>
+
+        <div class="info-item">
+          <label>الموقع (Location):</label>
+          <span>{{ buildingData.location }}</span>
+        </div>
+
+        <div class="info-item">
+          <label>حالة الإيجار (Rental Status):</label>
+          <span class="status" [class.rented]="buildingData.rentalStatus === 'مؤجرة'">
+            {{ buildingData.rentalStatus }}
+          </span>
+        </div>
+
+        <div class="info-item">
+          <label>الفترات الدراسية (School Periods):</label>
+          <span>{{ buildingData.schoolPeriod }}</span>
+        </div>
+
+        <div class="info-item">
+          <label>عدد الفصول (Total Rooms):</label>
+          <span>{{ buildingData.totalRooms }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="navigateBack()" class="btn btn-secondary">
+        ← العودة
+      </button>
+      <button (click)="navigateToEducationalBuilding()" class="btn btn-primary">
+        ← المبنى التعليمي
+      </button>
+    </div>
+  </div>
+</div>

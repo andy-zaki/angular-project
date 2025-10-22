@@ -1,0 +1,72 @@
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.page-content {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin: 0 0 2rem 0;
+}
+
+.program-card {
+  background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+  border-left: 4px solid #06b6d4;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin: 2rem 0;
+}
+
+.program-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+}
+
+.program-card p {
+  margin: 0 0 1rem 0;
+  color: #6b7280;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: #06b6d4;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0891b2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+}
+
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: #374151;
+  margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+}

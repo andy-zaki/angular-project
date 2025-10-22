@@ -1,0 +1,54 @@
+<app-header [pageTitle]="'تسجيل البيانات الأساسية'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>تسجيل البيانات الأساسية للمبنى التعليمي</h1>
+
+    <form (ngSubmit)="submitData()" class="data-form">
+      <div class="form-group">
+        <label>اسم المدرسة (School Name):</label>
+        <input [(ngModel)]="buildingData.name" name="name" type="text" class="form-input" required />
+      </div>
+
+      <div class="form-group">
+        <label>نوع المبنى (Building Type):</label>
+        <select [(ngModel)]="buildingData.type" name="type" class="form-input">
+          <option value="">-- اختر --</option>
+          <option value="مدرسة ابتدائية">مدرسة ابتدائية (Primary)</option>
+          <option value="مدرسة إعدادية">مدرسة إعدادية (Middle)</option>
+          <option value="مدرسة ثانوية">مدرسة ثانوية (Secondary)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>المساحة الإجمالية (Total Area):</label>
+        <input [(ngModel)]="buildingData.area" name="area" type="number" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>الموقع الجغرافي (Geographic Location):</label>
+        <input [(ngModel)]="buildingData.location" name="location" type="text" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>سنة البناء (Construction Year):</label>
+        <input [(ngModel)]="buildingData.constructionYear" name="constructionYear" type="number" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>عدد الطوابق (Number of Floors):</label>
+        <input
+          [(ngModel)]="buildingData.numberOfFloors"
+          name="numberOfFloors"
+          type="number"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">✓ حفظ البيانات</button>
+        <button type="button" (click)="navigateBack()" class="btn btn-secondary">← العودة</button>
+      </div>
+    </form>
+  </div>
+</div>

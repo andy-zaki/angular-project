@@ -1,0 +1,83 @@
+<app-header [pageTitle]="'إدخال بيانات نزع الملكية'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>إدخال بيانات نزع الملكية</h1>
+    <p class="subtitle">قبل قرار رئيس الوزراء</p>
+
+    <form (ngSubmit)="submitForm()" class="displacement-form">
+      <div class="form-section">
+        <h3>بيانات الممتلكات (Property Data)</h3>
+
+        <div class="form-group">
+          <label for="govNumber">الرقم الحكومي (Government Number):</label>
+          <input
+            type="text"
+            id="govNumber"
+            [(ngModel)]="formData.governmentNumber"
+            name="governmentNumber"
+            placeholder="أدخل الرقم الحكومي"
+            class="form-input"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="owner">اسم المالك (Property Owner):</label>
+          <input
+            type="text"
+            id="owner"
+            [(ngModel)]="formData.propertyOwner"
+            name="propertyOwner"
+            placeholder="أدخل اسم المالك"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="area">إجمالي المساحة (Total Area):</label>
+          <input
+            type="number"
+            id="area"
+            [(ngModel)]="formData.totalArea"
+            name="totalArea"
+            placeholder="أدخل المساحة بالمتر المربع"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reason">سبب نزع الملكية (Reason):</label>
+          <textarea
+            id="reason"
+            [(ngModel)]="formData.reason"
+            name="reason"
+            placeholder="أدخل السبب"
+            class="form-input"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="date">تاريخ الاقتراح (Proposal Date):</label>
+          <input
+            type="date"
+            id="date"
+            [(ngModel)]="formData.proposalDate"
+            name="proposalDate"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          ✓ إرسال البيانات
+        </button>
+        <button type="button" (click)="navigateBack()" class="btn btn-secondary">
+          ← العودة
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

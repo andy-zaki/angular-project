@@ -1,0 +1,22 @@
+<app-header [pageTitle]="'إدخال بيانات نزع الملكية'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>إدخال بيانات نزع الملكية</h1>
+    <p class="subtitle">بعد قرار رئيس الوزراء</p>
+
+    <div class="options-grid">
+      <div *ngFor="let option of options" (click)="selectOption(option.id)" class="option-card">
+        <div class="option-icon">{{ option.icon }}</div>
+        <h3>{{ option.title }}</h3>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="navigateBack()" class="btn btn-secondary">
+        ← العودة
+      </button>
+    </div>
+  </div>
+</div>

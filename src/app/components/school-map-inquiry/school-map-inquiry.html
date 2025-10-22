@@ -1,0 +1,27 @@
+<app-header [pageTitle]="'الاستعلام عن بيانات الخريطة المدرسية'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>الاستعلام عن بيانات الخريطة المدرسية</h1>
+    <p class="subtitle">جميع بيانات المدرسة والمباني</p>
+
+    <div class="options-grid">
+      <div
+        *ngFor="let option of mapOptions"
+        (click)="navigateToOption(option.route)"
+        class="option-card"
+      >
+        <div class="option-icon">{{ option.icon }}</div>
+        <h3>{{ option.title }}</h3>
+        <p>{{ option.description }}</p>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="navigateBack()" class="btn btn-secondary">
+        ← العودة
+      </button>
+    </div>
+  </div>
+</div>

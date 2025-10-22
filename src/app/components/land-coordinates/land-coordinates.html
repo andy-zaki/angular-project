@@ -1,0 +1,43 @@
+<app-header [pageTitle]="'إحداثيات قطعة الأرض'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>إحداثيات قطعة الأرض</h1>
+    <p class="subtitle">الرقم الحكومي: {{ governmentNumber }}</p>
+
+    <div class="coordinates-card">
+      <div class="coordinate-item">
+        <label>خط الطول (Longitude):</label>
+        <p class="coordinate-value">{{ coordinates.longitude }}</p>
+      </div>
+
+      <div class="coordinate-item">
+        <label>خط العرض (Latitude):</label>
+        <p class="coordinate-value">{{ coordinates.latitude }}</p>
+      </div>
+
+      <div class="coordinate-item">
+        <label>المساحة (Area):</label>
+        <p class="coordinate-value">{{ coordinates.area }}</p>
+      </div>
+
+      <div class="coordinate-item">
+        <label>الموقع (Address):</label>
+        <p class="coordinate-value">{{ coordinates.address }}</p>
+      </div>
+    </div>
+
+    <div class="map-placeholder">
+      🗺️ خريطة موقع القطعة
+    </div>
+
+    <div class="form-actions">
+      <button (click)="navigateToBuildingInquiry()" class="btn btn-primary">
+        → استعلام المبنى
+      </button>
+      <button (click)="navigateBack()" class="btn btn-secondary">
+        ← العودة
+      </button>
+    </div>
+  </div>
+</div>

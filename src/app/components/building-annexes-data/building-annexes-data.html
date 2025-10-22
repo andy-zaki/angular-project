@@ -1,0 +1,54 @@
+<app-header [pageTitle]="'تسجيل بيانات الملاحق'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>تسجيل بيانات الملاحق للمبنى</h1>
+
+    <form (ngSubmit)="submitData()" class="annexes-form">
+      <div *ngFor="let annex of annexesList; let i = index" class="annex-item">
+        <div class="annex-header">
+          <h3>الملحق رقم {{ annex.id }}</h3>
+          <button
+            *ngIf="annexesList.length > 1"
+            type="button"
+            (click)="removeAnnex(i)"
+            class="btn-remove"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label>اسم الملحق (Annex Name):</label>
+          <input [(ngModel)]="annex.name" [name]="'name' + i" type="text" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>نوع الملحق (Type):</label>
+          <select [(ngModel)]="annex.type" [name]="'type' + i" class="form-input">
+            <option value="">-- اختر --</option>
+            <option value="مختبر">مختبر (Laboratory)</option>
+            <option value="ملعب">ملعب (Playground)</option>
+            <option value="مكتبة">مكتبة (Library)</option>
+            <option value="قاعة فنون">قاعة فنون (Arts Hall)</option>
+            <option value="كافيتيريا">كافيتيريا (Cafeteria)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>المساحة (Area):</label>
+          <input [(ngModel)]="annex.area" [name]="'area' + i" type="number" class="form-input" />
+        </div>
+      </div>
+
+      <button type="button" (click)="addAnnex()" class="btn btn-add">
+        + إضافة ملحق
+      </button>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">✓ حفظ البيانات</button>
+        <button type="button" (click)="navigateBack()" class="btn btn-secondary">← العودة</button>
+      </div>
+    </form>
+  </div>
+</div>

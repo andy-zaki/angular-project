@@ -1,0 +1,27 @@
+<app-header [pageTitle]="'قائمة المباني المؤجرة'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>قائمة المباني المؤجرة</h1>
+    <p class="subtitle">مدارس مؤجرة (صدر لها قرار مجلس حلي)</p>
+
+    <div class="buildings-list">
+      <div *ngFor="let building of buildings" (click)="selectBuilding(building.id)" class="building-item">
+        <div class="building-info">
+          <h3>{{ building.name }}</h3>
+          <div class="building-details">
+            <span class="status" [class.rented]="building.status === 'مؤجرة'">
+              {{ building.status }}
+            </span>
+            <span class="tenant">{{ building.tenant }}</span>
+          </div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+
+    <button (click)="navigateBack()" class="btn btn-secondary">
+      ← العودة
+    </button>
+  </div>
+</div>

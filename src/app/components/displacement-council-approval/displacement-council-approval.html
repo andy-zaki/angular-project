@@ -1,0 +1,60 @@
+<app-header [pageTitle]="'موافقة المجلس الشعبي'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>موافقة المجلس الشعبي</h1>
+    <p class="subtitle">الخطوة التالية في عملية نزع الملكية</p>
+
+    <div class="approval-card">
+      <div class="status-indicator" [class]="approvalData.status.toLowerCase()">
+        📋 {{ approvalData.status }}
+      </div>
+
+      <form (ngSubmit)="submitApproval()" class="approval-form">
+        <div class="form-section">
+          <h3>بيانات الموافقة</h3>
+
+          <div class="form-group">
+            <label>تاريخ الموافقة (Approval Date):</label>
+            <input
+              type="date"
+              [(ngModel)]="approvalData.approvalDate"
+              name="approvalDate"
+              class="form-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>قرار المجلس (Council Decision):</label>
+            <select [(ngModel)]="approvalData.councilDecision" name="decision" class="form-input">
+              <option value="">-- اختر القرار --</option>
+              <option value="موافق">موافق (Approved)</option>
+              <option value="برفض">برفض (Rejected)</option>
+              <option value="مرجأ">مرجأ (Deferred)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>ملاحظات (Notes):</label>
+            <textarea
+              [(ngModel)]="approvalData.notes"
+              name="notes"
+              placeholder="أدخل الملاحظات"
+              class="form-input"
+              rows="4"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            ✓ إرسال الموافقة
+          </button>
+          <button type="button" (click)="navigateBack()" class="btn btn-secondary">
+            ← العودة
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

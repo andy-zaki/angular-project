@@ -133,14 +133,31 @@ export class EducationalBuildingComponent {
   }
 
   private navigateToOption(optionKey: string): void {
-    // Check if this is the land data inquiry option
-    if (optionKey === 'land-data') {
-      this.router.navigate(['/land-inquiry']);
-      return;
+    // Navigate based on the option key
+    switch (optionKey) {
+      case 'land-data':
+        this.router.navigate(['/land-inquiry-id']);
+        break;
+      case 'school-inquiry':
+        this.router.navigate(['/school-map-inquiry']);
+        break;
+      case 'unassigned-projects':
+        this.router.navigate(['/building-displacement-pre']);
+        break;
+      case 'closed-schools':
+        this.router.navigate(['/building-data-completion']);
+        break;
+      case 'running-schools-stats':
+      case 'digital-schools-list':
+      case 'historical-files':
+      case 'approved-construction':
+      case 'closed-buildings':
+      case 'land-status-report':
+      case 'land-notes':
+        // For other options, show alert for now
+        const option = this.buildingOptions.find(opt => opt.action.toString().includes(optionKey));
+        alert(`تم اختيار: ${option?.title}\nسيتم تطوير هذه الميزة قريباً`);
+        break;
     }
-    
-    // For other options, show alert for now
-    const option = this.buildingOptions.find(opt => opt.action.toString().includes(optionKey));
-    alert(`تم اختيار: ${option?.title}\nسيتم تطوير هذه الميزة قريباً`);
   }
 }

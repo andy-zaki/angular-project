@@ -1,0 +1,21 @@
+<app-header [pageTitle]="'بيانات الملاحق'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>بيانات الملاحق</h1>
+
+    <div class="annexes-grid">
+      <div *ngFor="let annex of annexes" class="annex-card">
+        <h3>{{ annex.name }}</h3>
+        <div class="annex-info">
+          <p><strong>النوع (Type):</strong> {{ annex.type }}</p>
+          <p><strong>المساحة (Area):</strong> {{ annex.area }}</p>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="navigateBack()" class="btn btn-secondary">
+      ← العودة
+    </button>
+  </div>
+</div>

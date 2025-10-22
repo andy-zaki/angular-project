@@ -1,0 +1,21 @@
+<app-header [pageTitle]="'بيانات الطرق المحيطة'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>بيانات الطرق المحيطة</h1>
+
+    <div class="roads-list">
+      <div *ngFor="let road of roads" class="road-card">
+        <h3>{{ road.name }}</h3>
+        <div class="road-details">
+          <span>العرض (Width): {{ road.width }}</span>
+          <span>الطول (Length): {{ road.length }}</span>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="navigateBack()" class="btn btn-secondary">
+      ← العودة
+    </button>
+  </div>
+</div>

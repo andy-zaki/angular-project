@@ -1,0 +1,39 @@
+<app-header [pageTitle]="'استعلام عن موقع المبنى'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>استعلام عن موقع مبنى مؤجرة</h1>
+    <p class="subtitle">البيانات الجغرافية والموقع</p>
+
+    <div class="location-card">
+      <div class="location-item">
+        <label>الموقع (Address):</label>
+        <p>{{ locationData.address }}</p>
+      </div>
+
+      <div class="location-item">
+        <label>خط العرض (Latitude):</label>
+        <p>{{ locationData.latitude }}</p>
+      </div>
+
+      <div class="location-item">
+        <label>خط الطول (Longitude):</label>
+        <p>{{ locationData.longitude }}</p>
+      </div>
+
+      <div class="location-item">
+        <label>المساحة (Area):</label>
+        <p>{{ locationData.area }}</p>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="viewDetails()" class="btn btn-primary">
+        → استعلام المبنى
+      </button>
+      <button (click)="navigateBack()" class="btn btn-secondary">
+        ← العودة
+      </button>
+    </div>
+  </div>
+</div>

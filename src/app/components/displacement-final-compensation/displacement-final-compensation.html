@@ -1,0 +1,54 @@
+<app-header [pageTitle]="'التعويض النهائي'"></app-header>
+
+<div class="container">
+  <div class="page-content">
+    <h1>التعويض النهائي</h1>
+    <p class="subtitle">إدخال بيانات التعويض النهائي</p>
+
+    <form (ngSubmit)="submitCompensation()" class="compensation-form">
+      <div class="form-section">
+        <h3>بيانات التعويض</h3>
+
+        <div class="form-group">
+          <label>قيمة الممتلكات (Property Value):</label>
+          <input [(ngModel)]="compensationData.propertyValue" name="propertyValue" type="number" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>مبلغ التعويض (Compensation Amount):</label>
+          <input
+            [(ngModel)]="compensationData.compensationAmount"
+            name="compensationAmount"
+            type="number"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>طريقة الدفع (Payment Method):</label>
+          <select [(ngModel)]="compensationData.paymentMethod" name="paymentMethod" class="form-input">
+            <option value="">-- اختر --</option>
+            <option value="تحويل بنكي">تحويل بنكي (Bank Transfer)</option>
+            <option value="شيك">شيك (Check)</option>
+            <option value="نقد">نقد (Cash)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>تاريخ الدفع (Payment Date):</label>
+          <input [(ngModel)]="compensationData.paymentDate" name="paymentDate" type="date" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>الحالة (Status):</label>
+          <input [(ngModel)]="compensationData.status" name="status" type="text" class="form-input" readonly />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">✓ حفظ التعويض</button>
+        <button type="button" (click)="navigateBack()" class="btn btn-secondary">← العودة</button>
+      </div>
+    </form>
+  </div>
+</div>

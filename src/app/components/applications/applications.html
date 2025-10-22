@@ -1,53 +1,14 @@
 <div class="applications-container">
-  <!-- Header Section -->
-  <header class="applications-header" role="banner" aria-label="رأس صفحة التطبيقات">
-    <!-- Header Top Section -->
-    <div class="header-top">
-      <div class="organization-info">
-        <h1 class="organization-name" aria-label="اسم المؤسسة">الهيئة العامة للابنية التعليمية</h1>
-        <p class="organization-subtitle" aria-label="وصف المؤسسة">General Authority for Educational Buildings</p>
-      </div>
-      
-      <div class="header-actions" role="navigation" aria-label="إجراءات التنقل">
-        <button 
-          class="back-button" 
-          (click)="goBack()" 
-          aria-label="العودة للقائمة الرئيسية"
-          title="العودة للقائمة الرئيسية"
-          type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path 
-              d="M15 18L9 12L15 6" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-            />
-          </svg>
-          <span>العودة</span>
-        </button>
-        
-        <button 
-          class="logout-button"
-          (click)="router.navigate(['/login'])"
-          aria-label="خروج من النظام وإنهاء الجلسة"
-          title="خروج من النظام"
-          type="button"
-        >
-          <span class="logout-icon" aria-hidden="true">🚪</span>
-          <span class="logout-text">خروج من النظام</span>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Header Bottom Section -->
-    <div class="header-bottom">
-      <div class="page-info" role="region" aria-label="معلومات الصفحة">
-        <h2 class="page-title">القائمة الرئيسية للتطبيقات</h2>
-        <p class="page-subtitle">اختر التطبيق المطلوب من القائمة أدناه</p>
-      </div>
-    </div>
-  </header>
+  <!-- Shared Header Section -->
+  <app-header 
+    [pageTitle]="'القائمة الرئيسية للتطبيقات'"
+    [pageSubtitle]="'اختر التطبيق المطلوب من القائمة أدناه'"
+    [showBackButton]="true"
+    [backButtonLabel]="'العودة'"
+    [backButtonAriaLabel]="'العودة للقائمة الرئيسية'"
+    (backClicked)="goBack()"
+    (logoutClicked)="router.navigate(['/login'])">
+  </app-header>
 
   <!-- Applications Grid -->
   <main class="applications-main" role="main" aria-label="قائمة التطبيقات">

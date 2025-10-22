@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HeaderComponent } from '../shared/header/header';
 
 interface LandData {
   id: string;
@@ -55,7 +56,7 @@ interface BuildingLocationData {
   selector: 'app-land-inquiry',
   templateUrl: './land-inquiry.html',
   styleUrl: './land-inquiry.css',
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent]
 })
 export class LandInquiryComponent {
   private router = inject(Router);

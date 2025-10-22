@@ -1,53 +1,14 @@
 <div class="land-inquiry-container">
-  <!-- Header Section -->
-  <header class="land-inquiry-header">
-    <!-- Header Top Section -->
-    <div class="header-top">
-      <div class="organization-info">
-        <h1 class="organization-name">الهيئة العامة للابنية التعليمية</h1>
-        <p class="organization-subtitle">General Authority for Educational Buildings</p>
-      </div>
-      
-      <div class="header-actions">
-        <button 
-          class="back-button" 
-          (click)="goBack()" 
-          aria-label="العودة لقائمة المبنى التعليمي"
-          title="العودة لقائمة المبنى التعليمي"
-          type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path 
-              d="M15 18L9 12L15 6" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-            />
-          </svg>
-          <span>العودة</span>
-        </button>
-        
-        <button 
-          class="logout-button"
-          (click)="logout()"
-          aria-label="خروج من النظام وإنهاء الجلسة"
-          title="خروج من النظام"
-          type="button"
-        >
-          <span class="logout-icon" aria-hidden="true">🚪</span>
-          <span class="logout-text">خروج من النظام</span>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Header Bottom Section -->
-    <div class="header-bottom">
-      <div class="page-info">
-        <h2 class="page-title">الاستعلام عن بيانات قطع الأراضي</h2>
-        <p class="page-subtitle">البحث في قاعدة بيانات قطع الأراضي المخصصة للمباني التعليمية</p>
-      </div>
-    </div>
-  </header>
+  <!-- Shared Header Section -->
+  <app-header 
+    [pageTitle]="'الاستعلام عن بيانات قطع الأراضي'"
+    [pageSubtitle]="'البحث في قاعدة بيانات قطع الأراضي المخصصة للمباني التعليمية'"
+    [showBackButton]="true"
+    [backButtonLabel]="'العودة'"
+    [backButtonAriaLabel]="'العودة لقائمة المبنى التعليمي'"
+    (backClicked)="goBack()"
+    (logoutClicked)="logout()">
+  </app-header>
 
   <!-- Main Content Section -->
   <main class="land-inquiry-main">

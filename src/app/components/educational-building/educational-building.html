@@ -1,53 +1,14 @@
 <div class="educational-building-container">
-  <!-- Header Section -->
-  <header class="educational-building-header">
-    <!-- Header Top Section -->
-    <div class="header-top">
-      <div class="organization-info">
-        <h1 class="organization-name">الهيئة العامة للابنية التعليمية</h1>
-        <p class="organization-subtitle">General Authority for Educational Buildings</p>
-      </div>
-      
-      <div class="header-actions">
-        <button 
-          class="back-button" 
-          (click)="goBack()" 
-          aria-label="العودة لقائمة التطبيقات"
-          title="العودة لقائمة التطبيقات"
-          type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path 
-              d="M15 18L9 12L15 6" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-            />
-          </svg>
-          <span>العودة</span>
-        </button>
-        
-        <button 
-          class="logout-button"
-          (click)="logout()"
-          aria-label="خروج من النظام وإنهاء الجلسة"
-          title="خروج من النظام"
-          type="button"
-        >
-          <span class="logout-icon" aria-hidden="true">🚪</span>
-          <span class="logout-text">خروج من النظام</span>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Header Bottom Section -->
-    <div class="header-bottom">
-      <div class="page-info">
-        <h2 class="page-title">المبنى التعليمي</h2>
-        <p class="page-subtitle">خدمات ومعلومات المباني التعليمية</p>
-      </div>
-    </div>
-  </header>
+  <!-- Shared Header Section -->
+  <app-header 
+    [pageTitle]="'المبنى التعليمي'"
+    [pageSubtitle]="'خدمات ومعلومات المباني التعليمية'"
+    [showBackButton]="true"
+    [backButtonLabel]="'العودة'"
+    [backButtonAriaLabel]="'العودة لقائمة التطبيقات'"
+    (backClicked)="goBack()"
+    (logoutClicked)="logout()">
+  </app-header>
 
   <!-- Main Content Section -->
   <main class="educational-building-main">

@@ -1,37 +1,10 @@
 <div class="dashboard-container">
-  <!-- Header Section -->
-  <header class="dashboard-header" role="banner" aria-label="رأس الصفحة الرئيسية">
-    <div class="header-top">
-      <div class="organization-info">
-        <h1 class="organization-name" aria-label="اسم المؤسسة">الهيئة العامة للابنية التعليمية</h1>
-        <p class="organization-subtitle" aria-label="وصف المؤسسة">General Authority for Educational Buildings</p>
-      </div>
-      
-      <div class="header-actions" role="navigation" aria-label="إجراءات الرأس">
-        <button 
-          class="logout-button"
-          (click)="logout()"
-          aria-label="خروج من النظام وإنهاء الجلسة"
-          title="خروج من النظام"
-          type="button"
-        >
-          <span class="logout-icon" aria-hidden="true">🚪</span>
-          <span class="logout-text">خروج من النظام</span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="header-bottom">
-      <div class="user-info" role="region" aria-label="معلومات المستخدم">
-        <h2 class="welcome-title">مرحباً {{ userInfo().name }}</h2>
-        <p class="last-login">آخر تسجيل دخول: {{ userInfo().lastLogin }}</p>
-      </div>
-      
-      <div class="page-title" role="region" aria-label="عنوان الصفحة">
-        <h3>القائمة الرئيسية</h3>
-      </div>
-    </div>
-  </header>
+  <!-- Shared Header Section -->
+  <app-header 
+    [pageTitle]="'القائمة الرئيسية'"
+    [userInfo]="userInfo()"
+    (logoutClicked)="logout()">
+  </app-header>
 
   <!-- Main Menu Section -->
   <main class="dashboard-main">

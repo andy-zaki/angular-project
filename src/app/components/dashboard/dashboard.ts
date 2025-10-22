@@ -1,6 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent, UserInfo } from '../shared/header/header';
 
 interface MenuOption {
   id: number;
@@ -15,7 +16,7 @@ interface MenuOption {
   selector: 'app-dashboard',
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
-  imports: [CommonModule]
+  imports: [CommonModule, HeaderComponent]
 })
 export class DashboardComponent {
   private router = inject(Router);

@@ -1,0 +1,81 @@
+<header class="app-header" role="banner" [attr.aria-label]="'رأس صفحة ' + pageTitle()">
+  <div class="header-content">
+    <!-- Left Side: Organization Info -->
+    <div class="header-left">
+      <div class="organization-info">
+        <h1 class="organization-name" aria-label="اسم المؤسسة">الهيئة العامة للابنية التعليمية</h1>
+        <p class="organization-subtitle" aria-label="وصف المؤسسة">General Authority for Educational Buildings</p>
+      </div>
+    </div>
+    
+    <!-- Center: Page Info & User Info -->
+    <div class="header-center">
+      <div class="page-info" role="region" aria-label="معلومات الصفحة">
+        <h2 class="page-title">{{ pageTitle() }}</h2>
+        @if (pageSubtitle()) {
+          <p class="page-subtitle">{{ pageSubtitle() }}</p>
+        }
+      </div>
+      
+      @if (showUserInfo() && userInfo()) {
+        <div class="user-info" role="region" aria-label="معلومات المستخدم">
+          <p class="welcome-title">مرحباً {{ userInfo()!.name }}</p>
+          @if (userInfo()!.lastLogin) {
+            <p class="last-login">آخر تسجيل دخول: {{ userInfo()!.lastLogin }}</p>
+          }
+        </div>
+      }
+    </div>
+    
+    <!-- Right Side: Navigation Actions -->
+    <div class="header-right">
+      <div class="header-actions" role="navigation" aria-label="إجراءات التنقل">
+        @if (showBackButton()) {
+          <button 
+            class="back-button" 
+            (click)="onBackClick()" 
+            [attr.aria-label]="backButtonAriaLabel()"
+            [title]="backButtonAriaLabel()"
+            type="button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path 
+                d="M15 18L9 12L15 6" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>{{ backButtonLabel() }}</span>
+          </button>
+        }
+        
+        @for (action of customActions(); track action.type) {
+          <button 
+            class="custom-action-button"
+            [class]="action.type + '-button'"
+            (click)="action.action()"
+            [attr.aria-label]="action.ariaLabel"
+            [title]="action.title"
+            type="button">
+            @if (action.type === 'logout') {
+              <span class="logout-icon" aria-hidden="true">🚪</span>
+            }
+            <span>{{ action.label }}</span>
+          </button>
+        }
+        
+        <button 
+          class="logout-button"
+          (click)="onLogoutClick()"
+          aria-label="خروج من النظام وإنهاء الجلسة"
+          title="خروج من النظام"
+          type="button"
+        >
+          <span class="logout-icon" aria-hidden="true">🚪</span>
+          <span class="logout-text">خروج من النظام</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

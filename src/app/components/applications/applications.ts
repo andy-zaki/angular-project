@@ -1,6 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../shared/header/header';
 
 interface Application {
   id: number;
@@ -15,7 +16,7 @@ interface Application {
   selector: 'app-applications',
   templateUrl: './applications.html',
   styleUrl: './applications.css',
-  imports: [CommonModule]
+  imports: [CommonModule, HeaderComponent]
 })
 export class ApplicationsComponent {
   protected router = inject(Router);

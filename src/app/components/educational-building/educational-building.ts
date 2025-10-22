@@ -32,25 +32,25 @@ export class EducationalBuildingComponent {
     },
     {
       id: 2,
-      title: 'استعلام حر للابنية الادارية',
-      description: 'البحث عن معلومات مدرسة محددة',
+      title: 'استعلام عن بيانات الخريطة المدرسية',
+      description: 'الاستعلام عن بيانات الخريطة المدرسية',
       icon: '🏫',
       color: '#10b981',
       action: () => this.navigateToOption('school-inquiry')
     },
     {
       id: 3,
-      title: 'استعلام المشروعات الغير مسندة',
-      description: 'عرض المشروعات التي لم يتم إسنادها بعد',
+      title: 'بيانات نزع الملكية',
+      description: 'عرض بيانات نزع الملكية',
       icon: '📋',
       color: '#ef4444',
       action: () => this.navigateToOption('unassigned-projects')
     },
     {
       id: 4,
-      title: 'بيان بالمدارس المغلقة',
-      description: 'قائمة بالمدارس المغلقة وأسباب الإغلاق',
-      icon: '🔒',
+      title: 'استكمال بيانات مبنى تعليمي',
+      description: 'استكمال وتعديل بيانات المبنى التعليمي',
+      icon: '�',
       color: '#8b5cf6',
       action: () => this.navigateToOption('closed-schools')
     },
@@ -142,7 +142,7 @@ export class EducationalBuildingComponent {
         this.router.navigate(['/school-map-inquiry']);
         break;
       case 'unassigned-projects':
-        this.router.navigate(['/building-displacement-pre']);
+        this.router.navigate(['/building-displacement-menu']);
         break;
       case 'closed-schools':
         this.router.navigate(['/building-data-completion']);

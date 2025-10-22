@@ -43,6 +43,11 @@ export const routes: Routes = [
     path: 'building-inquiry',
     loadComponent: () => import('./components/building-inquiry/building-inquiry').then(m => m.BuildingInquiryComponent)
   },
+  // Building Displacement Menu
+  {
+    path: 'building-displacement-menu',
+    loadComponent: () => import('./components/building-displacement-menu/building-displacement-menu').then(m => m.BuildingDisplacementMenuComponent)
+  },
   // Building Displacement Flow
   {
     path: 'building-displacement-pre',
@@ -59,6 +64,18 @@ export const routes: Routes = [
   {
     path: 'displacement-final-compensation',
     loadComponent: () => import('./components/displacement-final-compensation/displacement-final-compensation').then(m => m.DisplacementFinalCompensationComponent)
+  },
+  {
+    path: 'building-network-costs',
+    loadComponent: () => import('./components/building-network-costs/building-network-costs').then(m => m.BuildingNetworkCostsComponent)
+  },
+  {
+    path: 'building-temporary-fulfillment',
+    loadComponent: () => import('./components/building-temporary-fulfillment/building-temporary-fulfillment').then(m => m.BuildingTemporaryFulfillmentComponent)
+  },
+  {
+    path: 'building-property-handover',
+    loadComponent: () => import('./components/building-property-handover/building-property-handover').then(m => m.BuildingPropertyHandoverComponent)
   },
   // School Map Inquiry Flow
   {
@@ -94,7 +111,28 @@ export const routes: Routes = [
     path: 'building-annexes-data',
     loadComponent: () => import('./components/building-annexes-data/building-annexes-data').then(m => m.BuildingAnnexesDataComponent)
   },
-  // Rental Buildings Status Flow
+  // Rental Buildings Status Flow - New Menu Structure
+  {
+    path: 'rental-status-menu',
+    loadComponent: () => import('./components/rental-status-menu/rental-status-menu').then(m => m.RentalStatusMenuComponent)
+  },
+  {
+    path: 'rental-status-report',
+    loadComponent: () => import('./components/rental-status-report/rental-status-report').then(m => m.RentalStatusReportComponent)
+  },
+  {
+    path: 'rental-decision-buildings',
+    loadComponent: () => import('./components/rental-decision-buildings/rental-decision-buildings').then(m => m.RentalDecisionBuildingsComponent)
+  },
+  {
+    path: 'rental-inquiry-building',
+    loadComponent: () => import('./components/rental-inquiry-building/rental-inquiry-building').then(m => m.RentalInquiryBuildingComponent)
+  },
+  {
+    path: 'rental-status-edit',
+    loadComponent: () => import('./components/rental-status-edit/rental-status-edit').then(m => m.RentalStatusEditComponent)
+  },
+  // Legacy Rental Buildings Status Flow (kept for backward compatibility)
   {
     path: 'rental-buildings-status',
     loadComponent: () => import('./components/rental-buildings-status/rental-buildings-status').then(m => m.RentalBuildingsStatusComponent)

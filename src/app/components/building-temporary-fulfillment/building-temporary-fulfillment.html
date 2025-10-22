@@ -1,0 +1,75 @@
+<app-header [pageTitle]="'بيانات الاستيفاء المؤقت'"></app-header>
+
+<div class="container">
+  <div class="form-card">
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="governmentNumber">رقم المحضر الحكومي:</label>
+        <input 
+          id="governmentNumber"
+          type="text" 
+          [(ngModel)]="formData.governmentNumber"
+          name="governmentNumber"
+          placeholder="أدخل رقم المحضر"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="propertyValue">قيمة العقار (بالجنيه):</label>
+        <input 
+          id="propertyValue"
+          type="number" 
+          [(ngModel)]="formData.propertyValue"
+          name="propertyValue"
+          placeholder="أدخل قيمة العقار"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="fulfillmentAmount">مبلغ الاستيفاء (بالجنيه):</label>
+        <input 
+          id="fulfillmentAmount"
+          type="number" 
+          [(ngModel)]="formData.fulfillmentAmount"
+          name="fulfillmentAmount"
+          placeholder="أدخل مبلغ الاستيفاء"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="fulfillmentDate">تاريخ الاستيفاء:</label>
+        <input 
+          id="fulfillmentDate"
+          type="date" 
+          [(ngModel)]="formData.fulfillmentDate"
+          name="fulfillmentDate"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="notes">ملاحظات:</label>
+        <textarea 
+          id="notes"
+          [(ngModel)]="formData.notes"
+          name="notes"
+          placeholder="أدخل أي ملاحظات إضافية"
+          class="form-input"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-submit">💾 حفظ البيانات</button>
+        <button type="button" class="btn-back" (click)="goBack()">← رجوع</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="footer">
+  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
+</div>

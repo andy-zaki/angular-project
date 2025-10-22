@@ -1,0 +1,78 @@
+<app-header [pageTitle]="'طلب تسليم العقار'"></app-header>
+
+<div class="container">
+  <div class="form-card">
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="governmentNumber">رقم المحضر الحكومي:</label>
+        <input 
+          id="governmentNumber"
+          type="text" 
+          [(ngModel)]="formData.governmentNumber"
+          name="governmentNumber"
+          placeholder="أدخل رقم المحضر"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="handoverDate">تاريخ التسليم:</label>
+        <input 
+          id="handoverDate"
+          type="date" 
+          [(ngModel)]="formData.handoverDate"
+          name="handoverDate"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="handoverMethod">طريقة التسليم:</label>
+        <select 
+          id="handoverMethod"
+          [(ngModel)]="formData.handoverMethod"
+          name="handoverMethod"
+          class="form-input"
+        >
+          <option value="">اختر طريقة التسليم</option>
+          @for (method of handoverMethods; track method) {
+            <option [value]="method">{{ method }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="receivedBy">اسم المستلم:</label>
+        <input 
+          id="receivedBy"
+          type="text" 
+          [(ngModel)]="formData.receivedBy"
+          name="receivedBy"
+          placeholder="أدخل اسم المستلم"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="notes">ملاحظات:</label>
+        <textarea 
+          id="notes"
+          [(ngModel)]="formData.notes"
+          name="notes"
+          placeholder="أدخل أي ملاحظات إضافية"
+          class="form-input"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-submit">📤 تقديم الطلب</button>
+        <button type="button" class="btn-back" (click)="goBack()">← رجوع</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="footer">
+  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
+</div>

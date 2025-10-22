@@ -57,6 +57,6 @@ export class ApplicationsMenuComponent {
   }
 
   private navigateToParkingInquiry(): void {
-    this.router.navigate(['/rental-buildings-status']);
+    this.router.navigate(['/rental-status-menu']);
   }
 }

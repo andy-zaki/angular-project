@@ -1,0 +1,40 @@
+<app-header [pageTitle]="'مدارس مؤجرة (صدر لها قرار مجلس حلي)'"></app-header>
+
+<div class="container">
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>كود المركز</th>
+          <th>اسم المركز</th>
+          <th>كود المبنى</th>
+          <th>اسم المبنى</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (building of buildings; track building.buildingCode) {
+          <tr>
+            <td>{{ building.centerCode }}</td>
+            <td>{{ building.centerName }}</td>
+            <td>{{ building.buildingCode }}</td>
+            <td>{{ building.buildingName }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <p>
+      <strong>إجمالي المباني:</strong> {{ buildings.length }}
+    </p>
+    <p>
+      جميع المباني المعروضة أعلاه صدر لها قرار مجلس محلي، مما يؤهلها لمراحل الإجراءات التالية.
+    </p>
+  </div>
+</div>
+
+<div class="button-group">
+  <button class="btn-back" (click)="goBack()">← رجوع</button>
+  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
+</div>

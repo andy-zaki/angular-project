@@ -1,0 +1,27 @@
+<app-header [pageTitle]="'بيانات نزع الملكية'"></app-header>
+
+<div class="container">
+  <div class="menu-grid">
+    @for (option of displacementOptions; track option.id) {
+      <div 
+        class="menu-card" 
+        [style.border-color]="option.color"
+        (click)="navigateToOption(option.route)"
+      >
+        <div class="card-icon" [style.background-color]="option.color">
+          {{ option.icon }}
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">{{ option.title }}</h3>
+          <p class="card-description">{{ option.description }}</p>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="button-group">
+  <button class="btn-back" (click)="goBack()">← رجوع</button>
+  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
+</div>

@@ -1,0 +1,46 @@
+<app-header [pageTitle]="'بيان بموقف المباني المؤجرة'"></app-header>
+
+<div class="container">
+  <div class="stats-header">
+    <h2 class="total-count">إجمالي المباني: {{ totalCount }}</h2>
+  </div>
+
+  <div class="stats-grid">
+    @for (stat of statistics; track stat.label) {
+      <div class="stat-card" [style.border-color]="stat.color">
+        <div class="stat-header">
+          <h3 class="stat-label">{{ stat.label }}</h3>
+          <span class="stat-percentage" [style.background-color]="stat.color">{{ stat.percentage }}%</span>
+        </div>
+        <div class="stat-value-container">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-unit">مبنى</span>
+        </div>
+        <div class="stat-bar">
+          <div 
+            class="stat-bar-fill" 
+            [style.width.%]="stat.percentage"
+            [style.background-color]="stat.color"
+          ></div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="summary-section">
+    <h3 class="summary-title">ملخص الحالة</h3>
+    <div class="summary-content">
+      <p>
+        يوجد إجمالي <strong>{{ totalCount }}</strong> مبنى مؤجر موزع على مراحل مختلفة من دراسة الاحتياج إلى توقيع الهيئة.
+      </p>
+      <p>
+        النسبة الأعلى من المباني في مرحلة <strong>استكمال البيانات</strong> بنسبة 21%، مما يتطلب متابعة دورية لاستكمال المستندات المطلوبة.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="button-group">
+  <button class="btn-back" (click)="goBack()">← رجوع</button>
+  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
+</div>

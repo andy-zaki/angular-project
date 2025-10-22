@@ -1,0 +1,67 @@
+<app-header [pageTitle]="'بيانات شبكات تكاليف الاعمار'"></app-header>
+
+<div class="container">
+  <div class="form-card">
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="governmentNumber">رقم المحضر الحكومي:</label>
+        <input 
+          id="governmentNumber"
+          type="text" 
+          [(ngModel)]="formData.governmentNumber"
+          name="governmentNumber"
+          placeholder="أدخل رقم المحضر"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="networkType">نوع الشبكة:</label>
+        <select 
+          id="networkType"
+          [(ngModel)]="formData.networkType"
+          name="networkType"
+          class="form-input"
+        >
+          <option value="">اختر نوع الشبكة</option>
+          @for (type of networkTypes; track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="costAmount">التكلفة (بالجنيه):</label>
+        <input 
+          id="costAmount"
+          type="number" 
+          [(ngModel)]="formData.costAmount"
+          name="costAmount"
+          placeholder="أدخل التكلفة"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">الوصف:</label>
+        <textarea 
+          id="description"
+          [(ngModel)]="formData.description"
+          name="description"
+          placeholder="أدخل وصف إضافي"
+          class="form-input"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-submit">💾 حفظ البيانات</button>
+        <button type="button" class="btn-back" (click)="goBack()">← رجوع</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="footer">
+  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
+</div>

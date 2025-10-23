@@ -75,6 +75,7 @@ export class LandInquiryComponent {
   protected buildingData = signal<BuildingLocationData[]>([]);
   protected showLandCoordinatesPopup = signal(false);
   protected showLandDataPopup = signal(false);
+  protected showDataAvailabilityPopup = signal(false);
   
   constructor() {
     this.searchForm = this.fb.group({
@@ -134,8 +135,12 @@ export class LandInquiryComponent {
   }
 
   protected navigateToDataAvailability(): void {
-    // Show data availability in full display
-    this.showFullDisplay();
+    // Open data availability popup
+    this.showDataAvailabilityPopup.set(true);
+  }
+
+  protected closeDataAvailabilityPopup(): void {
+    this.showDataAvailabilityPopup.set(false);
   }
 
   protected navigateToLandCoordinates(): void {
@@ -158,12 +163,16 @@ export class LandInquiryComponent {
 
   protected showFullDisplay(): void {
     // Toggle full data display
-    this.showFullData.set(true);
-    // Scroll to the full data section
-    setTimeout(() => {
-      const resultCard = document.querySelector('.result-card');
-      resultCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    const newState = !this.showFullData();
+    this.showFullData.set(newState);
+    
+    // Scroll to the full data section only when showing
+    if (newState) {
+      setTimeout(() => {
+        const resultCard = document.querySelector('.result-card');
+        resultCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   }
 
   protected getFieldError(fieldName: string): string | null {

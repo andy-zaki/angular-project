@@ -93,7 +93,7 @@
                 الخيارات المتاحة
               </h3>
               <div class="options-grid">
-                <button 
+                <!-- <button 
                   class="option-card"
                   (click)="navigateToLandData()"
                   type="button">
@@ -105,7 +105,7 @@
                   <div class="option-arrow">←</div>
                 </button>
 
-                <!-- <button 
+                <button 
                   class="option-card"
                   (click)="navigateToDataAvailability()"
                   type="button">
@@ -480,6 +480,164 @@
           <button 
             class="close-popup-btn"
             (click)="closeBuildingPopup()"
+            type="button">
+            <span class="btn-icon">✕</span>
+            <span>إغلاق</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Land Coordinates Popup Modal -->
+  @if (showLandCoordinatesPopup()) {
+    <div class="popup-overlay" (click)="closeLandCoordinatesPopup()">
+      <div class="popup-content" (click)="$event.stopPropagation()">
+        <div class="popup-header">
+          <h3 class="popup-title">
+            <span class="popup-icon">📍</span>
+            إحداثيات قطعة الأرض
+          </h3>
+          <button 
+            class="close-btn"
+            (click)="closeLandCoordinatesPopup()"
+            type="button">
+            <span>✕</span>
+          </button>
+        </div>
+        
+        <div class="popup-body">
+          <div class="coordinates-container">
+            <div class="coordinate-card">
+              <div class="coordinate-icon">🌍</div>
+              <div class="coordinate-info">
+                <h4 class="coordinate-label">خط العرض (Latitude)</h4>
+                <p class="coordinate-value">30.0444° N</p>
+              </div>
+            </div>
+            
+            <div class="coordinate-card">
+              <div class="coordinate-icon">🗺️</div>
+              <div class="coordinate-info">
+                <h4 class="coordinate-label">خط الطول (Longitude)</h4>
+                <p class="coordinate-value">31.2357° E</p>
+              </div>
+            </div>
+            
+            <div class="coordinate-card">
+              <div class="coordinate-icon">📐</div>
+              <div class="coordinate-info">
+                <h4 class="coordinate-label">المساحة</h4>
+                <p class="coordinate-value">{{ landData()?.totalArea | number:'1.2-2' }} م²</p>
+              </div>
+            </div>
+            
+            <div class="coordinate-card full-width">
+              <div class="coordinate-icon">📍</div>
+              <div class="coordinate-info">
+                <h4 class="coordinate-label">العنوان</h4>
+                <p class="coordinate-value">{{ landData()?.headquarters }} - {{ landData()?.village }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="popup-footer">
+          <button 
+            class="close-popup-btn"
+            (click)="closeLandCoordinatesPopup()"
+            type="button">
+            <span class="btn-icon">✕</span>
+            <span>إغلاق</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Land Data Popup Modal -->
+  @if (showLandDataPopup()) {
+    <div class="popup-overlay" (click)="closeLandDataPopup()">
+      <div class="popup-content large" (click)="$event.stopPropagation()">
+        <div class="popup-header">
+          <h3 class="popup-title">
+            <span class="popup-icon">🏞️</span>
+            استعلام عن بيانات قطعة الارض - {{ landData()?.referenceNumber }}
+          </h3>
+          <button 
+            class="close-btn"
+            (click)="closeLandDataPopup()"
+            type="button">
+            <span>✕</span>
+          </button>
+        </div>
+        
+        <div class="popup-body">
+          <div class="land-data-grid">
+            <div class="info-section basic-info">
+              <h5 class="section-title">
+                <span class="section-icon">ℹ️</span>
+                المعلومات الأساسية
+              </h5>
+              <div class="info-items">
+                <div class="info-item">
+                  <span class="label">الرقم التعريفي:</span>
+                  <span class="value">{{ landData()?.identificationNumber }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">كود الأرض:</span>
+                  <span class="value">{{ landData()?.landCode }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">المقر:</span>
+                  <span class="value">{{ landData()?.headquarters }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">المركز/القسم:</span>
+                  <span class="value">{{ landData()?.centerDepartment }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">القرية:</span>
+                  <span class="value">{{ landData()?.village }}</span>
+                </div>
+                <div class="info-item highlight">
+                  <span class="label">المساحة الكلية:</span>
+                  <span class="value area">{{ landData()?.totalArea | number:'1.2-2' }} م²</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="info-section ownership-info">
+              <h5 class="section-title">
+                <span class="section-icon">👤</span>
+                معلومات الملكية
+              </h5>
+              <div class="info-items">
+                <div class="info-item">
+                  <span class="label">المالك الحالي:</span>
+                  <span class="value">{{ landData()?.currentOwner }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">المالك الأصلي:</span>
+                  <span class="value">{{ landData()?.originalOwner }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">المرحلة:</span>
+                  <span class="value">{{ landData()?.phase }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">النموذج:</span>
+                  <span class="value">{{ landData()?.model }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="popup-footer">
+          <button 
+            class="close-popup-btn"
+            (click)="closeLandDataPopup()"
             type="button">
             <span class="btn-icon">✕</span>
             <span>إغلاق</span>

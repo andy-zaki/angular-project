@@ -70,9 +70,11 @@ export class LandInquiryComponent {
   protected landData = signal<LandData | null>(null);
   protected showFullData = signal(false);
   
-  // Building inquiry popup signals
+  // Popup signals
   protected showBuildingPopup = signal(false);
   protected buildingData = signal<BuildingLocationData[]>([]);
+  protected showLandCoordinatesPopup = signal(false);
+  protected showLandDataPopup = signal(false);
   
   constructor() {
     this.searchForm = this.fb.group({
@@ -127,35 +129,31 @@ export class LandInquiryComponent {
   }
 
   protected navigateToLandData(): void {
-    // Navigate directly to land coordinates component
-    const referenceNumber = this.landData()?.referenceNumber;
-    if (referenceNumber) {
-      this.router.navigate(['/land-coordinates', referenceNumber]);
-    }
+    // Open land data popup
+    this.showLandDataPopup.set(true);
   }
 
   protected navigateToDataAvailability(): void {
-    // Navigate to data availability component
-    const referenceNumber = this.landData()?.referenceNumber;
-    if (referenceNumber) {
-      this.router.navigate(['/data-availability', referenceNumber]);
-    }
+    // Show data availability in full display
+    this.showFullDisplay();
   }
 
   protected navigateToLandCoordinates(): void {
-    // Navigate to land coordinates component
-    const referenceNumber = this.landData()?.referenceNumber;
-    if (referenceNumber) {
-      this.router.navigate(['/land-coordinates', referenceNumber]);
-    }
+    // Open land coordinates popup
+    this.showLandCoordinatesPopup.set(true);
   }
 
   protected navigateToBuildingInquiry(): void {
-    // Navigate to building inquiry component
-    const referenceNumber = this.landData()?.referenceNumber;
-    if (referenceNumber) {
-      this.router.navigate(['/building-inquiry', referenceNumber]);
-    }
+    // Open building inquiry popup
+    this.openBuildingInquiry();
+  }
+
+  protected closeLandCoordinatesPopup(): void {
+    this.showLandCoordinatesPopup.set(false);
+  }
+
+  protected closeLandDataPopup(): void {
+    this.showLandDataPopup.set(false);
   }
 
   protected showFullDisplay(): void {

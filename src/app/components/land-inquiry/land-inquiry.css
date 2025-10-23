@@ -1027,7 +1027,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
   backdrop-filter: blur(5px);
   animation: fadeIn 0.3s ease-out;
 }
@@ -1247,5 +1247,148 @@
   
   .popup-footer {
     padding: 16px 20px;
+  }
+}
+
+/* Coordinates Popup Styles */
+.coordinates-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.coordinate-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.coordinate-card:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+}
+
+.coordinate-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.coordinate-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.coordinate-info {
+  flex: 1;
+}
+
+.coordinate-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0 0 8px 0;
+}
+
+.coordinate-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* Land Data Popup Styles */
+.popup-content.large {
+  max-width: 900px;
+  width: 90vw;
+}
+
+.land-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.info-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.info-section .section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.info-section .section-icon {
+  font-size: 20px;
+}
+
+.info-section .info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-section .info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.info-section .info-item .label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.info-section .info-item .value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.info-section .info-item.highlight {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+}
+
+.info-section .info-item.highlight .value.area {
+  color: #667eea;
+  font-size: 16px;
+}
+
+/* Responsive for new popups */
+@media (max-width: 768px) {
+  .coordinates-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .coordinate-card.full-width {
+    grid-column: 1;
+  }
+  
+  .popup-content.large {
+    width: 95vw;
+  }
+  
+  .land-data-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header';
@@ -11,6 +11,11 @@ import { HeaderComponent } from '../shared/header/header';
 })
 export class RentalBuildingsStatusComponent {
   private router = inject(Router);
+
+  // Status counters using signals
+  closedCount = signal(12);  // مغلق
+  workingCount = signal(28); // تعمل
+  totalCount = computed(() => this.closedCount() + this.workingCount()); // الاجمالي
 
   navigateTo(route: string) {
     this.router.navigate([route]);

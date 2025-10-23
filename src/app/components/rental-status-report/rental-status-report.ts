@@ -8,6 +8,8 @@ interface StatusStatistic {
   value: number;
   percentage: number;
   color: string;
+  closed: number;    // مغلق
+  working: number;   // تعمل
 }
 
 @Component({
@@ -26,37 +28,49 @@ export class RentalStatusReportComponent {
       label: 'دراسة الاحتياج',
       value: 45,
       percentage: 18,
-      color: '#3b82f6'
+      color: '#3b82f6',
+      closed: 12,
+      working: 33
     },
     {
       label: 'صلاحية الموقع',
       value: 38,
       percentage: 15,
-      color: '#10b981'
+      color: '#10b981',
+      closed: 8,
+      working: 30
     },
     {
       label: 'استكمال بيانات',
       value: 52,
       percentage: 21,
-      color: '#f59e0b'
+      color: '#f59e0b',
+      closed: 15,
+      working: 37
     },
     {
       label: 'اعتمادات اللجنة',
       value: 35,
       percentage: 14,
-      color: '#8b5cf6'
+      color: '#8b5cf6',
+      closed: 10,
+      working: 25
     },
     {
       label: 'تدرس باللجنة',
       value: 42,
       percentage: 17,
-      color: '#ef4444'
+      color: '#ef4444',
+      closed: 13,
+      working: 29
     },
     {
       label: 'توقيع م. الهيئة',
       value: 38,
       percentage: 15,
-      color: '#06b6d4'
+      color: '#06b6d4',
+      closed: 9,
+      working: 29
     }
   ];
 

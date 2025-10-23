@@ -19,10 +19,23 @@
           <h3 class="stat-label">{{ stat.label }}</h3>
           <span class="stat-percentage" [style.background-color]="stat.color">{{ stat.percentage }}%</span>
         </div>
-        <div class="stat-value-container">
-          <span class="stat-value">{{ stat.value }}</span>
-          <span class="stat-unit">مبنى</span>
+        
+        <!-- Three numbers display -->
+        <div class="stat-numbers-grid">
+          <div class="stat-number-item stat-closed">
+            <div class="number-label">مغلق</div>
+            <div class="number-value">{{ stat.closed }}</div>
+          </div>
+          <div class="stat-number-item stat-working">
+            <div class="number-label">تعمل</div>
+            <div class="number-value">{{ stat.working }}</div>
+          </div>
+          <div class="stat-number-item stat-total">
+            <div class="number-label">الإجمالي</div>
+            <div class="number-value">{{ stat.value }}</div>
+          </div>
         </div>
+
         <div class="stat-bar">
           <div 
             class="stat-bar-fill" 

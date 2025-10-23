@@ -12,6 +12,27 @@
     <h1>برنامج الاستعلام للمواقف (2)</h1>
     <p class="subtitle">إدارة موقف المباني المؤجرة</p>
 
+    <!-- Statistics Section -->
+    <div class="stats-container">
+      <div class="stat-card stat-closed">
+        <div class="stat-icon">🔒</div>
+        <div class="stat-number">{{ closedCount() }}</div>
+        <div class="stat-label">مغلق</div>
+      </div>
+
+      <div class="stat-card stat-working">
+        <div class="stat-icon">✅</div>
+        <div class="stat-number">{{ workingCount() }}</div>
+        <div class="stat-label">تعمل</div>
+      </div>
+
+      <div class="stat-card stat-total">
+        <div class="stat-icon">📊</div>
+        <div class="stat-number">{{ totalCount() }}</div>
+        <div class="stat-label">الإجمالي</div>
+      </div>
+    </div>
+
     <div class="program-card">
       <h3>بيان بموقف المباني المؤجرة</h3>
       <p>عرض وإدارة حالة المباني المؤجرة للجهات المختلفة</p>

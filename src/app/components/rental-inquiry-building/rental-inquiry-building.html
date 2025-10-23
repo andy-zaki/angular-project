@@ -88,3 +88,10 @@
     </div>
   }
 </div>
+
+<app-rental-status-edit
+  [buildingId]="buildingInfo()?.id || ''"
+  [isOpen]="showEditPopup()"
+  (closePopup)="closeEditPopup()"
+  (submitSuccess)="handleEditSubmit($event)"
+></app-rental-status-edit>

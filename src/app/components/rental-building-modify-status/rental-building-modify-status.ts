@@ -1,53 +1,42 @@
-import { Component, inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, inject, output, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../shared/header/header';
 
 @Component({
   selector: 'app-rental-building-modify-status',
   templateUrl: './rental-building-modify-status.html',
   styleUrl: './rental-building-modify-status.css',
-  imports: [CommonModule, FormsModule, HeaderComponent]
+  imports: [CommonModule, FormsModule]
 })
 export class RentalBuildingModifyStatusComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  buildingId = input<number>(0);
+  isOpen = input<boolean>(false);
+  
+  closePopup = output<void>();
+  submitSuccess = output<any>();
 
-  buildingId: number = 0;
-  modifyData = {
-    status: 'مؤجرة',
-    tenant: '',
-    rentalStartDate: '',
-    rentalEndDate: '',
-    annualRent: '',
-    notes: ''
-  };
-
-  constructor() {
-    this.route.queryParams.subscribe(params => {
-      this.buildingId = params['buildingId'] || 0;
-    });
-  }
+  status = signal('مؤجرة');
+  tenant = signal('');
+  rentalStartDate = signal('');
+  rentalEndDate = signal('');
+  annualRent = signal('');
+  notes = signal('');
 
   submitModification() {
-    console.log('Building status modified:', this.modifyData);
-    this.router.navigate(['/rental-building-details'], {
-      queryParams: { buildingId: this.buildingId }
-    });
+    const modifyData = {
+      status: this.status(),
+      tenant: this.tenant(),
+      rentalStartDate: this.rentalStartDate(),
+      rentalEndDate: this.rentalEndDate(),
+      annualRent: this.annualRent(),
+      notes: this.notes()
+    };
+    console.log('Building status modified:', modifyData);
+    this.submitSuccess.emit(modifyData);
+    this.close();
   }
 
-  navigateBack() {
-    this.router.navigate(['/rental-building-details'], {
-      queryParams: { buildingId: this.buildingId }
-    });
-  }
-
-  goHome() {
-    this.router.navigate(['/dashboard']);
-  }
-
-  logout() {
-    this.router.navigate(['/login']);
+  close() {
+    this.closePopup.emit();
   }
 }

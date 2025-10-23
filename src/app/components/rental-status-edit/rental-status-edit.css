@@ -1,39 +1,100 @@
-app-header {
-  display: block;
-  width: 100%;
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  overflow-y: auto;
 }
 
-.container {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  min-height: calc(100vh - 200px);
-}
-
-.edit-card {
+.popup-content {
   background: white;
   border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+  margin: auto;
+  position: relative;
 }
 
-.card-header {
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
   border-bottom: 2px solid #e5e7eb;
-  text-align: right;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  border-radius: 12px 12px 0 0;
 }
 
-.card-header h2 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
+.popup-header h2 {
   color: #1f2937;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.popup-body {
+  padding: 2rem;
+}
+
+.building-id-section {
+  background-color: #f3f4f6;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: right;
 }
 
 .building-id {
   margin: 0;
-  color: #6b7280;
-  font-size: 0.95rem;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .flags-container {
@@ -86,7 +147,7 @@ app-header {
 .button-group {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .btn-submit,
@@ -120,48 +181,16 @@ app-header {
   background-color: #4b5563;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  padding: 2rem 1rem;
-  border-top: 1px solid #e5e7eb;
-}
-
-.btn-logout {
-  padding: 0.75rem 2rem;
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-logout:hover {
-  background-color: #dc2626;
-}
-
 @media (max-width: 768px) {
-  .container {
-    margin: 1rem auto;
-    padding: 0 0.5rem;
+  .popup-content {
+    max-width: 95%;
   }
 
-  .edit-card {
-    padding: 1.5rem;
-  }
-
-  .card-header h2 {
-    font-size: 1.3rem;
+  .popup-body {
+    padding: 1rem;
   }
 
   .flags-grid {
     grid-template-columns: 1fr;
-  }
-
-  .flag-item {
-    width: 100%;
   }
 }

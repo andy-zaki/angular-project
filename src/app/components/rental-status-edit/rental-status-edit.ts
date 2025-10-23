@@ -1,8 +1,6 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, inject, signal, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../shared/header/header';
 
 interface StatusFlag {
   id: string;
@@ -14,15 +12,15 @@ interface StatusFlag {
   selector: 'app-rental-status-edit',
   templateUrl: './rental-status-edit.html',
   styleUrl: './rental-status-edit.css',
-  standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent],
+  imports: [CommonModule, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RentalStatusEditComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-
-  protected buildingId = signal('');
+  buildingId = input<string>('');
+  isOpen = input<boolean>(false);
+  
+  closePopup = output<void>();
+  submitSuccess = output<StatusFlag[]>();
 
   protected statusFlags = signal<StatusFlag[]>([
     { id: 'closed', label: 'مغلقة', checked: false },
@@ -35,24 +33,8 @@ export class RentalStatusEditComponent {
     { id: 'purchase-deliberation', label: 'جاري البت للشراء', checked: false }
   ]);
 
-  constructor() {
-    this.route.queryParams.subscribe(params => {
-      if (params['buildingId']) {
-        this.buildingId.set(params['buildingId']);
-      }
-    });
-  }
-
-  protected goBack(): void {
-    this.router.navigate(['/rental-inquiry-building']);
-  }
-
-  protected goHome(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
-  protected logout(): void {
-    this.router.navigate(['/login']);
+  protected close(): void {
+    this.closePopup.emit();
   }
 
   protected toggleFlag(index: number): void {
@@ -62,16 +44,14 @@ export class RentalStatusEditComponent {
   }
 
   protected submitChanges(): void {
-    const selectedFlags = this.statusFlags()
-      .filter(flag => flag.checked)
-      .map(flag => flag.label);
+    const selectedFlags = this.statusFlags().filter(flag => flag.checked);
 
     if (selectedFlags.length === 0) {
       alert('الرجاء تحديد حالة واحدة على الأقل');
       return;
     }
 
-    alert(`تم تحديث الحالات:\n${selectedFlags.join('\n')}`);
-    this.goBack();
+    this.submitSuccess.emit(selectedFlags);
+    this.close();
   }
 }

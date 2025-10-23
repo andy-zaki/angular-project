@@ -1,41 +1,41 @@
-<app-header 
-  [pageTitle]="'تعديل موقف المباني المؤجرة'"
-  [showBackButton]="true"
-  [showHomeButton]="true"
-  (backClicked)="goBack()"
-  (homeClicked)="goHome()"
-  (logoutClicked)="logout()"
-></app-header>
+@if (isOpen()) {
+  <div class="popup-overlay" (click)="close()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <div class="popup-header">
+        <h2>تعديل موقف المباني المؤجرة</h2>
+        <button type="button" class="close-btn" (click)="close()">×</button>
+      </div>
 
-<div class="container">
-  <div class="edit-card">
-    <div class="card-header">
-      <h2>تحديث حالة المبنى</h2>
-      @if (buildingId()) {
-        <p class="building-id">الرقم التعريفي: {{ buildingId() }}</p>
-      }
-    </div>
-
-    <div class="flags-container">
-      <p class="instructions">اختر جميع الحالات التي تنطبق على هذا المبنى:</p>
-      
-      <div class="flags-grid">
-        @for (flag of statusFlags(); let i = $index; track flag.id) {
-          <label class="flag-item">
-            <input 
-              type="checkbox" 
-              [checked]="flag.checked"
-              (change)="toggleFlag(i)"
-              class="flag-checkbox"
-            />
-            <span class="flag-label">{{ flag.label }}</span>
-          </label>
+      <div class="popup-body">
+        @if (buildingId()) {
+          <div class="building-id-section">
+            <p class="building-id">الرقم التعريفي: {{ buildingId() }}</p>
+          </div>
         }
+
+        <div class="flags-container">
+          <p class="instructions">اختر جميع الحالات التي تنطبق على هذا المبنى:</p>
+          
+          <div class="flags-grid">
+            @for (flag of statusFlags(); let i = $index; track flag.id) {
+              <label class="flag-item">
+                <input 
+                  type="checkbox" 
+                  [checked]="flag.checked"
+                  (change)="toggleFlag(i)"
+                  class="flag-checkbox"
+                />
+                <span class="flag-label">{{ flag.label }}</span>
+              </label>
+            }
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn-submit" (click)="submitChanges()">✓ حفظ التعديلات</button>
+          <button class="btn-cancel" (click)="close()">إلغاء</button>
+        </div>
       </div>
     </div>
-
-    <div class="button-group">
-      <button class="btn-submit" (click)="submitChanges()">✓ حفظ التعديلات</button>
-    </div>
   </div>
-</div>
+}

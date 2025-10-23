@@ -53,3 +53,10 @@
     </div>
   </div>
 </div>
+
+<app-rental-building-modify-status
+  [buildingId]="buildingId"
+  [isOpen]="showModifyPopup()"
+  (closePopup)="closeModifyPopup()"
+  (submitSuccess)="handleModifySubmit($event)"
+></app-rental-building-modify-status>

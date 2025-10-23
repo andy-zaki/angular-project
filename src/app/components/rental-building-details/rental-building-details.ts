@@ -1,19 +1,22 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header';
+import { RentalBuildingModifyStatusComponent } from '../rental-building-modify-status/rental-building-modify-status';
 
 @Component({
   selector: 'app-rental-building-details',
   templateUrl: './rental-building-details.html',
   styleUrl: './rental-building-details.css',
-  imports: [CommonModule, HeaderComponent]
+  imports: [CommonModule, HeaderComponent, RentalBuildingModifyStatusComponent]
 })
 export class RentalBuildingDetailsComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
   buildingId: number = 0;
+  showModifyPopup = signal(false);
+  
   buildingDetails = {
     name: 'مدرسة الرازي',
     status: 'مؤجرة',
@@ -30,9 +33,21 @@ export class RentalBuildingDetailsComponent {
   }
 
   editStatus() {
-    this.router.navigate(['/rental-building-modify-status'], {
-      queryParams: { buildingId: this.buildingId }
-    });
+    this.showModifyPopup.set(true);
+  }
+
+  closeModifyPopup() {
+    this.showModifyPopup.set(false);
+  }
+
+  handleModifySubmit(data: any) {
+    console.log('Status modified:', data);
+    // Update building details with the new data
+    this.buildingDetails.status = data.status;
+    this.buildingDetails.tenant = data.tenant;
+    this.buildingDetails.rentalStartDate = data.rentalStartDate;
+    this.buildingDetails.rentalEndDate = data.rentalEndDate;
+    this.buildingDetails.annualRent = data.annualRent;
   }
 
   navigateBack() {

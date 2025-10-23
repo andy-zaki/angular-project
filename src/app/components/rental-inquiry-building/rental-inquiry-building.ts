@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { RentalStatusEditComponent } from '../rental-status-edit/rental-status-edit';
 
 interface BuildingInfo {
   id: string;
@@ -16,7 +17,7 @@ interface BuildingInfo {
   templateUrl: './rental-inquiry-building.html',
   styleUrl: './rental-inquiry-building.css',
   standalone: true,
-  imports: [CommonModule, FormsModule, HeaderComponent],
+  imports: [CommonModule, FormsModule, HeaderComponent, RentalStatusEditComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RentalInquiryBuildingComponent {
@@ -25,6 +26,7 @@ export class RentalInquiryBuildingComponent {
   protected identificationNumber = signal('');
   protected buildingInfo = signal<BuildingInfo | null>(null);
   protected showDetails = signal(false);
+  protected showEditPopup = signal(false);
 
   protected goBack(): void {
     this.router.navigate(['/rental-status-menu']);
@@ -55,10 +57,17 @@ export class RentalInquiryBuildingComponent {
 
   protected navigateToEdit(): void {
     if (this.buildingInfo()) {
-      this.router.navigate(['/rental-status-edit'], {
-        queryParams: { buildingId: this.buildingInfo()?.id }
-      });
+      this.showEditPopup.set(true);
     }
+  }
+
+  protected closeEditPopup(): void {
+    this.showEditPopup.set(false);
+  }
+
+  protected handleEditSubmit(selectedFlags: any[]): void {
+    console.log('Status flags updated:', selectedFlags);
+    alert(`تم تحديث الحالات:\n${selectedFlags.map(f => f.label).join('\n')}`);
   }
 
   protected goHome(): void {

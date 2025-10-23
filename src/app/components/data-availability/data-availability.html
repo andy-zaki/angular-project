@@ -1,0 +1,24 @@
+<div class="data-availability-container">
+  <app-header 
+    [pageTitle]="'توافر البيانات'"
+    [pageSubtitle]="'التحقق من توافر البيانات والمستندات لقطعة الأرض رقم ' + referenceNumber()"
+    [showBackButton]="true"
+    [showHomeButton]="true"
+    [backButtonLabel]="'العودة'"
+    [backButtonAriaLabel]="'العودة للاستعلام'"
+    (backClicked)="goBack()"
+    (homeClicked)="goHome()"
+    (logoutClicked)="logout()">
+  </app-header>
+
+  <main class="data-availability-main">
+    <div class="content-container">
+      <div class="info-card">
+        <h3 class="card-title">صفحة توافر البيانات قيد الإنشاء</h3>
+        <p class="card-description">
+          سيتم عرض معلومات توافر البيانات لقطعة الأرض رقم: <strong>{{ referenceNumber() }}</strong>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>

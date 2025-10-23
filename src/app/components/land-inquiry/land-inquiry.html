@@ -85,8 +85,77 @@
                 <span class="results-count">(نتيجة واحدة)</span>
               </h3>
             </div>
+
+            <!-- Options Menu Section -->
+            <div class="options-menu-section">
+              <h3 class="options-title">
+                <span class="options-icon">📋</span>
+                الخيارات المتاحة
+              </h3>
+              <div class="options-grid">
+                <button 
+                  class="option-card"
+                  (click)="navigateToLandData()"
+                  type="button">
+                  <div class="option-icon">🏞️</div>
+                  <div class="option-content">
+                    <h4 class="option-title">استعلام عن بيانات قطعة الارض</h4>
+                    <p class="option-description">عرض كافة بيانات ومعلومات قطعة الأرض</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+
+                <button 
+                  class="option-card"
+                  (click)="navigateToDataAvailability()"
+                  type="button">
+                  <div class="option-icon">📊</div>
+                  <div class="option-content">
+                    <h4 class="option-title">توافر البيانات</h4>
+                    <p class="option-description">التحقق من توافر البيانات والمستندات</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+
+                <button 
+                  class="option-card"
+                  (click)="navigateToLandCoordinates()"
+                  type="button">
+                  <div class="option-icon">📍</div>
+                  <div class="option-content">
+                    <h4 class="option-title">إحداثيات قطعة الأرض</h4>
+                    <p class="option-description">عرض الإحداثيات الجغرافية لقطعة الأرض</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+
+                <button 
+                  class="option-card"
+                  (click)="navigateToBuildingInquiry()"
+                  type="button">
+                  <div class="option-icon">🏗️</div>
+                  <div class="option-content">
+                    <h4 class="option-title">استعلام المبنى</h4>
+                    <p class="option-description">استعلام عن بيانات المبنى</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+
+                <button 
+                  class="option-card full-width"
+                  (click)="showFullDisplay()"
+                  type="button">
+                  <div class="option-icon">📄</div>
+                  <div class="option-content">
+                    <h4 class="option-title">العرض الكامل</h4>
+                    <p class="option-description">عرض جميع التفاصيل والبيانات الكاملة</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+              </div>
+            </div>
             
-            <div class="result-card">
+            <div class="result-card" [class.hidden]="!showFullData()">
               <div class="card-header">
                 <h4 class="card-title">
                   <span class="card-icon">🏢</span>
@@ -381,14 +450,13 @@
             <table class="building-data-table">
               <thead>
                 <tr>
-                  <th>الكود</th>
-                  <th>اسم الموقع</th>
+                  <th>كود الحد</th>
+                  <th>اسم الحد</th>
                   <th>طول الحد</th>
-                  <th>الجار</th>
-                  <th>المطلوب</th>
-                  <th>منسوب نقطة البداء</th>
-                  <th>منسوب نقطة النهاية</th>
-                  <th>صفر</th>
+                  <th>جار ملاصق</th>
+                  <th>منسوب الجار</th>
+                  <th>الاسوار</th>
+                  <th>وصف الجار</th>
                 </tr>
               </thead>
               <tbody>
@@ -396,12 +464,11 @@
                   <tr class="building-row">
                     <td class="building-id">{{ building.id }}</td>
                     <td class="building-code">{{ building.code }}</td>
-                    <td class="location-name">{{ building.locationName }}</td>
                     <td class="coordinates">{{ building.coordinates }}</td>
                     <td class="status">{{ building.status }}</td>
+                    <td class="empty-field">-</td>
                     <td class="required-status">{{ building.requiredStatus }}</td>
-                    <td class="empty-field">صفر</td>
-                    <td class="empty-field">صفر</td>
+                    <td class="location-name">{{ building.locationName }}</td>
                   </tr>
                 }
               </tbody>

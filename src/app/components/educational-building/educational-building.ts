@@ -140,7 +140,7 @@ export class EducationalBuildingComponent {
     // Navigate based on the option key
     switch (optionKey) {
       case 'land-data':
-        this.router.navigate(['/land-inquiry-id']);
+        this.router.navigate(['/land-inquiry']);
         break;
       case 'school-inquiry':
         this.router.navigate(['/school-map-inquiry']);

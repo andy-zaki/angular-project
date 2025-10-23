@@ -66,6 +66,7 @@ export class LandInquiryComponent {
   protected isSearching = signal(false);
   protected hasSearched = signal(false);
   protected landData = signal<LandData | null>(null);
+  protected showFullData = signal(false);
   
   // Building inquiry popup signals
   protected showBuildingPopup = signal(false);
@@ -98,6 +99,7 @@ export class LandInquiryComponent {
     this.searchForm.reset();
     this.landData.set(null);
     this.hasSearched.set(false);
+    this.showFullData.set(false);
   }
 
   protected goBack(): void {
@@ -120,6 +122,48 @@ export class LandInquiryComponent {
 
   protected closeBuildingPopup(): void {
     this.showBuildingPopup.set(false);
+  }
+
+  protected navigateToLandData(): void {
+    // Navigate to land inquiry with ID component
+    const referenceNumber = this.landData()?.referenceNumber;
+    if (referenceNumber) {
+      this.router.navigate(['/land-inquiry-id', referenceNumber]);
+    }
+  }
+
+  protected navigateToDataAvailability(): void {
+    // Navigate to data availability component
+    const referenceNumber = this.landData()?.referenceNumber;
+    if (referenceNumber) {
+      this.router.navigate(['/data-availability', referenceNumber]);
+    }
+  }
+
+  protected navigateToLandCoordinates(): void {
+    // Navigate to land coordinates component
+    const referenceNumber = this.landData()?.referenceNumber;
+    if (referenceNumber) {
+      this.router.navigate(['/land-coordinates', referenceNumber]);
+    }
+  }
+
+  protected navigateToBuildingInquiry(): void {
+    // Navigate to building inquiry component
+    const referenceNumber = this.landData()?.referenceNumber;
+    if (referenceNumber) {
+      this.router.navigate(['/building-inquiry', referenceNumber]);
+    }
+  }
+
+  protected showFullDisplay(): void {
+    // Toggle full data display
+    this.showFullData.set(true);
+    // Scroll to the full data section
+    setTimeout(() => {
+      const resultCard = document.querySelector('.result-card');
+      resultCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   }
 
   protected getFieldError(fieldName: string): string | null {

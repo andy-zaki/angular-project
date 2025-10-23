@@ -40,7 +40,27 @@ export const routes: Routes = [
     loadComponent: () => import('./components/land-coordinates/land-coordinates').then(m => m.LandCoordinatesComponent)
   },
   {
+    path: 'data-availability',
+    loadComponent: () => import('./components/data-availability/data-availability').then(m => m.DataAvailabilityComponent)
+  },
+  {
+    path: 'data-availability/:id',
+    loadComponent: () => import('./components/data-availability/data-availability').then(m => m.DataAvailabilityComponent)
+  },
+  {
+    path: 'land-inquiry-id/:id',
+    loadComponent: () => import('./components/land-inquiry-id/land-inquiry-id').then(m => m.LandInquiryIdComponent)
+  },
+  {
+    path: 'land-coordinates/:id',
+    loadComponent: () => import('./components/land-coordinates/land-coordinates').then(m => m.LandCoordinatesComponent)
+  },
+  {
     path: 'building-inquiry',
+    loadComponent: () => import('./components/building-inquiry/building-inquiry').then(m => m.BuildingInquiryComponent)
+  },
+  {
+    path: 'building-inquiry/:id',
     loadComponent: () => import('./components/building-inquiry/building-inquiry').then(m => m.BuildingInquiryComponent)
   },
   // Building Displacement Menu

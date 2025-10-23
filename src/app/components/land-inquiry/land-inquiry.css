@@ -350,6 +350,172 @@
   font-weight: 600;
 }
 
+/* Options Menu Section */
+.options-menu-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e2e8f0;
+  margin-bottom: 32px;
+  animation: slideUp 0.6s ease-out;
+}
+
+.options-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.options-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.option-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: right;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.option-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.option-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+.option-card:hover::before {
+  opacity: 1;
+}
+
+.option-card:active {
+  transform: translateY(-2px);
+}
+
+.option-icon {
+  font-size: 42px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.option-card:hover .option-icon {
+  transform: scale(1.1);
+}
+
+.option-content {
+  flex: 1;
+  z-index: 1;
+}
+
+.option-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+  transition: color 0.3s ease;
+}
+
+.option-card:hover .option-title {
+  color: #667eea;
+}
+
+.option-description {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.option-arrow {
+  font-size: 24px;
+  color: #cbd5e1;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.option-card:hover .option-arrow {
+  color: #667eea;
+  transform: translateX(-4px);
+}
+
+.option-card.full-width {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+}
+
+.option-card.full-width::before {
+  display: none;
+}
+
+.option-card.full-width .option-title {
+  color: white;
+  font-size: 20px;
+}
+
+.option-card.full-width .option-description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.option-card.full-width .option-arrow {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.option-card.full-width:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+}
+
+.option-card.full-width:hover .option-arrow {
+  color: white;
+}
+
+/* Responsive Options Grid */
+@media (max-width: 768px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .option-card.full-width {
+    grid-column: 1;
+  }
+}
+
 /* Result Card Styles */
 .result-card {
   background: white;
@@ -358,6 +524,10 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
   border: 2px solid #f1f5f9;
   animation: slideUp 0.6s ease-out;
+}
+
+.result-card.hidden {
+  display: none;
 }
 
 @keyframes slideUp {

@@ -48,7 +48,7 @@ Rental Status Menu (/rental-status-menu)
 
 ### 3. Rental Decision Buildings (`rental-decision-buildings`)
 - **Route:** `/rental-decision-buildings`
-- **Title:** مدارس مؤجرة (صدر لها قرار مجلس حلي)
+- **Title:** مدارس مؤجرة (صدر لها قرار مجلس محلي)
 - **Features:**
   - Displays table with 4 columns:
     - كود المركز (Center Code)

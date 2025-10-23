@@ -1,5 +1,6 @@
 import { Component, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
@@ -60,6 +61,7 @@ interface BuildingLocationData {
 })
 export class LandInquiryComponent {
   private router = inject(Router);
+  private location = inject(Location);
   private fb = inject(FormBuilder);
   
   protected searchForm: FormGroup;
@@ -103,7 +105,7 @@ export class LandInquiryComponent {
   }
 
   protected goBack(): void {
-    this.router.navigate(['/educational-building']);
+    this.location.back();
   }
 
   protected goHome(): void {
@@ -125,10 +127,10 @@ export class LandInquiryComponent {
   }
 
   protected navigateToLandData(): void {
-    // Navigate to land inquiry with ID component
+    // Navigate directly to land coordinates component
     const referenceNumber = this.landData()?.referenceNumber;
     if (referenceNumber) {
-      this.router.navigate(['/land-inquiry-id', referenceNumber]);
+      this.router.navigate(['/land-coordinates', referenceNumber]);
     }
   }
 

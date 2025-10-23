@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
@@ -12,19 +12,26 @@ import { HeaderComponent } from '../shared/header/header';
 })
 export class LandInquiryIdComponent {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   
   governmentNumber: string = '';
 
+  constructor() {
+    // Get government number from route params if available
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.governmentNumber = id;
+    }
+  }
+
   navigateToLandCoordinates() {
     if (this.governmentNumber.trim()) {
-      this.router.navigate(['/land-coordinates'], {
-        queryParams: { govNumber: this.governmentNumber }
-      });
+      this.router.navigate(['/land-coordinates', this.governmentNumber]);
     }
   }
 
   navigateBack() {
-    this.router.navigate(['/educational-building']);
+    this.router.navigate(['/land-inquiry']);
   }
 
   goHome() {

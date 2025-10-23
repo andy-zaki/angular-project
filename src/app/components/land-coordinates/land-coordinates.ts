@@ -29,9 +29,15 @@ export class LandCoordinatesComponent {
   };
 
   constructor() {
-    this.route.queryParams.subscribe(params => {
-      this.governmentNumber = params['govNumber'] || '';
-    });
+    // Try to get from route params first, then fallback to query params for backward compatibility
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.governmentNumber = id;
+    } else {
+      this.route.queryParams.subscribe(params => {
+        this.governmentNumber = params['govNumber'] || '';
+      });
+    }
   }
 
   navigateToBuildingInquiry() {
@@ -41,7 +47,7 @@ export class LandCoordinatesComponent {
   }
 
   navigateBack() {
-    this.router.navigate(['/land-inquiry-id']);
+    this.router.navigate(['/land-inquiry']);
   }
 
   goHome() {

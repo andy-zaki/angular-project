@@ -25,15 +25,19 @@ export class BuildingInquiryComponent {
   };
 
   constructor() {
-    this.route.queryParams.subscribe(params => {
-      this.governmentNumber = params['govNumber'] || '';
-    });
+    // Try to get from route params first, then fallback to query params for backward compatibility
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.governmentNumber = id;
+    } else {
+      this.route.queryParams.subscribe(params => {
+        this.governmentNumber = params['govNumber'] || '';
+      });
+    }
   }
 
   navigateBack() {
-    this.router.navigate(['/land-coordinates'], {
-      queryParams: { govNumber: this.governmentNumber }
-    });
+    this.router.navigate(['/land-inquiry']);
   }
 
   navigateToEducationalBuilding() {

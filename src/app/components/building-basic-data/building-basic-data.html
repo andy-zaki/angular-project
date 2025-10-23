@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'تسجيل البيانات الأساسية'"></app-header>
+<app-header 
+  [pageTitle]="'تسجيل البيانات الأساسية'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="navigateBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="page-content">
@@ -47,7 +54,6 @@
 
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">✓ حفظ البيانات</button>
-        <button type="button" (click)="navigateBack()" class="btn btn-secondary">← العودة</button>
       </div>
     </form>
   </div>

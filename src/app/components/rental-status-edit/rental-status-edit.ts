@@ -47,6 +47,10 @@ export class RentalStatusEditComponent {
     this.router.navigate(['/rental-inquiry-building']);
   }
 
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
   protected logout(): void {
     this.router.navigate(['/login']);
   }

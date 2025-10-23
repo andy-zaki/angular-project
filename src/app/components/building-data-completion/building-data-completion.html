@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'استكمال بيانات مبنى تعليمي'"></app-header>
+<app-header 
+  [pageTitle]="'استكمال بيانات مبنى تعليمي'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="navigateBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="page-content">
@@ -16,9 +23,5 @@
         <span class="arrow">→</span>
       </div>
     </div>
-
-    <button (click)="navigateBack()" class="btn btn-secondary">
-      ← العودة
-    </button>
   </div>
 </div>

@@ -70,6 +70,10 @@ export class BuildingDisplacementMenuComponent {
     this.router.navigate(['/educational-building']);
   }
 
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
   protected logout(): void {
     this.router.navigate(['/login']);
   }

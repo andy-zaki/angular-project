@@ -19,4 +19,12 @@ export class RentalBuildingsStatusComponent {
   navigateBack() {
     this.router.navigate(['/applications-menu']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

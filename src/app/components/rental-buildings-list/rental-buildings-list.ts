@@ -27,4 +27,12 @@ export class RentalBuildingsListComponent {
   navigateBack() {
     this.router.navigate(['/rental-buildings-status']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

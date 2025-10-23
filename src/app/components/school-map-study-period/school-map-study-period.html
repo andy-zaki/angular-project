@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'بيانات الفترة الدراسية'"></app-header>
+<app-header 
+  [pageTitle]="'بيانات الفترة الدراسية'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="navigateBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="page-content">
@@ -24,9 +31,5 @@
         </tbody>
       </table>
     </div>
-
-    <button (click)="navigateBack()" class="btn btn-secondary">
-      ← العودة
-    </button>
   </div>
 </div>

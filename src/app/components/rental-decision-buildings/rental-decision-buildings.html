@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'مدارس مؤجرة (صدر لها قرار مجلس حلي)'"></app-header>
+<app-header 
+  [pageTitle]="'مدارس مؤجرة (صدر لها قرار مجلس حلي)'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="goBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="table-wrapper">
@@ -32,9 +39,4 @@
       جميع المباني المعروضة أعلاه صدر لها قرار مجلس محلي، مما يؤهلها لمراحل الإجراءات التالية.
     </p>
   </div>
-</div>
-
-<div class="button-group">
-  <button class="btn-back" (click)="goBack()">← رجوع</button>
-  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
 </div>

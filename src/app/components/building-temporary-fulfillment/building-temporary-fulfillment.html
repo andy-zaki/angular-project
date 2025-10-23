@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'بيانات الاستيفاء المؤقت'"></app-header>
+<app-header 
+  [pageTitle]="'بيانات الاستيفاء المؤقت'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="goBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="form-card">
@@ -64,12 +71,7 @@
 
       <div class="button-group">
         <button type="submit" class="btn-submit">💾 حفظ البيانات</button>
-        <button type="button" class="btn-back" (click)="goBack()">← رجوع</button>
       </div>
     </form>
   </div>
-</div>
-
-<div class="footer">
-  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
 </div>

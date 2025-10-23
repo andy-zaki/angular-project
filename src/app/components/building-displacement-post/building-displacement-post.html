@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'إدخال بيانات نزع الملكية'"></app-header>
+<app-header 
+  [pageTitle]="'إدخال بيانات نزع الملكية'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="navigateBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="page-content">
@@ -11,12 +18,6 @@
         <h3>{{ option.title }}</h3>
         <span class="arrow">→</span>
       </div>
-    </div>
-
-    <div class="form-actions">
-      <button (click)="navigateBack()" class="btn btn-secondary">
-        ← العودة
-      </button>
     </div>
   </div>
 </div>

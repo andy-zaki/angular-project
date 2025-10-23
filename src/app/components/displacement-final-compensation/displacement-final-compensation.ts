@@ -29,4 +29,12 @@ export class DisplacementFinalCompensationComponent {
   navigateBack() {
     this.router.navigate(['/building-displacement-post']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

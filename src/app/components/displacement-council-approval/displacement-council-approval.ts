@@ -27,4 +27,12 @@ export class DisplacementCouncilApprovalComponent {
   navigateBack() {
     this.router.navigate(['/building-displacement-pre']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

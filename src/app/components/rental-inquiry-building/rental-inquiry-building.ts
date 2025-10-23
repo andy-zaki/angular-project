@@ -60,4 +60,8 @@ export class RentalInquiryBuildingComponent {
       });
     }
   }
+
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
 }

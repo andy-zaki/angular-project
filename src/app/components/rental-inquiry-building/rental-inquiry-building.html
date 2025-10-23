@@ -1,4 +1,11 @@
-<app-header [pageTitle]="'استعلام عن موقع مبنى مؤجرة'"></app-header>
+<app-header 
+  [pageTitle]="'استعلام عن موقع مبنى مؤجرة'"
+  [showBackButton]="true"
+  [showHomeButton]="true"
+  (backClicked)="goBack()"
+  (homeClicked)="goHome()"
+  (logoutClicked)="logout()"
+></app-header>
 
 <div class="container">
   <div class="search-section">
@@ -80,9 +87,4 @@
       }
     </div>
   }
-</div>
-
-<div class="button-group-footer">
-  <button class="btn-back" (click)="goBack()">← رجوع</button>
-  <button class="btn-logout" (click)="logout()">تسجيل الخروج</button>
 </div>

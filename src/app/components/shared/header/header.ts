@@ -27,13 +27,17 @@ export class HeaderComponent {
   pageTitle = input.required<string>();
   pageSubtitle = input<string>('');
   userInfo = input<UserInfo | null>(null);
-  showBackButton = input<boolean>(false);
+  showBackButton = input<boolean>(true);
+  showHomeButton = input<boolean>(true);
   backButtonLabel = input<string>('العودة');
+  homeButtonLabel = input<string>('الرئيسية');
   backButtonAriaLabel = input<string>('العودة للصفحة السابقة');
+  homeButtonAriaLabel = input<string>('العودة للصفحة الرئيسية');
   customActions = input<HeaderAction[]>([]);
   
   // Outputs
   backClicked = output<void>();
+  homeClicked = output<void>();
   logoutClicked = output<void>();
   
   constructor(private router: Router) {}
@@ -43,6 +47,10 @@ export class HeaderComponent {
   
   onBackClick(): void {
     this.backClicked.emit();
+  }
+
+  onHomeClick(): void {
+    this.homeClicked.emit();
   }
   
   onLogoutClick(): void {

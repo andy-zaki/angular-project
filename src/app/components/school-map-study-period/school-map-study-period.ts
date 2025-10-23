@@ -20,4 +20,12 @@ export class SchoolMapStudyPeriodComponent {
   navigateBack() {
     this.router.navigate(['/school-map-inquiry']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

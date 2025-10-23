@@ -1,29 +1,29 @@
 /* Applications Menu Container */
 .applications-menu-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg-gradient-light);
+  font-family: var(--font-family);
   direction: rtl;
   text-align: right;
 }
 
 /* Main Content */
 .applications-menu-main {
-  padding: 40px;
+  padding: var(--spacing-2xl);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .menu-container {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .menu-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #334155;
-  margin: 0 0 16px 0;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-700);
+  margin: 0 0 var(--spacing-base) 0;
   letter-spacing: -0.025em;
 }
 
@@ -31,22 +31,22 @@
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 32px;
-  margin-top: 48px;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-3xl);
 }
 
 /* Menu Cards */
 .menu-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-slow);
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: var(--spacing-lg);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -60,15 +60,15 @@
   width: 5px;
   height: 100%;
   background: linear-gradient(135deg, var(--card-color) 0%, var(--card-color-dark, var(--card-color)) 100%);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-slow);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-2xl);
   border-color: var(--card-color);
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
 }
 
 .menu-card:hover::before {
@@ -87,21 +87,21 @@
   width: 80px;
   height: 80px;
   background: linear-gradient(135deg, var(--card-color) 0%, var(--card-color-dark, var(--card-color)) 100%);
-  border-radius: 20px;
+  border-radius: var(--radius-2xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-smooth);
 }
 
 .menu-card:hover .card-icon {
   transform: scale(1.1);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
 }
 
 .card-icon .icon {
-  font-size: 32px;
+  font-size: var(--font-size-4xl);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
@@ -112,27 +112,27 @@
 }
 
 .card-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 8px 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-800);
+  margin: 0 0 var(--spacing-sm) 0;
   letter-spacing: -0.025em;
   line-height: 1.2;
 }
 
 .card-description {
-  font-size: 16px;
-  color: #64748b;
+  font-size: var(--font-size-base);
+  color: var(--gray-600);
   margin: 0;
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* Card Arrow */
 .card-arrow {
   flex-shrink: 0;
   color: var(--card-color);
-  transition: all 0.3s ease;
+  transition: all var(--transition-smooth);
   opacity: 0.7;
 }
 
@@ -145,8 +145,8 @@
 @media (max-width: 768px) {
   .header-top {
     flex-direction: column;
-    gap: 16px;
-    padding: 20px 24px;
+    gap: var(--spacing-base);
+    padding: var(--spacing-lg) var(--spacing-lg);
   }
   
   .organization-info {
@@ -155,53 +155,53 @@
   }
   
   .organization-name {
-    font-size: 26px;
-    margin-bottom: 4px;
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-xs);
   }
   
   .organization-subtitle {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
   
   .header-actions {
-    gap: 16px;
+    gap: var(--spacing-base);
     flex-wrap: wrap;
     justify-content: center;
   }
   
   .back-button, .logout-button {
-    padding: 10px 16px;
-    font-size: 14px;
+    padding: var(--spacing-md) var(--spacing-base);
+    font-size: var(--font-size-sm);
   }
   
   .header-bottom {
-    padding: 16px 24px;
+    padding: var(--spacing-base) var(--spacing-lg);
     text-align: center;
   }
   
   .page-info .page-title {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
   
   .applications-menu-main {
-    padding: 24px 16px;
+    padding: var(--spacing-lg) var(--spacing-base);
   }
   
   .menu-title {
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
   }
   
   .menu-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 32px;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
   }
   
   .menu-card {
-    padding: 24px;
+    padding: var(--spacing-lg);
     flex-direction: column;
     text-align: center;
-    gap: 20px;
+    gap: var(--spacing-lg);
   }
   
   .card-content {
@@ -209,42 +209,42 @@
   }
   
   .card-title {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
   
   .card-description {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
 }
 
 @media (max-width: 480px) {
   .header-top {
-    padding: 16px 20px;
+    padding: var(--spacing-base) var(--spacing-lg);
   }
   
   .organization-name {
-    font-size: 22px;
+    font-size: var(--font-size-2xl);
     line-height: 1.2;
   }
   
   .organization-subtitle {
-    font-size: 13px;
+    font-size: var(--font-size-sm);
   }
   
   .header-bottom {
-    padding: 12px 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
   }
   
   .applications-menu-main {
-    padding: 20px 12px;
+    padding: var(--spacing-lg) var(--spacing-md);
   }
   
   .menu-title {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
   
   .menu-card {
-    padding: 20px;
+    padding: var(--spacing-lg);
   }
   
   .card-icon {
@@ -253,6 +253,6 @@
   }
   
   .card-icon .icon {
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
   }
 }

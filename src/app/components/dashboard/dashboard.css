@@ -1,15 +1,15 @@
 /* Dashboard Container */
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  direction: rtl; /* Right-to-left for Arabic */
+  background: var(--bg-gradient-cool);
+  font-family: var(--font-family);
+  direction: rtl;
   text-align: right;
 }
 
 /* Main Content */
 .dashboard-main {
-  padding: 40px 32px;
+  padding: var(--spacing-2xl) var(--spacing-xl);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -20,34 +20,34 @@
 }
 
 .menu-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #374151;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-700);
   text-align: center;
-  margin: 0 0 32px 0;
+  margin: 0 0 var(--spacing-xl) 0;
 }
 
 /* Menu Grid */
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  gap: var(--spacing-lg);
   max-width: 1000px;
   margin: 0 auto;
 }
 
 /* Menu Cards */
 .menu-card {
-  background: white;
-  border-radius: 16px;
-  padding: 32px 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-smooth);
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--spacing-lg);
   position: relative;
   overflow: hidden;
 }
@@ -60,12 +60,12 @@
   width: 4px;
   height: 100%;
   background: var(--card-color);
-  transition: width 0.3s ease;
+  transition: width var(--transition-smooth);
 }
 
 .menu-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-2xl);
   border-color: var(--card-color);
 }
 
@@ -85,15 +85,15 @@
   width: 64px;
   height: 64px;
   background: linear-gradient(135deg, var(--card-color), color-mix(in srgb, var(--card-color) 80%, #000));
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .card-icon .icon {
-  font-size: 28px;
+  font-size: var(--font-size-3xl);
   filter: brightness(1.2);
 }
 
@@ -104,16 +104,16 @@
 }
 
 .card-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a202c;
-  margin: 0 0 8px 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-900);
+  margin: 0 0 var(--spacing-sm) 0;
   line-height: 1.3;
 }
 
 .card-description {
-  font-size: 14px;
-  color: #718096;
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
   margin: 0;
   line-height: 1.5;
 }
@@ -123,8 +123,8 @@
   flex-shrink: 0;
   color: var(--card-color);
   opacity: 0.7;
-  transition: all 0.3s ease;
-  transform: scaleX(-1); /* Flip arrow for RTL */
+  transition: all var(--transition-smooth);
+  transform: scaleX(-1);
 }
 
 .menu-card:hover .card-arrow {
@@ -134,42 +134,42 @@
 
 /* Footer */
 .dashboard-footer {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  padding: 24px 32px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--gray-200);
+  padding: var(--spacing-lg) var(--spacing-xl);
   text-align: center;
-  margin-top: 40px;
+  margin-top: var(--spacing-2xl);
 }
 
 .footer-text {
-  font-size: 14px;
-  color: #64748b;
-  margin: 0 0 8px 0;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  margin: 0 0 var(--spacing-sm) 0;
+  font-weight: var(--font-weight-medium);
 }
 
 .footer-support {
-  font-size: 12px;
-  color: #94a3b8;
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
   margin: 0;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-main {
-    padding: 24px 16px;
+    padding: var(--spacing-lg) var(--spacing-base);
   }
 
   .menu-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: var(--spacing-base);
   }
 
   .menu-card {
-    padding: 24px 20px;
+    padding: var(--spacing-lg) var(--spacing-lg);
     flex-direction: column;
     text-align: center;
-    gap: 16px;
+    gap: var(--spacing-base);
   }
 
   .card-content {
@@ -181,12 +181,12 @@
   }
 
   .menu-title {
-    font-size: 20px;
-    margin-bottom: 24px;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
   }
 
   .dashboard-footer {
-    padding: 20px 16px;
+    padding: var(--spacing-lg) var(--spacing-base);
   }
 }
 

@@ -39,4 +39,12 @@ export class BuildingAnnexesDataComponent {
   navigateBack() {
     this.router.navigate(['/building-data-completion']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

@@ -40,4 +40,12 @@ export class RentalBuildingDetailsComponent {
       queryParams: { buildingId: this.buildingId }
     });
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

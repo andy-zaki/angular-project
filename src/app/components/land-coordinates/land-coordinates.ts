@@ -43,4 +43,12 @@ export class LandCoordinatesComponent {
   navigateBack() {
     this.router.navigate(['/land-inquiry-id']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

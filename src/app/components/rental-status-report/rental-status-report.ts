@@ -66,6 +66,10 @@ export class RentalStatusReportComponent {
     this.router.navigate(['/rental-status-menu']);
   }
 
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
   protected logout(): void {
     this.router.navigate(['/login']);
   }

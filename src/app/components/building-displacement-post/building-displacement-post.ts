@@ -28,4 +28,12 @@ export class BuildingDisplacementPostComponent {
   navigateBack() {
     this.router.navigate(['/educational-building']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

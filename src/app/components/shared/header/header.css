@@ -1,11 +1,17 @@
 /* Shared Header Component Styles */
 .app-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white;
-  padding: 24px 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  direction: rtl; /* Right-to-left for Arabic */
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+  direction: rtl;
   text-align: right;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed);
+  backdrop-filter: blur(10px);
 }
 
 /* Main Header Content Container */
@@ -15,7 +21,7 @@
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
-  gap: 32px;
+  gap: var(--spacing-xl);
 }
 
 /* Left Side: Organization Info */
@@ -29,9 +35,9 @@
 }
 
 .organization-name {
-  font-size: 28px;
-  font-weight: 800;
-  margin: 0 0 4px 0;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  margin: 0 0 var(--spacing-xs) 0;
   color: white;
   letter-spacing: -0.02em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -39,10 +45,10 @@
 }
 
 .organization-subtitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   opacity: 0.95;
   margin: 0;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: 0.25px;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -53,12 +59,12 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .page-info .page-title {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
   margin: 0;
   color: white;
   letter-spacing: -0.01em;
@@ -66,26 +72,26 @@
 }
 
 .page-info .page-subtitle {
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   opacity: 0.9;
   margin: 0;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: 0.2px;
 }
 
 .user-info .welcome-title {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
   margin: 0;
   opacity: 0.95;
   letter-spacing: 0.1px;
 }
 
 .user-info .last-login {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   opacity: 0.8;
   margin: 0;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   letter-spacing: 0.1px;
 }
 
@@ -100,7 +106,7 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-base);
   flex-shrink: 0;
 }
 
@@ -109,16 +115,16 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-smooth);
   display: flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-md);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   position: relative;
@@ -139,7 +145,7 @@
 .back-button:hover {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -149,12 +155,64 @@
 
 .back-button:active {
   transform: translateY(0);
-  transition: transform 0.1s;
+  transition: transform var(--transition-fast);
 }
 
 .back-button svg {
-  transform: scaleX(-1); /* Flip for RTL */
+  transform: scaleX(-1);
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Home Button */
+.home-button {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.home-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.home-button:hover::before {
+  left: 100%;
+}
+
+.home-button:active {
+  transform: translateY(0);
+  transition: transform var(--transition-fast);
+}
+
+.home-icon {
+  font-size: var(--font-size-base);
 }
 
 /* Logout Button */
@@ -162,15 +220,15 @@
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(220, 38, 38, 0.9) 100%);
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  font-size: 14px;
-  font-weight: 700;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-smooth);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -202,11 +260,11 @@
 
 .logout-button:active {
   transform: translateY(0);
-  transition: transform 0.1s;
+  transition: transform var(--transition-fast);
 }
 
 .logout-icon {
-  font-size: 16px;
+  font-size: var(--font-size-base);
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
@@ -221,16 +279,16 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-smooth);
   display: flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-md);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   position: relative;
@@ -240,37 +298,37 @@
 .custom-action-button:hover {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
   .app-header {
-    padding: 20px 32px;
+    padding: var(--spacing-lg) var(--spacing-xl);
   }
   
   .header-content {
-    gap: 24px;
+    gap: var(--spacing-lg);
   }
   
   .organization-name {
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
   }
   
   .page-info .page-title {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
 }
 
 @media (max-width: 768px) {
   .app-header {
-    padding: 16px 20px;
+    padding: var(--spacing-base) var(--spacing-lg);
   }
   
   .header-content {
     flex-direction: column;
-    gap: 16px;
+    gap: var(--spacing-base);
     text-align: center;
   }
   
@@ -286,74 +344,75 @@
   }
   
   .organization-name {
-    font-size: 22px;
-    margin-bottom: 2px;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xs);
   }
   
   .organization-subtitle {
-    font-size: 13px;
+    font-size: var(--font-size-sm);
   }
   
   .header-actions {
-    gap: 12px;
+    gap: var(--spacing-sm);
     flex-wrap: wrap;
     justify-content: center;
   }
   
   .logout-button,
   .back-button,
+  .home-button,
   .custom-action-button {
-    padding: 8px 14px;
-    font-size: 13px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
   }
   
   .page-info .page-title {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
   }
   
   .page-info .page-subtitle {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
   }
   
   .user-info .welcome-title {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
   
   .user-info .last-login {
-    font-size: 11px;
+    font-size: var(--font-size-xs);
   }
 }
 
 @media (max-width: 480px) {
   .app-header {
-    padding: 14px 16px;
+    padding: var(--spacing-md) var(--spacing-base);
   }
   
   .header-content {
-    gap: 12px;
+    gap: var(--spacing-md);
   }
   
   .organization-name {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
   
   .organization-subtitle {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
   }
   
   .logout-button,
   .back-button,
   .custom-action-button {
-    padding: 7px 12px;
-    font-size: 12px;
-    gap: 6px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-xs);
+    gap: var(--spacing-xs);
   }
   
   .logout-icon {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
   
   .page-info .page-title {
-    font-size: 16px;
+    font-size: var(--font-size-base);
   }
 }

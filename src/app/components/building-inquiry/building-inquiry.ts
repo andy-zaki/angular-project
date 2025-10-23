@@ -39,4 +39,12 @@ export class BuildingInquiryComponent {
   navigateToEducationalBuilding() {
     this.router.navigate(['/educational-building']);
   }
+
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

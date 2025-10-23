@@ -35,6 +35,10 @@ export class BuildingNetworkCostsComponent {
     this.router.navigate(['/building-displacement-menu']);
   }
 
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
   protected logout(): void {
     this.router.navigate(['/login']);
   }

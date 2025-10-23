@@ -30,6 +30,18 @@
     <!-- Right Side: Navigation Actions -->
     <div class="header-right">
       <div class="header-actions" role="navigation" aria-label="إجراءات التنقل">
+        @if (showHomeButton()) {
+          <button 
+            class="home-button" 
+            (click)="onHomeClick()" 
+            [attr.aria-label]="homeButtonAriaLabel()"
+            [title]="homeButtonAriaLabel()"
+            type="button">
+            <span class="home-icon" aria-hidden="true">🏠</span>
+            <span>{{ homeButtonLabel() }}</span>
+          </button>
+        }
+        
         @if (showBackButton()) {
           <button 
             class="back-button" 
@@ -39,7 +51,7 @@
             type="button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path 
-                d="M15 18L9 12L15 6" 
+                d="M9 18L15 12L9 6" 
                 stroke="currentColor" 
                 stroke-width="2" 
                 stroke-linecap="round" 
@@ -68,12 +80,12 @@
         <button 
           class="logout-button"
           (click)="onLogoutClick()"
-          aria-label="خروج من النظام وإنهاء الجلسة"
-          title="خروج من النظام"
+          aria-label="تسجيل الخروج من النظام وإنهاء الجلسة"
+          title="تسجيل الخروج"
           type="button"
         >
           <span class="logout-icon" aria-hidden="true">🚪</span>
-          <span class="logout-text">خروج من النظام</span>
+          <span class="logout-text">تسجيل الخروج</span>
         </button>
       </div>
     </div>

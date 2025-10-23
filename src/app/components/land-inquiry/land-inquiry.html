@@ -4,9 +4,11 @@
     [pageTitle]="'الاستعلام عن بيانات قطع الأراضي'"
     [pageSubtitle]="'البحث في قاعدة بيانات قطع الأراضي المخصصة للمباني التعليمية'"
     [showBackButton]="true"
+    [showHomeButton]="true"
     [backButtonLabel]="'العودة'"
     [backButtonAriaLabel]="'العودة لقائمة المبنى التعليمي'"
     (backClicked)="goBack()"
+    (homeClicked)="goHome()"
     (logoutClicked)="logout()">
   </app-header>
 

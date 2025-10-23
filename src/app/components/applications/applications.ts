@@ -132,6 +132,14 @@ export class ApplicationsComponent {
     this.router.navigate(['/applications-menu']);
   }
 
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
+  protected logout(): void {
+    this.router.navigate(['/login']);
+  }
+
   protected openApplication(app: Application): void {
     // Check if this is the educational building app
     if (app.id === 1 && app.name === 'المبنى التعليمى') {

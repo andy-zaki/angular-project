@@ -4,10 +4,12 @@
     [pageTitle]="'القائمة الرئيسية للتطبيقات'"
     [pageSubtitle]="'اختر التطبيق المطلوب من القائمة أدناه'"
     [showBackButton]="true"
+    [showHomeButton]="true"
     [backButtonLabel]="'العودة'"
     [backButtonAriaLabel]="'العودة للقائمة الرئيسية'"
     (backClicked)="goBack()"
-    (logoutClicked)="router.navigate(['/login'])">
+    (homeClicked)="goHome()"
+    (logoutClicked)="logout()">
   </app-header>
 
   <!-- Applications Grid -->

@@ -4,9 +4,11 @@
     [pageTitle]="'المبنى التعليمي'"
     [pageSubtitle]="'خدمات ومعلومات المباني التعليمية'"
     [showBackButton]="true"
+    [showHomeButton]="true"
     [backButtonLabel]="'العودة'"
     [backButtonAriaLabel]="'العودة لقائمة التطبيقات'"
     (backClicked)="goBack()"
+    (homeClicked)="goHome()"
     (logoutClicked)="logout()">
   </app-header>
 

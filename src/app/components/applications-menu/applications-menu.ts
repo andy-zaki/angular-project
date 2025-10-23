@@ -44,6 +44,10 @@ export class ApplicationsMenuComponent {
     this.router.navigate(['/dashboard']);
   }
 
+  protected goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
   protected logout(): void {
     this.router.navigate(['/login']);
   }

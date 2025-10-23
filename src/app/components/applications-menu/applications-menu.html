@@ -4,9 +4,11 @@
     [pageTitle]="'قائمة التطبيقات'"
     [pageSubtitle]="'اختر نوع التطبيق المطلوب'"
     [showBackButton]="true"
+    [showHomeButton]="true"
     [backButtonLabel]="'العودة'"
     [backButtonAriaLabel]="'العودة للقائمة الرئيسية'"
     (backClicked)="goBack()"
+    (homeClicked)="goHome()"
     (logoutClicked)="logout()">
   </app-header>
 

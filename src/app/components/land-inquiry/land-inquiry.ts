@@ -42,6 +42,11 @@ interface LandData {
   landReceiptDatabase: string;
   paidAmountsDatabase: string;
   decisionData: string;
+  landCommittees: string;
+  landFacilities: string;
+  landCoordinatesData: string;
+  educationalStudies: string;
+  landReviewCommittees: string;
 }
 
 interface BuildingLocationData {
@@ -232,7 +237,12 @@ export class LandInquiryComponent {
       landConstructionData: 'موجود',
       landReceiptDatabase: 'موجود',
       paidAmountsDatabase: 'غير موجود',
-      decisionData: 'موجود'
+      decisionData: 'موجود',
+      landCommittees: 'موجود',
+      landFacilities: 'موجود',
+      landCoordinatesData: 'موجود',
+      educationalStudies: 'غير موجود',
+      landReviewCommittees: 'موجود'
     };
 
     return mockData;

@@ -9,7 +9,7 @@
 
 <div class="container">
   <div class="stats-header">
-    <h2 class="total-count">إجمالي المباني: {{ totalCount }}</h2>
+    <h2 class="total-count">جاري الدراسة باللجنة: {{ totalCount }}</h2>
   </div>
 
   <div class="stats-grid">
@@ -47,14 +47,132 @@
     }
   </div>
 
+  <!-- تمت الدراسة باللجنة Section -->
+  <div class="section-divider"></div>
+  
+  <div class="stats-header stats-header-completed">
+    <h2 class="total-count">تمت الدراسة باللجنة: {{ completedTotalCount }}</h2>
+  </div>
+
+  <div class="stats-grid">
+    @for (stat of completedStatistics; track stat.label) {
+      <div class="stat-card" [style.border-color]="stat.color">
+        <div class="stat-header">
+          <h3 class="stat-label">{{ stat.label }}</h3>
+          <span class="stat-percentage" [style.background-color]="stat.color">{{ stat.percentage }}%</span>
+        </div>
+        
+        <!-- Three numbers display -->
+        <div class="stat-numbers-grid">
+          <div class="stat-number-item stat-closed">
+            <div class="number-label">مغلق</div>
+            <div class="number-value">{{ stat.closed }}</div>
+          </div>
+          <div class="stat-number-item stat-working">
+            <div class="number-label">تعمل</div>
+            <div class="number-value">{{ stat.working }}</div>
+          </div>
+          <div class="stat-number-item stat-total">
+            <div class="number-label">الإجمالي</div>
+            <div class="number-value">{{ stat.value }}</div>
+          </div>
+        </div>
+
+        <div class="stat-bar">
+          <div 
+            class="stat-bar-fill" 
+            [style.width.%]="stat.percentage"
+            [style.background-color]="stat.color"
+          ></div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- تم انتهاء الاجراءات Section -->
+  <div class="section-divider"></div>
+  
+  <div class="stats-header stats-header-finished">
+    <h2 class="total-count">تم انتهاء الاجراءات: {{ finishedTotalCount }}</h2>
+  </div>
+
+  <div class="stats-grid">
+    @for (stat of finishedStatistics; track stat.label) {
+      <div class="stat-card" [style.border-color]="stat.color">
+        <div class="stat-header">
+          <h3 class="stat-label">{{ stat.label }}</h3>
+          <span class="stat-percentage" [style.background-color]="stat.color">{{ stat.percentage }}%</span>
+        </div>
+        
+        <!-- Three numbers display -->
+        <div class="stat-numbers-grid">
+          <div class="stat-number-item stat-closed">
+            <div class="number-label">مغلق</div>
+            <div class="number-value">{{ stat.closed }}</div>
+          </div>
+          <div class="stat-number-item stat-working">
+            <div class="number-label">تعمل</div>
+            <div class="number-value">{{ stat.working }}</div>
+          </div>
+          <div class="stat-number-item stat-total">
+            <div class="number-label">الإجمالي</div>
+            <div class="number-value">{{ stat.value }}</div>
+          </div>
+        </div>
+
+        <div class="stat-bar">
+          <div 
+            class="stat-bar-fill" 
+            [style.width.%]="stat.percentage"
+            [style.background-color]="stat.color"
+          ></div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- لم تدرس Section -->
+  <div class="section-divider"></div>
+  
+  <div class="stats-header stats-header-not-studied">
+    <h2 class="total-count">لم تدرس: {{ notStudiedCount }}</h2>
+  </div>
+
+  <div class="empty-section">
+    <p class="empty-message">لا توجد بيانات تفصيلية متاحة لهذا القسم</p>
+  </div>
+
+  <!-- Updated Summary Section -->
+  <div class="section-divider"></div>
+  
   <div class="summary-section">
-    <h3 class="summary-title">ملخص الحالة</h3>
+    <h3 class="summary-title">ملخص شامل</h3>
     <div class="summary-content">
-      <p>
-        يوجد إجمالي <strong>{{ totalCount }}</strong> مبنى مؤجر موزع على مراحل مختلفة من دراسة الاحتياج إلى توقيع الهيئة.
-      </p>
-      <p>
-        النسبة الأعلى من المباني في مرحلة <strong>استكمال البيانات</strong> بنسبة 21%، مما يتطلب متابعة دورية لاستكمال المستندات المطلوبة.
+      <div class="summary-stats">
+        <div class="summary-stat-item">
+          <span class="summary-label">جاري الدراسة باللجنة:</span>
+          <span class="summary-value">{{ totalCount }} مبنى</span>
+        </div>
+        <div class="summary-stat-item">
+          <span class="summary-label">تمت الدراسة باللجنة:</span>
+          <span class="summary-value">{{ completedTotalCount }} مبنى</span>
+        </div>
+        <div class="summary-stat-item">
+          <span class="summary-label">تم انتهاء الاجراءات:</span>
+          <span class="summary-value">{{ finishedTotalCount }} مبنى</span>
+        </div>
+        <div class="summary-stat-item">
+          <span class="summary-label">لم تدرس:</span>
+          <span class="summary-value">{{ notStudiedCount }} مبنى</span>
+        </div>
+        <div class="summary-stat-item summary-total">
+          <span class="summary-label">الإجمالي الكلي:</span>
+          <span class="summary-value">{{ totalCount + completedTotalCount + finishedTotalCount + notStudiedCount }} مبنى</span>
+        </div>
+      </div>
+      <p class="summary-note">
+        تم توزيع المباني المؤجرة على أربعة أقسام رئيسية تمثل مراحل مختلفة من عملية الدراسة والمعالجة، 
+        مع متابعة دورية لضمان استكمال الإجراءات المطلوبة لكل مرحلة.
       </p>
     </div>
   </div>

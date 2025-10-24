@@ -19,6 +19,7 @@ export class BuildingDisplacementPostComponent {
   protected submitStatus = signal<'idle' | 'success' | 'error'>('idle');
   protected showFinalCompensationModal = signal<boolean>(false);
   protected finalCompensationForm: FormGroup;
+  protected finalCompensationList = signal<Array<{checkNumber: string, value: number, date: string}>>([]);
 
   protected options = [
     { id: 1, title: 'التعويض النهائي', icon: '💰' },
@@ -108,13 +109,17 @@ export class BuildingDisplacementPostComponent {
 
   protected submitFinalCompensation(): void {
     if (this.finalCompensationForm.valid) {
-      console.log('Final Compensation Data:', this.finalCompensationForm.value);
-      this.closeFinalCompensationModal();
-      this.submitStatus.set('success');
-      setTimeout(() => this.submitStatus.set('idle'), 2000);
+      const newCompensation = this.finalCompensationForm.value;
+      this.finalCompensationList.update(list => [...list, newCompensation]);
+      this.finalCompensationForm.reset();
+      console.log('Final Compensation List:', this.finalCompensationList());
     } else {
       this.markFormGroupTouched(this.finalCompensationForm);
     }
+  }
+
+  protected deleteFinalCompensation(index: number): void {
+    this.finalCompensationList.update(list => list.filter((_, i) => i !== index));
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {

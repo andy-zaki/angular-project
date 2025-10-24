@@ -250,63 +250,114 @@
   <!-- Final Compensation Modal -->
   @if (showFinalCompensationModal()) {
     <div class="modal-overlay" (click)="closeFinalCompensationModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
         <div class="modal-header">
           <h2>التعويض النهائي</h2>
           <button class="modal-close" (click)="closeFinalCompensationModal()">×</button>
         </div>
 
-        <form [formGroup]="finalCompensationForm" (ngSubmit)="submitFinalCompensation()">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="checkNumber">رقم الشيك <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="checkNumber" 
-                formControlName="checkNumber"
-                [class.error]="finalCompensationForm.get('checkNumber')?.invalid && finalCompensationForm.get('checkNumber')?.touched"
-              />
-              @if (finalCompensationForm.get('checkNumber')?.invalid && finalCompensationForm.get('checkNumber')?.touched) {
-                <span class="error-message">رقم الشيك مطلوب</span>
-              }
-            </div>
+        <div class="modal-body">
+          <!-- Add Form -->
+          <form [formGroup]="finalCompensationForm" (ngSubmit)="submitFinalCompensation()">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkNumber">رقم الشيك <span class="required">*</span></label>
+                <input 
+                  type="text" 
+                  id="checkNumber" 
+                  formControlName="checkNumber"
+                  [class.error]="finalCompensationForm.get('checkNumber')?.invalid && finalCompensationForm.get('checkNumber')?.touched"
+                />
+                @if (finalCompensationForm.get('checkNumber')?.invalid && finalCompensationForm.get('checkNumber')?.touched) {
+                  <span class="error-message">رقم الشيك مطلوب</span>
+                }
+              </div>
 
-            <div class="form-group">
-              <label for="value">القيمة <span class="required">*</span></label>
-              <input 
-                type="number" 
-                id="value" 
-                formControlName="value"
-                [class.error]="finalCompensationForm.get('value')?.invalid && finalCompensationForm.get('value')?.touched"
-              />
-              @if (finalCompensationForm.get('value')?.invalid && finalCompensationForm.get('value')?.touched) {
-                <span class="error-message">القيمة مطلوبة</span>
-              }
-            </div>
+              <div class="form-group">
+                <label for="value">القيمة <span class="required">*</span></label>
+                <input 
+                  type="number" 
+                  id="value" 
+                  formControlName="value"
+                  [class.error]="finalCompensationForm.get('value')?.invalid && finalCompensationForm.get('value')?.touched"
+                />
+                @if (finalCompensationForm.get('value')?.invalid && finalCompensationForm.get('value')?.touched) {
+                  <span class="error-message">القيمة مطلوبة</span>
+                }
+              </div>
 
-            <div class="form-group">
-              <label for="date">التاريخ <span class="required">*</span></label>
-              <input 
-                type="date" 
-                id="date" 
-                formControlName="date"
-                [class.error]="finalCompensationForm.get('date')?.invalid && finalCompensationForm.get('date')?.touched"
-              />
-              @if (finalCompensationForm.get('date')?.invalid && finalCompensationForm.get('date')?.touched) {
-                <span class="error-message">التاريخ مطلوب</span>
-              }
-            </div>
-          </div>
+              <div class="form-group">
+                <label for="date">التاريخ <span class="required">*</span></label>
+                <input 
+                  type="date" 
+                  id="date" 
+                  formControlName="date"
+                  [class.error]="finalCompensationForm.get('date')?.invalid && finalCompensationForm.get('date')?.touched"
+                />
+                @if (finalCompensationForm.get('date')?.invalid && finalCompensationForm.get('date')?.touched) {
+                  <span class="error-message">التاريخ مطلوب</span>
+                }
+              </div>
 
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">
-              حفظ التعويض
-            </button>
-            <button type="button" class="btn btn-tertiary" (click)="closeFinalCompensationModal()">
-              إلغاء
-            </button>
-          </div>
-        </form>
+              <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-add">
+                  + إضافة
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Table -->
+          @if (finalCompensationList().length > 0) {
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>رقم الشيك</th>
+                    <th>القيمة</th>
+                    <th>التاريخ</th>
+                    <th>حذف</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of finalCompensationList(); track $index) {
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ item.checkNumber }}</td>
+                      <td>{{ item.value }}</td>
+                      <td>{{ item.date }}</td>
+                      <td>
+                        <button 
+                          type="button" 
+                          class="btn-delete" 
+                          (click)="deleteFinalCompensation($index)"
+                          title="حذف"
+                        >
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="empty-state">
+              <p>لا توجد بيانات. قم بإضافة تعويض جديد.</p>
+            </div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeFinalCompensationModal()">
+            حفظ وإغلاق
+          </button>
+          <button type="button" class="btn btn-tertiary" (click)="closeFinalCompensationModal()">
+            إلغاء
+          </button>
+        </div>
       </div>
     </div>
   }

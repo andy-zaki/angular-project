@@ -17,6 +17,8 @@ export class BuildingDisplacementPostComponent {
 
   protected displacementPostForm: FormGroup;
   protected submitStatus = signal<'idle' | 'success' | 'error'>('idle');
+  protected showFinalCompensationModal = signal<boolean>(false);
+  protected finalCompensationForm: FormGroup;
 
   protected options = [
     { id: 1, title: 'التعويض النهائي', icon: '💰' },
@@ -50,6 +52,12 @@ export class BuildingDisplacementPostComponent {
 
       // Sale Forms
       formsCount: ['', [Validators.required, Validators.min(0)]]
+    });
+
+    this.finalCompensationForm = this.fb.group({
+      checkNumber: ['', Validators.required],
+      value: ['', [Validators.required, Validators.min(0)]],
+      date: ['', Validators.required]
     });
   }
 
@@ -87,7 +95,26 @@ export class BuildingDisplacementPostComponent {
 
   protected selectOption(optionId: number): void {
     console.log('Selected option:', optionId);
+    if (optionId === 1) {
+      this.showFinalCompensationModal.set(true);
+    }
     // Add navigation or action logic here based on optionId
+  }
+
+  protected closeFinalCompensationModal(): void {
+    this.showFinalCompensationModal.set(false);
+    this.finalCompensationForm.reset();
+  }
+
+  protected submitFinalCompensation(): void {
+    if (this.finalCompensationForm.valid) {
+      console.log('Final Compensation Data:', this.finalCompensationForm.value);
+      this.closeFinalCompensationModal();
+      this.submitStatus.set('success');
+      setTimeout(() => this.submitStatus.set('idle'), 2000);
+    } else {
+      this.markFormGroupTouched(this.finalCompensationForm);
+    }
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {

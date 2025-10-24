@@ -92,7 +92,7 @@
               formControlName="usageStatus"
               [class.error]="displacementForm.get('usageStatus')?.invalid && displacementForm.get('usageStatus')?.touched"
             >
-              <option value="">اختر موقف الاستخدام</option>
+              <option value="" disabled>اختر موقف الاستخدام</option>
               <option value="used">مستخدم</option>
               <option value="unused">غير مستخدم</option>
               <option value="partial">مستخدم جزئياً</option>
@@ -280,6 +280,9 @@
         <button type="submit" class="btn btn-primary">
           حفظ البيانات
         </button>
+        <button type="button" class="btn btn-council" (click)="openCouncilApprovalModal()">
+          موافقة المجلس الشعبي
+        </button>
         <button type="button" class="btn btn-secondary" (click)="onReset()">
           مسح النموذج
         </button>
@@ -289,4 +292,102 @@
       </div>
     </form>
   </div>
+
+  <!-- Council Approval Modal -->
+  @if (showCouncilApprovalModal()) {
+    <div class="modal-overlay" (click)="closeCouncilApprovalModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>موافقة المجلس الشعبي</h2>
+          <button class="modal-close" (click)="closeCouncilApprovalModal()">×</button>
+        </div>
+
+        <form [formGroup]="councilApprovalForm" (ngSubmit)="submitCouncilApproval()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="schoolNumber">رقم المدرسة <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="schoolNumber" 
+                formControlName="schoolNumber"
+                [class.error]="councilApprovalForm.get('schoolNumber')?.invalid && councilApprovalForm.get('schoolNumber')?.touched"
+              />
+              @if (councilApprovalForm.get('schoolNumber')?.invalid && councilApprovalForm.get('schoolNumber')?.touched) {
+                <span class="error-message">رقم المدرسة مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="schoolName">اسم المدرسة <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="schoolName" 
+                formControlName="schoolName"
+                [class.error]="councilApprovalForm.get('schoolName')?.invalid && councilApprovalForm.get('schoolName')?.touched"
+              />
+              @if (councilApprovalForm.get('schoolName')?.invalid && councilApprovalForm.get('schoolName')?.touched) {
+                <span class="error-message">اسم المدرسة مطلوب</span>
+              }
+            </div>
+
+            <div class="modal-section">
+              <h3 class="modal-section-title">موافقة المجلس الشعبي</h3>
+              
+              <div class="form-group">
+                <label for="approval">الموافقة <span class="required">*</span></label>
+                <select 
+                  id="approval" 
+                  formControlName="approval"
+                  [class.error]="councilApprovalForm.get('approval')?.invalid && councilApprovalForm.get('approval')?.touched"
+                >
+                  <option value="" disabled>اختر الموافقة</option>
+                  <option value="approved">موافق</option>
+                  <option value="pending">قيد المراجعة</option>
+                  <option value="rejected">مرفوض</option>
+                </select>
+                @if (councilApprovalForm.get('approval')?.invalid && councilApprovalForm.get('approval')?.touched) {
+                  <span class="error-message">الموافقة مطلوبة</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="approvalNumber">الرقم <span class="required">*</span></label>
+                <input 
+                  type="text" 
+                  id="approvalNumber" 
+                  formControlName="approvalNumber"
+                  [class.error]="councilApprovalForm.get('approvalNumber')?.invalid && councilApprovalForm.get('approvalNumber')?.touched"
+                />
+                @if (councilApprovalForm.get('approvalNumber')?.invalid && councilApprovalForm.get('approvalNumber')?.touched) {
+                  <span class="error-message">الرقم مطلوب</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="approvalDate">التاريخ <span class="required">*</span></label>
+                <input 
+                  type="date" 
+                  id="approvalDate" 
+                  formControlName="approvalDate"
+                  [class.error]="councilApprovalForm.get('approvalDate')?.invalid && councilApprovalForm.get('approvalDate')?.touched"
+                />
+                @if (councilApprovalForm.get('approvalDate')?.invalid && councilApprovalForm.get('approvalDate')?.touched) {
+                  <span class="error-message">التاريخ مطلوب</span>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">
+              حفظ الموافقة
+            </button>
+            <button type="button" class="btn btn-tertiary" (click)="closeCouncilApprovalModal()">
+              إلغاء
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
 </div>

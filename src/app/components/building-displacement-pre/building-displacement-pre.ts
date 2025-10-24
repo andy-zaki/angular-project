@@ -17,6 +17,8 @@ export class BuildingDisplacementPreComponent {
 
   protected displacementForm: FormGroup;
   protected submitStatus = signal<'idle' | 'success' | 'error'>('idle');
+  protected showCouncilApprovalModal = signal<boolean>(false);
+  protected councilApprovalForm: FormGroup;
 
   constructor() {
     this.displacementForm = this.fb.group({
@@ -50,6 +52,14 @@ export class BuildingDisplacementPreComponent {
       checkNumber: [''],
       compensationDate: ['']
     });
+
+    this.councilApprovalForm = this.fb.group({
+      schoolNumber: ['', Validators.required],
+      schoolName: ['', Validators.required],
+      approval: ['', Validators.required],
+      approvalNumber: ['', Validators.required],
+      approvalDate: ['', Validators.required]
+    });
   }
 
   protected navigateBack(): void {
@@ -82,6 +92,26 @@ export class BuildingDisplacementPreComponent {
   protected onReset(): void {
     this.displacementForm.reset();
     this.submitStatus.set('idle');
+  }
+
+  protected openCouncilApprovalModal(): void {
+    this.showCouncilApprovalModal.set(true);
+  }
+
+  protected closeCouncilApprovalModal(): void {
+    this.showCouncilApprovalModal.set(false);
+    this.councilApprovalForm.reset();
+  }
+
+  protected submitCouncilApproval(): void {
+    if (this.councilApprovalForm.valid) {
+      console.log('Council Approval Data:', this.councilApprovalForm.value);
+      this.closeCouncilApprovalModal();
+      this.submitStatus.set('success');
+      setTimeout(() => this.submitStatus.set('idle'), 2000);
+    } else {
+      this.markFormGroupTouched(this.councilApprovalForm);
+    }
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {

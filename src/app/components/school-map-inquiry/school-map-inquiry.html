@@ -12,16 +12,221 @@
     <h1>الاستعلام عن بيانات الخريطة المدرسية</h1>
     <p class="subtitle">جميع بيانات المدرسة والمباني</p>
 
-    <div class="options-grid">
-      <div
-        *ngFor="let option of mapOptions"
-        (click)="navigateToOption(option.route)"
-        class="option-card"
-      >
-        <div class="option-icon">{{ option.icon }}</div>
-        <h3>{{ option.title }}</h3>
-        <p>{{ option.description }}</p>
-        <span class="arrow">→</span>
+    <!-- Search Form -->
+    <div class="form-wrapper">
+      <form [formGroup]="inquiryForm" (ngSubmit)="onSearch()">
+        <!-- Basic Location -->
+        <div class="form-section">
+          <h3 class="section-title">الموقع</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="governorate">المحافظة <span class="required">*</span></label>
+              <select id="governorate" formControlName="governorate"
+                [class.error]="inquiryForm.get('governorate')?.invalid && inquiryForm.get('governorate')?.touched">
+                <option value="" disabled>اختر المحافظة</option>
+                <option value="cairo">القاهرة</option>
+                <option value="giza">الجيزة</option>
+                <option value="alex">الإسكندرية</option>
+              </select>
+              @if (inquiryForm.get('governorate')?.invalid && inquiryForm.get('governorate')?.touched) {
+                <span class="error-message">المحافظة مطلوبة</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="regionalCenter">المركز الإقليمي <span class="required">*</span></label>
+              <input type="text" id="regionalCenter" formControlName="regionalCenter"
+                [class.error]="inquiryForm.get('regionalCenter')?.invalid && inquiryForm.get('regionalCenter')?.touched" />
+              @if (inquiryForm.get('regionalCenter')?.invalid && inquiryForm.get('regionalCenter')?.touched) {
+                <span class="error-message">المركز الإقليمي مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="educationalAdministration">الإدارة التعليمية <span class="required">*</span></label>
+              <input type="text" id="educationalAdministration" formControlName="educationalAdministration"
+                [class.error]="inquiryForm.get('educationalAdministration')?.invalid && inquiryForm.get('educationalAdministration')?.touched" />
+              @if (inquiryForm.get('educationalAdministration')?.invalid && inquiryForm.get('educationalAdministration')?.touched) {
+                <span class="error-message">الإدارة التعليمية مطلوبة</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="district">القسم/المركز <span class="required">*</span></label>
+              <input type="text" id="district" formControlName="district"
+                [class.error]="inquiryForm.get('district')?.invalid && inquiryForm.get('district')?.touched" />
+              @if (inquiryForm.get('district')?.invalid && inquiryForm.get('district')?.touched) {
+                <span class="error-message">القسم/المركز مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="neighborhood">الحي/القرية <span class="required">*</span></label>
+              <input type="text" id="neighborhood" formControlName="neighborhood"
+                [class.error]="inquiryForm.get('neighborhood')?.invalid && inquiryForm.get('neighborhood')?.touched" />
+              @if (inquiryForm.get('neighborhood')?.invalid && inquiryForm.get('neighborhood')?.touched) {
+                <span class="error-message">الحي/القرية مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="villageAffiliate">تابع القرية</label>
+              <input type="text" id="villageAffiliate" formControlName="villageAffiliate" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Characteristics -->
+        <div class="form-section">
+          <h3 class="section-title">السمات</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="stage">المرحلة <span class="required">*</span></label>
+              <select id="stage" formControlName="stage"
+                [class.error]="inquiryForm.get('stage')?.invalid && inquiryForm.get('stage')?.touched">
+                <option value="" disabled>اختر المرحلة</option>
+                <option value="primary">ابتدائي</option>
+                <option value="preparatory">إعدادي</option>
+                <option value="secondary">ثانوي</option>
+              </select>
+              @if (inquiryForm.get('stage')?.invalid && inquiryForm.get('stage')?.touched) {
+                <span class="error-message">المرحلة مطلوبة</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="affiliation">التبعية <span class="required">*</span></label>
+              <select id="affiliation" formControlName="affiliation"
+                [class.error]="inquiryForm.get('affiliation')?.invalid && inquiryForm.get('affiliation')?.touched">
+                <option value="" disabled>اختر التبعية</option>
+                <option value="government">حكومي</option>
+                <option value="private">خاص</option>
+              </select>
+              @if (inquiryForm.get('affiliation')?.invalid && inquiryForm.get('affiliation')?.touched) {
+                <span class="error-message">التبعية مطلوبة</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="educationType">نوعية التعليم <span class="required">*</span></label>
+              <select id="educationType" formControlName="educationType"
+                [class.error]="inquiryForm.get('educationType')?.invalid && inquiryForm.get('educationType')?.touched">
+                <option value="" disabled>اختر نوعية التعليم</option>
+                <option value="general">عام</option>
+                <option value="technical">فني</option>
+              </select>
+              @if (inquiryForm.get('educationType')?.invalid && inquiryForm.get('educationType')?.touched) {
+                <span class="error-message">نوعية التعليم مطلوبة</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="studentType">نوع التلاميذ <span class="required">*</span></label>
+              <select id="studentType" formControlName="studentType"
+                [class.error]="inquiryForm.get('studentType')?.invalid && inquiryForm.get('studentType')?.touched">
+                <option value="" disabled>اختر نوع التلاميذ</option>
+                <option value="boys">بنين</option>
+                <option value="girls">بنات</option>
+                <option value="mixed">مشترك</option>
+              </select>
+              @if (inquiryForm.get('studentType')?.invalid && inquiryForm.get('studentType')?.touched) {
+                <span class="error-message">نوع التلاميذ مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="landOwnership">ملكية الأرض <span class="required">*</span></label>
+              <select id="landOwnership" formControlName="landOwnership"
+                [class.error]="inquiryForm.get('landOwnership')?.invalid && inquiryForm.get('landOwnership')?.touched">
+                <option value="" disabled>اختر ملكية الأرض</option>
+                <option value="government">حكومي</option>
+                <option value="private">خاص</option>
+                <option value="rental">إيجار</option>
+              </select>
+              @if (inquiryForm.get('landOwnership')?.invalid && inquiryForm.get('landOwnership')?.touched) {
+                <span class="error-message">ملكية الأرض مطلوبة</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="buildingOwnership">ملكية المبنى <span class="required">*</span></label>
+              <select id="buildingOwnership" formControlName="buildingOwnership"
+                [class.error]="inquiryForm.get('buildingOwnership')?.invalid && inquiryForm.get('buildingOwnership')?.touched">
+                <option value="" disabled>اختر ملكية المبنى</option>
+                <option value="government">حكومي</option>
+                <option value="private">خاص</option>
+                <option value="rental">إيجار</option>
+              </select>
+              @if (inquiryForm.get('buildingOwnership')?.invalid && inquiryForm.get('buildingOwnership')?.touched) {
+                <span class="error-message">ملكية المبنى مطلوبة</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="usageStatus">موقف الاستخدام <span class="required">*</span></label>
+              <select id="usageStatus" formControlName="usageStatus"
+                [class.error]="inquiryForm.get('usageStatus')?.invalid && inquiryForm.get('usageStatus')?.touched">
+                <option value="" disabled>اختر موقف الاستخدام</option>
+                <option value="active">قيد الاستخدام</option>
+                <option value="inactive">غير مستخدم</option>
+              </select>
+              @if (inquiryForm.get('usageStatus')?.invalid && inquiryForm.get('usageStatus')?.touched) {
+                <span class="error-message">موقف الاستخدام مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="buildingName">اسم المبنى <span class="required">*</span></label>
+              <input type="text" id="buildingName" formControlName="buildingName"
+                [class.error]="inquiryForm.get('buildingName')?.invalid && inquiryForm.get('buildingName')?.touched" />
+              @if (inquiryForm.get('buildingName')?.invalid && inquiryForm.get('buildingName')?.touched) {
+                <span class="error-message">اسم المبنى مطلوب</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="buildingNumber">رقم المبنى <span class="required">*</span></label>
+              <input type="text" id="buildingNumber" formControlName="buildingNumber"
+                [class.error]="inquiryForm.get('buildingNumber')?.invalid && inquiryForm.get('buildingNumber')?.touched" />
+              @if (inquiryForm.get('buildingNumber')?.invalid && inquiryForm.get('buildingNumber')?.touched) {
+                <span class="error-message">رقم المبنى مطلوب</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <span>🔍</span>
+            بحث
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="onReset()">
+            <span>🔄</span>
+            إعادة تعيين
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Options Cards -->
+    <div class="options-section">
+      <h2 class="options-title">خيارات البيانات</h2>
+      <div class="options-grid">
+        @for (option of mapOptions; track option.id) {
+          <div (click)="navigateToOption(option.route)" class="option-card">
+            <div class="option-icon">{{ option.icon }}</div>
+            <h3>{{ option.title }}</h3>
+            <p>{{ option.description }}</p>
+            <span class="arrow">→</span>
+          </div>
+        }
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 
 interface MapOption {
@@ -15,10 +16,13 @@ interface MapOption {
   selector: 'app-school-map-inquiry',
   templateUrl: './school-map-inquiry.html',
   styleUrl: './school-map-inquiry.css',
-  imports: [CommonModule, HeaderComponent]
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent]
 })
 export class SchoolMapInquiryComponent {
   private router = inject(Router);
+  private fb = inject(FormBuilder);
+
+  inquiryForm!: FormGroup;
 
   mapOptions: MapOption[] = [
     {
@@ -50,6 +54,48 @@ export class SchoolMapInquiryComponent {
       route: '/school-map-spaces'
     }
   ];
+
+  constructor() {
+    this.inquiryForm = this.fb.group({
+      governorate: ['', Validators.required],
+      regionalCenter: ['', Validators.required],
+      educationalAdministration: ['', Validators.required],
+      district: ['', Validators.required],
+      neighborhood: ['', Validators.required],
+      villageAffiliate: [''],
+      
+      // Characteristics
+      stage: ['', Validators.required],
+      affiliation: ['', Validators.required],
+      educationType: ['', Validators.required],
+      studentType: ['', Validators.required],
+      landOwnership: ['', Validators.required],
+      buildingOwnership: ['', Validators.required],
+      usageStatus: ['', Validators.required],
+      buildingName: ['', Validators.required],
+      buildingNumber: ['', Validators.required]
+    });
+  }
+
+  onSearch() {
+    if (this.inquiryForm.valid) {
+      console.log('Search Data:', this.inquiryForm.value);
+      // Perform search logic here
+    } else {
+      this.markFormGroupTouched(this.inquiryForm);
+    }
+  }
+
+  onReset() {
+    this.inquiryForm.reset();
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
 
   navigateToOption(route: string) {
     this.router.navigate([route]);

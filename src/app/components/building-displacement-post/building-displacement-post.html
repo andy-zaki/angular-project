@@ -8,15 +8,241 @@
 ></app-header>
 
 <div class="container">
-  <div class="page-content">
-    <h1>إدخال بيانات نزع الملكية</h1>
-    <p class="subtitle">بعد قرار رئيس الوزراء</p>
+  <div class="form-wrapper">
+    <div class="page-header">
+      <h1>إدخال بيانات نزع الملكية بعد قرار رئيس الوزراء</h1>
+    </div>
 
-    <div class="options-grid">
-      <div *ngFor="let option of options" (click)="selectOption(option.id)" class="option-card">
-        <div class="option-icon">{{ option.icon }}</div>
-        <h3>{{ option.title }}</h3>
-        <span class="arrow">→</span>
+    <form [formGroup]="displacementPostForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Basic Information Section -->
+      <div class="form-section">
+        <h2 class="section-title">البيانات الأساسية</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="branchCode">كود الفرع <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="branchCode" 
+              formControlName="branchCode"
+              [class.error]="displacementPostForm.get('branchCode')?.invalid && displacementPostForm.get('branchCode')?.touched"
+            />
+            @if (displacementPostForm.get('branchCode')?.invalid && displacementPostForm.get('branchCode')?.touched) {
+              <span class="error-message">كود الفرع مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="rentedBuildingCode">كود المبنى المؤجر <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="rentedBuildingCode" 
+              formControlName="rentedBuildingCode"
+              [class.error]="displacementPostForm.get('rentedBuildingCode')?.invalid && displacementPostForm.get('rentedBuildingCode')?.touched"
+            />
+            @if (displacementPostForm.get('rentedBuildingCode')?.invalid && displacementPostForm.get('rentedBuildingCode')?.touched) {
+              <span class="error-message">كود المبنى المؤجر مطلوب</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabinet Decision Section -->
+      <div class="form-section">
+        <h2 class="section-title">قرار مجلس الوزراء</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cabinetDecisionNumber">رقم القرار <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="cabinetDecisionNumber" 
+              formControlName="cabinetDecisionNumber"
+              [class.error]="displacementPostForm.get('cabinetDecisionNumber')?.invalid && displacementPostForm.get('cabinetDecisionNumber')?.touched"
+            />
+            @if (displacementPostForm.get('cabinetDecisionNumber')?.invalid && displacementPostForm.get('cabinetDecisionNumber')?.touched) {
+              <span class="error-message">رقم القرار مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="cabinetDecisionDate">تاريخ القرار <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="cabinetDecisionDate" 
+              formControlName="cabinetDecisionDate"
+              [class.error]="displacementPostForm.get('cabinetDecisionDate')?.invalid && displacementPostForm.get('cabinetDecisionDate')?.touched"
+            />
+            @if (displacementPostForm.get('cabinetDecisionDate')?.invalid && displacementPostForm.get('cabinetDecisionDate')?.touched) {
+              <span class="error-message">تاريخ القرار مطلوب</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Official Gazette Publication Section -->
+      <div class="form-section">
+        <h2 class="section-title">النشر في جريدة رسمية</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="publicationCount">عدد النشر <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="publicationCount" 
+              formControlName="publicationCount"
+              [class.error]="displacementPostForm.get('publicationCount')?.invalid && displacementPostForm.get('publicationCount')?.touched"
+            />
+            @if (displacementPostForm.get('publicationCount')?.invalid && displacementPostForm.get('publicationCount')?.touched) {
+              <span class="error-message">عدد النشر مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="publicationDate">تاريخ النشر <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="publicationDate" 
+              formControlName="publicationDate"
+              [class.error]="displacementPostForm.get('publicationDate')?.invalid && displacementPostForm.get('publicationDate')?.touched"
+            />
+            @if (displacementPostForm.get('publicationDate')?.invalid && displacementPostForm.get('publicationDate')?.touched) {
+              <span class="error-message">تاريخ النشر مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="educationProject">مشروع تربية وتعليم <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="educationProject" 
+              formControlName="educationProject"
+              [class.error]="displacementPostForm.get('educationProject')?.invalid && displacementPostForm.get('educationProject')?.touched"
+            />
+            @if (displacementPostForm.get('educationProject')?.invalid && displacementPostForm.get('educationProject')?.touched) {
+              <span class="error-message">مشروع تربية وتعليم مطلوب</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Display Lists Section -->
+      <div class="form-section">
+        <h2 class="section-title">كشوف العرض</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ownersCount">عدد الملاك <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="ownersCount" 
+              formControlName="ownersCount"
+              [class.error]="displacementPostForm.get('ownersCount')?.invalid && displacementPostForm.get('ownersCount')?.touched"
+            />
+            @if (displacementPostForm.get('ownersCount')?.invalid && displacementPostForm.get('ownersCount')?.touched) {
+              <span class="error-message">عدد الملاك مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="pricePerMeter">سعر المتر <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="pricePerMeter" 
+              formControlName="pricePerMeter"
+              [class.error]="displacementPostForm.get('pricePerMeter')?.invalid && displacementPostForm.get('pricePerMeter')?.touched"
+            />
+            @if (displacementPostForm.get('pricePerMeter')?.invalid && displacementPostForm.get('pricePerMeter')?.touched) {
+              <span class="error-message">سعر المتر مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="dateFrom">تاريخ من <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="dateFrom" 
+              formControlName="dateFrom"
+              [class.error]="displacementPostForm.get('dateFrom')?.invalid && displacementPostForm.get('dateFrom')?.touched"
+            />
+            @if (displacementPostForm.get('dateFrom')?.invalid && displacementPostForm.get('dateFrom')?.touched) {
+              <span class="error-message">تاريخ من مطلوب</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="dateTo">تاريخ إلى <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="dateTo" 
+              formControlName="dateTo"
+              [class.error]="displacementPostForm.get('dateTo')?.invalid && displacementPostForm.get('dateTo')?.touched"
+            />
+            @if (displacementPostForm.get('dateTo')?.invalid && displacementPostForm.get('dateTo')?.touched) {
+              <span class="error-message">تاريخ إلى مطلوب</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Sale Forms Section -->
+      <div class="form-section">
+        <h2 class="section-title">استمارات البيع</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="formsCount">عدد الاستمارات <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="formsCount" 
+              formControlName="formsCount"
+              [class.error]="displacementPostForm.get('formsCount')?.invalid && displacementPostForm.get('formsCount')?.touched"
+            />
+            @if (displacementPostForm.get('formsCount')?.invalid && displacementPostForm.get('formsCount')?.touched) {
+              <span class="error-message">عدد الاستمارات مطلوب</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Messages -->
+      @if (submitStatus() === 'success') {
+        <div class="status-message success">
+          ✓ تم حفظ البيانات بنجاح
+        </div>
+      }
+      @if (submitStatus() === 'error') {
+        <div class="status-message error">
+          ✗ يرجى ملء جميع الحقول المطلوبة
+        </div>
+      }
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          حفظ البيانات
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="onReset()">
+          مسح النموذج
+        </button>
+        <button type="button" class="btn btn-tertiary" (click)="navigateBack()">
+          رجوع
+        </button>
+      </div>
+    </form>
+
+    <!-- Options Cards Section -->
+    <div class="cards-section">
+      <h2 class="cards-title">الخيارات الإضافية</h2>
+      <div class="options-grid">
+        @for (option of options; track option.id) {
+          <div class="option-card" (click)="selectOption(option.id)">
+            <div class="option-icon">{{ option.icon }}</div>
+            <h3>{{ option.title }}</h3>
+            <span class="arrow">→</span>
+          </div>
+        }
       </div>
     </div>
   </div>

@@ -8,78 +8,283 @@
 ></app-header>
 
 <div class="container">
-  <div class="page-content">
-    <h1>إدخال بيانات نزع الملكية</h1>
-    <p class="subtitle">قبل قرار رئيس الوزراء</p>
-
-    <form (ngSubmit)="submitForm()" class="displacement-form">
+  <div class="form-wrapper">
+    <form [formGroup]="displacementForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Basic Information Section -->
       <div class="form-section">
-        <h3>بيانات الممتلكات (Property Data)</h3>
+        <h2 class="section-title">البيانات الأساسية</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="branchCode">كود الفرع <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="branchCode" 
+              formControlName="branchCode"
+              [class.error]="displacementForm.get('branchCode')?.invalid && displacementForm.get('branchCode')?.touched"
+            />
+            @if (displacementForm.get('branchCode')?.invalid && displacementForm.get('branchCode')?.touched) {
+              <span class="error-message">كود الفرع مطلوب</span>
+            }
+          </div>
 
-        <div class="form-group">
-          <label for="govNumber">الرقم الحكومي (Government Number):</label>
-          <input
-            type="text"
-            id="govNumber"
-            [(ngModel)]="formData.governmentNumber"
-            name="governmentNumber"
-            placeholder="أدخل الرقم الحكومي"
-            class="form-input"
-            required
-          />
+          <div class="form-group">
+            <label for="rentedBuildingCode">كود المبنى المؤجر <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="rentedBuildingCode" 
+              formControlName="rentedBuildingCode"
+              [class.error]="displacementForm.get('rentedBuildingCode')?.invalid && displacementForm.get('rentedBuildingCode')?.touched"
+            />
+            @if (displacementForm.get('rentedBuildingCode')?.invalid && displacementForm.get('rentedBuildingCode')?.touched) {
+              <span class="error-message">كود المبنى المؤجر مطلوب</span>
+            }
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="owner">اسم المالك (Property Owner):</label>
-          <input
-            type="text"
-            id="owner"
-            [(ngModel)]="formData.propertyOwner"
-            name="propertyOwner"
-            placeholder="أدخل اسم المالك"
-            class="form-input"
-          />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="area">المساحة <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="area" 
+              formControlName="area"
+              [class.error]="displacementForm.get('area')?.invalid && displacementForm.get('area')?.touched"
+            />
+            @if (displacementForm.get('area')?.invalid && displacementForm.get('area')?.touched) {
+              <span class="error-message">المساحة مطلوبة</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="areaBeforeOrganization">المساحة قبل التنظيم <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="areaBeforeOrganization" 
+              formControlName="areaBeforeOrganization"
+              [class.error]="displacementForm.get('areaBeforeOrganization')?.invalid && displacementForm.get('areaBeforeOrganization')?.touched"
+            />
+            @if (displacementForm.get('areaBeforeOrganization')?.invalid && displacementForm.get('areaBeforeOrganization')?.touched) {
+              <span class="error-message">المساحة قبل التنظيم مطلوبة</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="areaAfterOrganization">المساحة بعد التنظيم <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="areaAfterOrganization" 
+              formControlName="areaAfterOrganization"
+              [class.error]="displacementForm.get('areaAfterOrganization')?.invalid && displacementForm.get('areaAfterOrganization')?.touched"
+            />
+            @if (displacementForm.get('areaAfterOrganization')?.invalid && displacementForm.get('areaAfterOrganization')?.touched) {
+              <span class="error-message">المساحة بعد التنظيم مطلوبة</span>
+            }
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="area">إجمالي المساحة (Total Area):</label>
-          <input
-            type="number"
-            id="area"
-            [(ngModel)]="formData.totalArea"
-            name="totalArea"
-            placeholder="أدخل المساحة بالمتر المربع"
-            class="form-input"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="reason">سبب نزع الملكية (Reason):</label>
-          <textarea
-            id="reason"
-            [(ngModel)]="formData.reason"
-            name="reason"
-            placeholder="أدخل السبب"
-            class="form-input"
-            rows="4"
-          ></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="date">تاريخ الاقتراح (Proposal Date):</label>
-          <input
-            type="date"
-            id="date"
-            [(ngModel)]="formData.proposalDate"
-            name="proposalDate"
-            class="form-input"
-          />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="usageStatus">موقف الاستخدام <span class="required">*</span></label>
+            <select 
+              id="usageStatus" 
+              formControlName="usageStatus"
+              [class.error]="displacementForm.get('usageStatus')?.invalid && displacementForm.get('usageStatus')?.touched"
+            >
+              <option value="">اختر موقف الاستخدام</option>
+              <option value="used">مستخدم</option>
+              <option value="unused">غير مستخدم</option>
+              <option value="partial">مستخدم جزئياً</option>
+            </select>
+            @if (displacementForm.get('usageStatus')?.invalid && displacementForm.get('usageStatus')?.touched) {
+              <span class="error-message">موقف الاستخدام مطلوب</span>
+            }
+          </div>
         </div>
       </div>
 
+      <!-- Estimated Price Section -->
+      <div class="form-section">
+        <h2 class="section-title">السعر التقديري</h2>
+        
+        <!-- Area Consultant Report -->
+        <div class="subsection">
+          <h3 class="subsection-title">تقرير استشاري المساحة</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="consultantReportDate">التاريخ</label>
+              <input 
+                type="date" 
+                id="consultantReportDate" 
+                formControlName="consultantReportDate"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="consultantLandPricePerMeter">سعر المتر للأرض</label>
+              <input 
+                type="number" 
+                id="consultantLandPricePerMeter" 
+                formControlName="consultantLandPricePerMeter"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="consultantBuildingPrice">سعر المبنى</label>
+              <input 
+                type="number" 
+                id="consultantBuildingPrice" 
+                formControlName="consultantBuildingPrice"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="consultantTotal">الإجمالي</label>
+              <input 
+                type="number" 
+                id="consultantTotal" 
+                formControlName="consultantTotal"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparative Contracts -->
+        <div class="subsection">
+          <h3 class="subsection-title">عقود المثل</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="comparativeContractId">الرقم التعريفي</label>
+              <input 
+                type="text" 
+                id="comparativeContractId" 
+                formControlName="comparativeContractId"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="realEstateRegistryNumber">رقم الشهر العقاري</label>
+              <input 
+                type="text" 
+                id="realEstateRegistryNumber" 
+                formControlName="realEstateRegistryNumber"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="comparativeContractDate">التاريخ</label>
+              <input 
+                type="date" 
+                id="comparativeContractDate" 
+                formControlName="comparativeContractDate"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="comparativeLandPricePerMeter">سعر المتر للأرض</label>
+              <input 
+                type="number" 
+                id="comparativeLandPricePerMeter" 
+                formControlName="comparativeLandPricePerMeter"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice Record -->
+        <div class="subsection">
+          <h3 class="subsection-title">محضر ممارسة</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="practiceRecordDate">التاريخ</label>
+              <input 
+                type="date" 
+                id="practiceRecordDate" 
+                formControlName="practiceRecordDate"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="practiceLandPricePerMeter">سعر المتر للأرض</label>
+              <input 
+                type="number" 
+                id="practiceLandPricePerMeter" 
+                formControlName="practiceLandPricePerMeter"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="displacementRequester">الجهة طالبة النزع</label>
+              <input 
+                type="text" 
+                id="displacementRequester" 
+                formControlName="displacementRequester"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preliminary Compensation Section -->
+      <div class="form-section">
+        <h2 class="section-title">التعويض المبدئي</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="compensationValue">القيمة</label>
+            <input 
+              type="number" 
+              id="compensationValue" 
+              formControlName="compensationValue"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="checkNumber">رقم الشيك</label>
+            <input 
+              type="text" 
+              id="checkNumber" 
+              formControlName="checkNumber"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="compensationDate">التاريخ</label>
+            <input 
+              type="date" 
+              id="compensationDate" 
+              formControlName="compensationDate"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Messages -->
+      @if (submitStatus() === 'success') {
+        <div class="status-message success">
+          ✓ تم حفظ البيانات بنجاح
+        </div>
+      }
+      @if (submitStatus() === 'error') {
+        <div class="status-message error">
+          ✗ يرجى ملء جميع الحقول المطلوبة
+        </div>
+      }
+
+      <!-- Form Actions -->
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">
-          ✓ إرسال البيانات
+          حفظ البيانات
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="onReset()">
+          مسح النموذج
+        </button>
+        <button type="button" class="btn btn-tertiary" (click)="navigateBack()">
+          رجوع
         </button>
       </div>
     </form>

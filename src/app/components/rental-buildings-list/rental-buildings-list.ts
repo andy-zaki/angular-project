@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header';
+import { RentalBuildingInfo } from '../../models/rental.model';
+import { MockRentalDatabaseService } from '../../services/mock-rental-database.service';
 
 @Component({
   selector: 'app-rental-buildings-list',
@@ -9,16 +11,26 @@ import { HeaderComponent } from '../shared/header/header';
   styleUrl: './rental-buildings-list.css',
   imports: [CommonModule, HeaderComponent]
 })
-export class RentalBuildingsListComponent {
+export class RentalBuildingsListComponent implements OnInit {
   private router = inject(Router);
+  private rentalDatabaseService = inject(MockRentalDatabaseService);
 
-  buildings = [
-    { id: 1, name: 'مدرسة الرازي', status: 'مؤجرة', tenant: 'وزارة التعليم' },
-    { id: 2, name: 'مدرسة ابن سينا', status: 'مؤجرة', tenant: 'وزارة الصحة' },
-    { id: 3, name: 'مدرسة الفارابي', status: 'شاغرة', tenant: '-' }
-  ];
+  buildings = signal<RentalBuildingInfo[]>([]);
 
-  selectBuilding(buildingId: number) {
+  ngOnInit(): void {
+    // Load all rental buildings when component initializes
+    this.rentalDatabaseService.getAllRentalBuildings().subscribe({
+      next: (buildings) => {
+        this.buildings.set(buildings);
+      },
+      error: (error) => {
+        console.error('Error loading rental buildings:', error);
+        alert('حدث خطأ أثناء تحميل قائمة المباني');
+      }
+    });
+  }
+
+  selectBuilding(buildingId: string) {
     this.router.navigate(['/rental-building-location'], {
       queryParams: { buildingId }
     });

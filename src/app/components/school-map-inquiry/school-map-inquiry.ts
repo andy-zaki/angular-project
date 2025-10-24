@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { BuildingData } from '../../models/building.model';
+import { MockBuildingDatabaseService } from '../../services/mock-building-database.service';
 
 interface MapOption {
   id: number;
@@ -10,14 +12,6 @@ interface MapOption {
   icon: string;
   description: string;
   route: string;
-}
-
-interface BuildingData {
-  buildingNumber: string;
-  schoolName: string;
-  usageStatus: string;
-  affiliation: string;
-  buildingOwnership: string;
 }
 
 @Component({
@@ -29,6 +23,7 @@ interface BuildingData {
 export class SchoolMapInquiryComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private buildingDatabaseService = inject(MockBuildingDatabaseService);
 
   inquiryForm!: FormGroup;
   showModal = signal<boolean>(false);
@@ -91,33 +86,17 @@ export class SchoolMapInquiryComponent {
     if (this.inquiryForm.valid) {
       console.log('Search Data:', this.inquiryForm.value);
       
-      // Dummy data for demonstration
-      const dummyResults: BuildingData[] = [
-        {
-          buildingNumber: '12345',
-          schoolName: 'مدرسة النور الابتدائية',
-          usageStatus: 'قيد الاستخدام',
-          affiliation: 'حكومي',
-          buildingOwnership: 'ملك'
+      // Use mock database service to search buildings
+      this.buildingDatabaseService.searchBuildings(this.inquiryForm.value).subscribe({
+        next: (results) => {
+          this.searchResults.set(results);
+          this.showModal.set(true);
         },
-        {
-          buildingNumber: '67890',
-          schoolName: 'مدرسة الأمل الإعدادية',
-          usageStatus: 'قيد الاستخدام',
-          affiliation: 'حكومي',
-          buildingOwnership: 'إيجار'
-        },
-        {
-          buildingNumber: '11223',
-          schoolName: 'مدرسة المستقبل الثانوية',
-          usageStatus: 'غير مستخدم',
-          affiliation: 'خاص',
-          buildingOwnership: 'ملك'
+        error: (error) => {
+          console.error('Error searching buildings:', error);
+          alert('حدث خطأ أثناء البحث عن المباني');
         }
-      ];
-
-      this.searchResults.set(dummyResults);
-      this.showModal.set(true);
+      });
     } else {
       this.markFormGroupTouched(this.inquiryForm);
     }

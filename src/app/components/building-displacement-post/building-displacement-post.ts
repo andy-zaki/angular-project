@@ -1,8 +1,9 @@
-import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, signal, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { MockDisplacementDatabaseService } from '../../services/mock-displacement-database.service';
 
 @Component({
   selector: 'app-building-displacement-post',
@@ -11,11 +12,12 @@ import { HeaderComponent } from '../shared/header/header';
   imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BuildingDisplacementPostComponent {
+export class BuildingDisplacementPostComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private displacementDatabaseService = inject(MockDisplacementDatabaseService);
 
-  // Dummy school data
+  // School data - will be loaded from database service
   protected schoolNumber = signal<string>('12345');
   protected schoolName = signal<string>('مدرسة النور الابتدائية');
 
@@ -146,6 +148,21 @@ export class BuildingDisplacementPostComponent {
       area: ['', [Validators.required, Validators.min(0)]],
       publicationCount: ['', [Validators.required, Validators.min(0)]],
       publicationDate: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    // Load displacement process data when component initializes
+    this.displacementDatabaseService.getDisplacementProcess(this.schoolNumber()).subscribe({
+      next: (process) => {
+        if (process) {
+          this.schoolName.set(process.schoolName);
+          // Optionally populate form with existing data
+        }
+      },
+      error: (error) => {
+        console.error('Error loading displacement process:', error);
+      }
     });
   }
 

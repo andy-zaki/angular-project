@@ -4,13 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { RentalStatusEditComponent } from '../rental-status-edit/rental-status-edit';
-
-interface BuildingInfo {
-  id: string;
-  name: string;
-  status: string;
-  substatus: string;
-}
+import { RentalBuildingInfo } from '../../models/rental.model';
+import { MockRentalDatabaseService } from '../../services/mock-rental-database.service';
 
 @Component({
   selector: 'app-rental-inquiry-building',
@@ -22,9 +17,10 @@ interface BuildingInfo {
 })
 export class RentalInquiryBuildingComponent {
   private router = inject(Router);
+  private rentalDatabaseService = inject(MockRentalDatabaseService);
 
   protected identificationNumber = signal('');
-  protected buildingInfo = signal<BuildingInfo | null>(null);
+  protected buildingInfo = signal<RentalBuildingInfo | null>(null);
   protected showDetails = signal(false);
   protected showEditPopup = signal(false);
 
@@ -38,14 +34,17 @@ export class RentalInquiryBuildingComponent {
 
   protected search(): void {
     if (this.identificationNumber().trim()) {
-      // Simulate API response with dummy data
-      this.buildingInfo.set({
-        id: this.identificationNumber(),
-        name: 'مدرسة الرازي الابتدائية',
-        status: 'مؤجرة - نشطة',
-        substatus: 'تعمل بكفاءة'
+      // Use mock database service to fetch rental building data
+      this.rentalDatabaseService.getRentalBuildingByIdNumber(this.identificationNumber()).subscribe({
+        next: (building) => {
+          this.buildingInfo.set(building);
+          this.showDetails.set(false);
+        },
+        error: (error) => {
+          console.error('Error fetching rental building:', error);
+          alert('حدث خطأ أثناء البحث عن المبنى');
+        }
       });
-      this.showDetails.set(false);
     } else {
       alert('الرجاء إدخال الرقم التعريفي');
     }

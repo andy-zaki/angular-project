@@ -3,15 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
-
-interface StudyPeriodData {
-  period: string;
-  schoolName: string;
-  type: string;
-  boysCount: number;
-  girlsCount: number;
-  periodStage: string;
-}
+import { StudyPeriodData } from '../../models/school-map.model';
+import { MockSchoolMapDatabaseService } from '../../services/mock-school-map-database.service';
 
 @Component({
   selector: 'app-school-map-study-period',
@@ -22,6 +15,7 @@ interface StudyPeriodData {
 export class SchoolMapStudyPeriodComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private schoolMapDatabaseService = inject(MockSchoolMapDatabaseService);
 
   searchForm!: FormGroup;
   showModal = signal<boolean>(false);
@@ -39,28 +33,19 @@ export class SchoolMapStudyPeriodComponent {
     if (this.searchForm.valid) {
       console.log('Search Data:', this.searchForm.value);
       
-      // Dummy data for demonstration
-      const dummyData: StudyPeriodData[] = [
-        {
-          period: 'الفترة الصباحية',
-          schoolName: 'مدرسة النور الابتدائية',
-          type: 'ابتدائي',
-          boysCount: 250,
-          girlsCount: 230,
-          periodStage: 'ابتدائي'
+      const buildingCode = this.searchForm.get('buildingCode')?.value;
+      
+      // Use mock database service to fetch study periods
+      this.schoolMapDatabaseService.getStudyPeriodsByBuildingCode(buildingCode).subscribe({
+        next: (periods) => {
+          this.studyPeriodData.set(periods);
+          this.showModal.set(true);
         },
-        {
-          period: 'الفترة المسائية',
-          schoolName: 'مدرسة الأمل الإعدادية',
-          type: 'إعدادي',
-          boysCount: 180,
-          girlsCount: 200,
-          periodStage: 'إعدادي'
+        error: (error) => {
+          console.error('Error fetching study periods:', error);
+          alert('حدث خطأ أثناء تحميل بيانات الفترات الدراسية');
         }
-      ];
-
-      this.studyPeriodData.set(dummyData);
-      this.showModal.set(true);
+      });
     } else {
       this.markFormGroupTouched(this.searchForm);
     }

@@ -442,6 +442,51 @@ select.error:focus {
   margin-bottom: 0;
 }
 
+.subsection {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-right: 4px solid #6b7280;
+}
+
+.subsection-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 1rem 0;
+}
+
+.school-info {
+  background: #f0f9ff;
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  direction: rtl;
+}
+
+.school-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #1e40af;
+  font-size: 0.95rem;
+}
+
+.info-value {
+  color: #1f2937;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
 .modal-footer {
   display: flex;
   gap: 1rem;

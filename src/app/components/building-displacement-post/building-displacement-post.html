@@ -257,6 +257,18 @@
         </div>
 
         <div class="modal-body">
+          <!-- School Info -->
+          <div class="school-info">
+            <div class="school-info-item">
+              <span class="info-label">رقم المدرسة:</span>
+              <span class="info-value">{{ schoolNumber() }}</span>
+            </div>
+            <div class="school-info-item">
+              <span class="info-label">اسم المدرسة:</span>
+              <span class="info-value">{{ schoolName() }}</span>
+            </div>
+          </div>
+
           <!-- Add Form -->
           <form [formGroup]="finalCompensationForm" (ngSubmit)="submitFinalCompensation()">
             <div class="form-row">
@@ -357,6 +369,647 @@
           <button type="button" class="btn btn-tertiary" (click)="closeFinalCompensationModal()">
             إلغاء
           </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Display Lists Modal (كشوف العرض) -->
+  @if (showDisplayListsModal()) {
+    <div class="modal-overlay" (click)="closeDisplayListsModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>كشوف العرض</h2>
+          <button class="modal-close" (click)="closeDisplayListsModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- School Info -->
+          <div class="school-info">
+            <div class="school-info-item">
+              <span class="info-label">رقم المدرسة:</span>
+              <span class="info-value">{{ schoolNumber() }}</span>
+            </div>
+            <div class="school-info-item">
+              <span class="info-label">اسم المدرسة:</span>
+              <span class="info-value">{{ schoolName() }}</span>
+            </div>
+          </div>
+
+          <form [formGroup]="displayListsForm" (ngSubmit)="submitDisplayLists()">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="displayListNumber">رقم كشف العرض <span class="required">*</span></label>
+                <input type="text" id="displayListNumber" formControlName="displayListNumber"
+                  [class.error]="displayListsForm.get('displayListNumber')?.invalid && displayListsForm.get('displayListNumber')?.touched" />
+                @if (displayListsForm.get('displayListNumber')?.invalid && displayListsForm.get('displayListNumber')?.touched) {
+                  <span class="error-message">رقم كشف العرض مطلوب</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="dlDisplacementDecisionNumber">رقم قرار النزع <span class="required">*</span></label>
+                <input type="text" id="dlDisplacementDecisionNumber" formControlName="displacementDecisionNumber"
+                  [class.error]="displayListsForm.get('displacementDecisionNumber')?.invalid && displayListsForm.get('displacementDecisionNumber')?.touched" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dlSerialId">المسلسل (ID) <span class="required">*</span></label>
+                <input type="text" id="dlSerialId" formControlName="serialId"
+                  [class.error]="displayListsForm.get('serialId')?.invalid && displayListsForm.get('serialId')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="dlOwnerName">اسم صاحب الشأن <span class="required">*</span></label>
+                <input type="text" id="dlOwnerName" formControlName="ownerName"
+                  [class.error]="displayListsForm.get('ownerName')?.invalid && displayListsForm.get('ownerName')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="dlArea">المساحة <span class="required">*</span></label>
+                <input type="number" id="dlArea" formControlName="area"
+                  [class.error]="displayListsForm.get('area')?.invalid && displayListsForm.get('area')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-add">+ إضافة</button>
+              </div>
+            </div>
+          </form>
+
+          @if (displayListsList().length > 0) {
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>رقم كشف العرض</th>
+                    <th>رقم قرار النزع</th>
+                    <th>المسلسل</th>
+                    <th>اسم صاحب الشأن</th>
+                    <th>المساحة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of displayListsList(); track $index) {
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ item.displayListNumber }}</td>
+                      <td>{{ item.displacementDecisionNumber }}</td>
+                      <td>{{ item.serialId }}</td>
+                      <td>{{ item.ownerName }}</td>
+                      <td>{{ item.area }}</td>
+                      <td>
+                        <button type="button" class="btn-delete" (click)="deleteDisplayLists($index)" title="حذف">🗑️</button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="empty-state"><p>لا توجد بيانات. قم بإضافة كشف جديد.</p></div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeDisplayListsModal()">حفظ وإغلاق</button>
+          <button type="button" class="btn btn-tertiary" (click)="closeDisplayListsModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Conformity Certificates Modal (شهادات المطابقة) -->
+  @if (showConformityCertificatesModal()) {
+    <div class="modal-overlay" (click)="closeConformityCertificatesModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>شهادات المطابقة</h2>
+          <button class="modal-close" (click)="closeConformityCertificatesModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- School Info -->
+          <div class="school-info">
+            <div class="school-info-item">
+              <span class="info-label">رقم المدرسة:</span>
+              <span class="info-value">{{ schoolNumber() }}</span>
+            </div>
+            <div class="school-info-item">
+              <span class="info-label">اسم المدرسة:</span>
+              <span class="info-value">{{ schoolName() }}</span>
+            </div>
+          </div>
+
+          <form [formGroup]="conformityCertificatesForm" (ngSubmit)="submitConformityCertificates()">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ccFormType">نوع الاستمارة <span class="required">*</span></label>
+                <select id="ccFormType" formControlName="formType"
+                  [class.error]="conformityCertificatesForm.get('formType')?.invalid && conformityCertificatesForm.get('formType')?.touched">
+                  <option value="" disabled>اختر نوع الاستمارة</option>
+                  <option value="real-estate">شهر عقاري</option>
+                  <option value="civil-registry">سجل مدني</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ccCertificateNumber">رقم شهادة مطابقة <span class="required">*</span></label>
+                <input type="text" id="ccCertificateNumber" formControlName="certificateNumber"
+                  [class.error]="conformityCertificatesForm.get('certificateNumber')?.invalid && conformityCertificatesForm.get('certificateNumber')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="ccOwnerName">اسم صاحب الشأن <span class="required">*</span></label>
+                <input type="text" id="ccOwnerName" formControlName="ownerName"
+                  [class.error]="conformityCertificatesForm.get('ownerName')?.invalid && conformityCertificatesForm.get('ownerName')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="ccRegistrationNumber">رقم شهادة قيود <span class="required">*</span></label>
+                <input type="text" id="ccRegistrationNumber" formControlName="registrationNumber"
+                  [class.error]="conformityCertificatesForm.get('registrationNumber')?.invalid && conformityCertificatesForm.get('registrationNumber')?.touched" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ccDate">التاريخ <span class="required">*</span></label>
+                <input type="date" id="ccDate" formControlName="date"
+                  [class.error]="conformityCertificatesForm.get('date')?.invalid && conformityCertificatesForm.get('date')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="ccArea">المساحة <span class="required">*</span></label>
+                <input type="number" id="ccArea" formControlName="area"
+                  [class.error]="conformityCertificatesForm.get('area')?.invalid && conformityCertificatesForm.get('area')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="ccValue">القيمة <span class="required">*</span></label>
+                <input type="number" id="ccValue" formControlName="value"
+                  [class.error]="conformityCertificatesForm.get('value')?.invalid && conformityCertificatesForm.get('value')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-add">+ إضافة</button>
+              </div>
+            </div>
+          </form>
+
+          @if (conformityCertificatesList().length > 0) {
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>نوع الاستمارة</th>
+                    <th>رقم الشهادة</th>
+                    <th>اسم صاحب الشأن</th>
+                    <th>رقم قيود</th>
+                    <th>التاريخ</th>
+                    <th>المساحة</th>
+                    <th>القيمة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of conformityCertificatesList(); track $index) {
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ item.formType === 'real-estate' ? 'شهر عقاري' : 'سجل مدني' }}</td>
+                      <td>{{ item.certificateNumber }}</td>
+                      <td>{{ item.ownerName }}</td>
+                      <td>{{ item.registrationNumber }}</td>
+                      <td>{{ item.date }}</td>
+                      <td>{{ item.area }}</td>
+                      <td>{{ item.value }}</td>
+                      <td>
+                        <button type="button" class="btn-delete" (click)="deleteConformityCertificates($index)" title="حذف">🗑️</button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="empty-state"><p>لا توجد بيانات. قم بإضافة شهادة جديدة.</p></div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeConformityCertificatesModal()">حفظ وإغلاق</button>
+          <button type="button" class="btn btn-tertiary" (click)="closeConformityCertificatesModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Real Estate Unit Modal (صحيفة وحدة عقارية) -->
+  @if (showRealEstateUnitModal()) {
+    <div class="modal-overlay" (click)="closeRealEstateUnitModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>صحيفة وحدة عقارية</h2>
+          <button class="modal-close" (click)="closeRealEstateUnitModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- School Info -->
+          <div class="school-info">
+            <div class="school-info-item">
+              <span class="info-label">رقم المدرسة:</span>
+              <span class="info-value">{{ schoolNumber() }}</span>
+            </div>
+            <div class="school-info-item">
+              <span class="info-label">اسم المدرسة:</span>
+              <span class="info-value">{{ schoolName() }}</span>
+            </div>
+          </div>
+
+          <form [formGroup]="realEstateUnitForm" (ngSubmit)="submitRealEstateUnit()">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reuUnitNumber">رقم الوحدة <span class="required">*</span></label>
+                <input type="text" id="reuUnitNumber" formControlName="unitNumber"
+                  [class.error]="realEstateUnitForm.get('unitNumber')?.invalid && realEstateUnitForm.get('unitNumber')?.touched" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reuBasinNumber">رقم الحوض <span class="required">*</span></label>
+                <input type="text" id="reuBasinNumber" formControlName="basinNumber"
+                  [class.error]="realEstateUnitForm.get('basinNumber')?.invalid && realEstateUnitForm.get('basinNumber')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="reuBasinName">اسم الحوض <span class="required">*</span></label>
+                <input type="text" id="reuBasinName" formControlName="basinName"
+                  [class.error]="realEstateUnitForm.get('basinName')?.invalid && realEstateUnitForm.get('basinName')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="reuOwnershipReason">سبب التملك <span class="required">*</span></label>
+                <input type="text" id="reuOwnershipReason" formControlName="ownershipReason"
+                  [class.error]="realEstateUnitForm.get('ownershipReason')?.invalid && realEstateUnitForm.get('ownershipReason')?.touched" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reuDate">التاريخ <span class="required">*</span></label>
+                <input type="date" id="reuDate" formControlName="date"
+                  [class.error]="realEstateUnitForm.get('date')?.invalid && realEstateUnitForm.get('date')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="reuArea">المساحة <span class="required">*</span></label>
+                <input type="number" id="reuArea" formControlName="area"
+                  [class.error]="realEstateUnitForm.get('area')?.invalid && realEstateUnitForm.get('area')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-add">+ إضافة</button>
+              </div>
+            </div>
+          </form>
+
+          @if (realEstateUnitList().length > 0) {
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>رقم الوحدة</th>
+                    <th>رقم الحوض</th>
+                    <th>اسم الحوض</th>
+                    <th>سبب التملك</th>
+                    <th>التاريخ</th>
+                    <th>المساحة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of realEstateUnitList(); track $index) {
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ item.unitNumber }}</td>
+                      <td>{{ item.basinNumber }}</td>
+                      <td>{{ item.basinName }}</td>
+                      <td>{{ item.ownershipReason }}</td>
+                      <td>{{ item.date }}</td>
+                      <td>{{ item.area }}</td>
+                      <td>
+                        <button type="button" class="btn-delete" (click)="deleteRealEstateUnit($index)" title="حذف">🗑️</button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="empty-state"><p>لا توجد بيانات. قم بإضافة وحدة عقارية جديدة.</p></div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeRealEstateUnitModal()">حفظ وإغلاق</button>
+          <button type="button" class="btn btn-tertiary" (click)="closeRealEstateUnitModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Minister Decision Modal (قرار الوزير المختص) -->
+  @if (showMinisterDecisionModal()) {
+    <div class="modal-overlay" (click)="closeMinisterDecisionModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>قرار الوزير المختص</h2>
+          <button class="modal-close" (click)="closeMinisterDecisionModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- School Info -->
+          <div class="school-info">
+            <div class="school-info-item">
+              <span class="info-label">رقم المدرسة:</span>
+              <span class="info-value">{{ schoolNumber() }}</span>
+            </div>
+            <div class="school-info-item">
+              <span class="info-label">اسم المدرسة:</span>
+              <span class="info-value">{{ schoolName() }}</span>
+            </div>
+          </div>
+
+          <form [formGroup]="ministerDecisionForm" (ngSubmit)="submitMinisterDecision()">
+            <!-- Minister Decision Section -->
+            <div class="subsection">
+              <h3 class="subsection-title">قرار الوزير المختص</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="mdDecisionNumber">رقم القرار <span class="required">*</span></label>
+                  <input type="text" id="mdDecisionNumber" formControlName="decisionNumber"
+                    [class.error]="ministerDecisionForm.get('decisionNumber')?.invalid && ministerDecisionForm.get('decisionNumber')?.touched" />
+                  @if (ministerDecisionForm.get('decisionNumber')?.invalid && ministerDecisionForm.get('decisionNumber')?.touched) {
+                    <span class="error-message">رقم القرار مطلوب</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="mdDecisionDate">تاريخ القرار <span class="required">*</span></label>
+                  <input type="date" id="mdDecisionDate" formControlName="decisionDate"
+                    [class.error]="ministerDecisionForm.get('decisionDate')?.invalid && ministerDecisionForm.get('decisionDate')?.touched" />
+                  @if (ministerDecisionForm.get('decisionDate')?.invalid && ministerDecisionForm.get('decisionDate')?.touched) {
+                    <span class="error-message">تاريخ القرار مطلوب</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="mdRegisteredNumber">مشهر برقم <span class="required">*</span></label>
+                  <input type="text" id="mdRegisteredNumber" formControlName="registeredNumber"
+                    [class.error]="ministerDecisionForm.get('registeredNumber')?.invalid && ministerDecisionForm.get('registeredNumber')?.touched" />
+                  @if (ministerDecisionForm.get('registeredNumber')?.invalid && ministerDecisionForm.get('registeredNumber')?.touched) {
+                    <span class="error-message">مشهر برقم مطلوب</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="mdRegistrationDate">تاريخ الإشهار <span class="required">*</span></label>
+                  <input type="date" id="mdRegistrationDate" formControlName="registrationDate"
+                    [class.error]="ministerDecisionForm.get('registrationDate')?.invalid && ministerDecisionForm.get('registrationDate')?.touched" />
+                  @if (ministerDecisionForm.get('registrationDate')?.invalid && ministerDecisionForm.get('registrationDate')?.touched) {
+                    <span class="error-message">تاريخ الإشهار مطلوب</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="mdArea">المساحة <span class="required">*</span></label>
+                  <input type="number" id="mdArea" formControlName="area"
+                    [class.error]="ministerDecisionForm.get('area')?.invalid && ministerDecisionForm.get('area')?.touched" />
+                  @if (ministerDecisionForm.get('area')?.invalid && ministerDecisionForm.get('area')?.touched) {
+                    <span class="error-message">المساحة مطلوبة</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- Egyptian Gazette Publication Section -->
+            <div class="subsection">
+              <h3 class="subsection-title">النشر في الوقائع المصرية</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="mdPublicationCount">عدد النشر <span class="required">*</span></label>
+                  <input type="number" id="mdPublicationCount" formControlName="publicationCount"
+                    [class.error]="ministerDecisionForm.get('publicationCount')?.invalid && ministerDecisionForm.get('publicationCount')?.touched" />
+                  @if (ministerDecisionForm.get('publicationCount')?.invalid && ministerDecisionForm.get('publicationCount')?.touched) {
+                    <span class="error-message">عدد النشر مطلوب</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="mdPublicationDate">تاريخ النشر <span class="required">*</span></label>
+                  <input type="date" id="mdPublicationDate" formControlName="publicationDate"
+                    [class.error]="ministerDecisionForm.get('publicationDate')?.invalid && ministerDecisionForm.get('publicationDate')?.touched" />
+                  @if (ministerDecisionForm.get('publicationDate')?.invalid && ministerDecisionForm.get('publicationDate')?.touched) {
+                    <span class="error-message">تاريخ النشر مطلوب</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label>&nbsp;</label>
+                  <button type="submit" class="btn btn-add">+ إضافة</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          @if (ministerDecisionList().length > 0) {
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>رقم القرار</th>
+                    <th>تاريخ القرار</th>
+                    <th>مشهر برقم</th>
+                    <th>تاريخ الإشهار</th>
+                    <th>المساحة</th>
+                    <th>عدد النشر</th>
+                    <th>تاريخ النشر</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of ministerDecisionList(); track $index) {
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ item.decisionNumber }}</td>
+                      <td>{{ item.decisionDate }}</td>
+                      <td>{{ item.registeredNumber }}</td>
+                      <td>{{ item.registrationDate }}</td>
+                      <td>{{ item.area }}</td>
+                      <td>{{ item.publicationCount }}</td>
+                      <td>{{ item.publicationDate }}</td>
+                      <td>
+                        <button type="button" class="btn-delete" (click)="deleteMinisterDecision($index)" title="حذف">🗑️</button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="empty-state"><p>لا توجد بيانات. قم بإضافة قرار وزير جديد.</p></div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeMinisterDecisionModal()">حفظ وإغلاق</button>
+          <button type="button" class="btn btn-tertiary" (click)="closeMinisterDecisionModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Sale Forms Modal (استمارات البيع) -->
+  @if (showSaleFormsModal()) {
+    <div class="modal-overlay" (click)="closeSaleFormsModal()">
+      <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>استمارات البيع</h2>
+          <button class="modal-close" (click)="closeSaleFormsModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- School Info -->
+          <div class="school-info">
+            <div class="school-info-item">
+              <span class="info-label">رقم المدرسة:</span>
+              <span class="info-value">{{ schoolNumber() }}</span>
+            </div>
+            <div class="school-info-item">
+              <span class="info-label">اسم المدرسة:</span>
+              <span class="info-value">{{ schoolName() }}</span>
+            </div>
+          </div>
+
+          <form [formGroup]="saleFormsForm" (ngSubmit)="submitSaleForms()">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="sfFormType">نوع الاستمارة <span class="required">*</span></label>
+                <select id="sfFormType" formControlName="formType"
+                  [class.error]="saleFormsForm.get('formType')?.invalid && saleFormsForm.get('formType')?.touched">
+                  <option value="" disabled>اختر نوع الاستمارة</option>
+                  <option value="real-estate">شهر عقاري</option>
+                  <option value="civil-registry">سجل مدني</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="sfFormNumber">رقم الاستمارة <span class="required">*</span></label>
+                <input type="text" id="sfFormNumber" formControlName="formNumber"
+                  [class.error]="saleFormsForm.get('formNumber')?.invalid && saleFormsForm.get('formNumber')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="sfOwnerName">اسم صاحب الشأن <span class="required">*</span></label>
+                <input type="text" id="sfOwnerName" formControlName="ownerName"
+                  [class.error]="saleFormsForm.get('ownerName')?.invalid && saleFormsForm.get('ownerName')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="sfRegisteredNumber">مشهر برقم <span class="required">*</span></label>
+                <input type="text" id="sfRegisteredNumber" formControlName="registeredNumber"
+                  [class.error]="saleFormsForm.get('registeredNumber')?.invalid && saleFormsForm.get('registeredNumber')?.touched" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="sfDate">التاريخ <span class="required">*</span></label>
+                <input type="date" id="sfDate" formControlName="date"
+                  [class.error]="saleFormsForm.get('date')?.invalid && saleFormsForm.get('date')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="sfArea">المساحة <span class="required">*</span></label>
+                <input type="number" id="sfArea" formControlName="area"
+                  [class.error]="saleFormsForm.get('area')?.invalid && saleFormsForm.get('area')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label for="sfValue">القيمة <span class="required">*</span></label>
+                <input type="number" id="sfValue" formControlName="value"
+                  [class.error]="saleFormsForm.get('value')?.invalid && saleFormsForm.get('value')?.touched" />
+              </div>
+
+              <div class="form-group">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-add">+ إضافة</button>
+              </div>
+            </div>
+          </form>
+
+          @if (saleFormsList().length > 0) {
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>نوع الاستمارة</th>
+                    <th>رقم الاستمارة</th>
+                    <th>اسم صاحب الشأن</th>
+                    <th>مشهر برقم</th>
+                    <th>التاريخ</th>
+                    <th>المساحة</th>
+                    <th>القيمة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of saleFormsList(); track $index) {
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ item.formType === 'real-estate' ? 'شهر عقاري' : 'سجل مدني' }}</td>
+                      <td>{{ item.formNumber }}</td>
+                      <td>{{ item.ownerName }}</td>
+                      <td>{{ item.registeredNumber }}</td>
+                      <td>{{ item.date }}</td>
+                      <td>{{ item.area }}</td>
+                      <td>{{ item.value }}</td>
+                      <td>
+                        <button type="button" class="btn-delete" (click)="deleteSaleForms($index)" title="حذف">🗑️</button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="empty-state"><p>لا توجد بيانات. قم بإضافة استمارة بيع جديدة.</p></div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeSaleFormsModal()">حفظ وإغلاق</button>
+          <button type="button" class="btn btn-tertiary" (click)="closeSaleFormsModal()">إلغاء</button>
         </div>
       </div>
     </div>

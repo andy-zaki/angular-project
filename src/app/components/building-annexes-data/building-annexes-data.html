@@ -10,8 +10,32 @@
 <div class="container">
   <div class="page-content">
     <h1>تسجيل بيانات الملاحق للمبنى</h1>
+    <p class="subtitle">أدخل رقم المبني للبدء</p>
 
-    <form (ngSubmit)="submitData()" class="annexes-form">
+    <!-- Building Number Search -->
+    <div class="search-section">
+      <div class="form-group">
+        <label>رقم المبني <span class="required">*</span></label>
+        <div class="search-input-wrapper">
+          <input 
+            [(ngModel)]="buildingNumber" 
+            name="buildingNumber"
+            type="text" 
+            class="form-input"
+            placeholder="أدخل رقم المبني"
+            (keyup.enter)="searchBuilding()"
+          />
+          <button type="button" (click)="searchBuilding()" class="btn btn-search">
+            <span>🔍</span>
+            بحث
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annexes Form (shown after search) -->
+    @if (showForm()) {
+      <form (ngSubmit)="submitData()" class="annexes-form">
       <div *ngFor="let annex of annexesList; let i = index" class="annex-item">
         <div class="annex-header">
           <h3>الملحق رقم {{ annex.id }}</h3>
@@ -25,26 +49,150 @@
           </button>
         </div>
 
-        <div class="form-group">
-          <label>اسم الملحق (Annex Name):</label>
-          <input [(ngModel)]="annex.name" [name]="'name' + i" type="text" class="form-input" />
-        </div>
+        <div class="annex-fields">
+          <div class="form-row">
+            <div class="form-group">
+              <label>إجمالي عدد الأدوار <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.totalFloors" 
+                [name]="'totalFloors' + i" 
+                type="number" 
+                class="form-input"
+                placeholder="أدخل عدد الأدوار"
+              />
+            </div>
 
-        <div class="form-group">
-          <label>نوع الملحق (Type):</label>
-          <select [(ngModel)]="annex.type" [name]="'type' + i" class="form-input">
-            <option value="">-- اختر --</option>
-            <option value="مختبر">مختبر (Laboratory)</option>
-            <option value="ملعب">ملعب (Playground)</option>
-            <option value="مكتبة">مكتبة (Library)</option>
-            <option value="قاعة فنون">قاعة فنون (Arts Hall)</option>
-            <option value="كافيتيريا">كافيتيريا (Cafeteria)</option>
-          </select>
-        </div>
+            <div class="form-group">
+              <label>حالة هيكل الملحق <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.structureCondition" 
+                [name]="'structureCondition' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل حالة الهيكل"
+              />
+            </div>
 
-        <div class="form-group">
-          <label>المساحة (Area):</label>
-          <input [(ngModel)]="annex.area" [name]="'area' + i" type="number" class="form-input" />
+            <div class="form-group">
+              <label>إجمالي مساحة الملحق <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.totalArea" 
+                [name]="'totalArea' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل المساحة (م²)"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>تاريخ إنشاء الملحق <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.constructionDate" 
+                [name]="'constructionDate' + i" 
+                type="date" 
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>حالة تشطيبات داخلية <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.interiorFinishingCondition" 
+                [name]="'interiorFinishingCondition' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل حالة التشطيبات"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>قابلية الملحق للتعلية <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.expansionCapability" 
+                [name]="'expansionCapability' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل قابلية التعلية"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>نظام إنشاء الملحق <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.constructionSystem" 
+                [name]="'constructionSystem' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل نظام الإنشاء"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>طريقة إنشاء الملحق <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.constructionMethod" 
+                [name]="'constructionMethod' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل طريقة الإنشاء"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>مواد بناء الأسقف <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.ceilingMaterials" 
+                [name]="'ceilingMaterials' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل مواد الأسقف"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>مواد بناء حوائط الملحق <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.wallMaterials" 
+                [name]="'wallMaterials' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل مواد الحوائط"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>تشطيب الواجهات خارجي <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.exteriorFacadeFinishing" 
+                [name]="'exteriorFacadeFinishing' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل تشطيب الواجهات"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>أعمال صحية <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.sanitaryWorks" 
+                [name]="'sanitaryWorks' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل حالة الأعمال الصحية"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>أعمال كهربائية <span class="required">*</span></label>
+              <input 
+                [(ngModel)]="annex.electricalWorks" 
+                [name]="'electricalWorks' + i" 
+                type="text" 
+                class="form-input"
+                placeholder="أدخل حالة الأعمال الكهربائية"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -56,5 +204,6 @@
         <button type="submit" class="btn btn-primary">✓ حفظ البيانات</button>
       </div>
     </form>
+    }
   </div>
 </div>

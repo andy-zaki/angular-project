@@ -186,15 +186,32 @@ This document maps each component to the mock database services it uses and desc
 - `MockRentalDatabaseService`
 
 **Methods Used:**
-- `getRentalStatusFlags()` - Fetch available status flags
+- `getRentalStatusFlags()` - Fetch available status flags (16 total)
 - `updateRentalBuildingStatus()` - Update building status
 
 **Data Displayed:**
-- Status flag options
-- Selected status flags
+- Status flag options with Arabic labels (مغلقة, تعمل, مؤجرة - نشطة, etc.)
+- Selected status flags as checkboxes
 
 **Implementation Status:**
-- ⚠️ **To be updated** - Currently uses static data
+- ✅ Uses `MockRentalDatabaseService.getRentalStatusFlags()`
+- ✅ Uses `MockRentalDatabaseService.updateRentalBuildingStatus()`
+
+#### `rental-status-report.component.ts`
+**Services Used:**
+- `MockRentalDatabaseService`
+
+**Methods Used:**
+- `getRentalReportCategories()` - Fetch report categories by type
+
+**Data Displayed:**
+- In-Progress categories (6 categories): دراسة الاحتياج, صلاحية الموقع, etc.
+- Completed categories (12 categories): اتخاذ ج. استيلاء, اخراج وشأن الادارة, etc.
+- Finished categories (8 categories): تم التعويض بحكم, شراء, نزع الملكية, etc.
+- Statistics: total count, closed count, working count per category
+
+**Implementation Status:**
+- ✅ Uses `MockRentalDatabaseService.getRentalReportCategories()`
 
 ---
 
@@ -462,7 +479,8 @@ loadData(): void {
 - `rental-buildings-list.component.ts` ✅
 - `rental-building-details.component.ts` ⚠️
 - `rental-building-location.component.ts` ⚠️
-- `rental-status-edit.component.ts` ⚠️
+- `rental-status-edit.component.ts` ✅
+- `rental-status-report.component.ts` ✅
 
 ### MockSchoolMapDatabaseService
 **Used by:**

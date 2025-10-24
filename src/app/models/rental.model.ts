@@ -74,3 +74,17 @@ export interface RentalDecision {
   approvedBy: string;
   notes?: string;
 }
+
+/**
+ * Rental Report Category
+ * Statistical categories for rental status reporting
+ */
+export interface RentalReportCategory {
+  id: string;
+  code: string;
+  label: string;
+  categoryType: 'in-progress' | 'completed' | 'finished';
+  totalCount: number;
+  closedCount: number;
+  workingCount: number;
+}

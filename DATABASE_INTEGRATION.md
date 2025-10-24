@@ -349,7 +349,8 @@ GET    /api/rentals/by-id/:idNumber         - Get by identification number
 GET    /api/rentals/:id                     - Get rental building details
 GET    /api/rentals/:id/location            - Get location data
 GET    /api/rentals/:id/decisions           - Get rental decisions
-GET    /api/rentals/status-flags            - Get status flags
+GET    /api/rentals/status-flags            - Get status flags (16 total)
+GET    /api/rentals/report-categories       - Get report categories (26 total)
 POST   /api/rentals                         - Create rental building
 PUT    /api/rentals/:id                     - Update rental building
 PUT    /api/rentals/:id/status              - Update status

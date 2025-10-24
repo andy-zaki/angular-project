@@ -54,8 +54,59 @@ This application uses mock database services to simulate backend API calls. All 
 - `getRentalBuildingLocation(buildingId: string): Observable<RentalBuildingLocation | null>`
 - `getRentalStatusFlags(): Observable<RentalStatusFlag[]>`
 - `getRentalDecisions(buildingId: string): Observable<RentalDecision[]>`
+- `getRentalReportCategories(categoryType?: 'in-progress' | 'completed' | 'finished'): Observable<RentalReportCategory[]>`
 - `updateRentalBuildingStatus(buildingId: string, status: string, substatus: string): Observable<RentalBuildingInfo>`
 - `saveRentalBuilding(building: RentalBuildingDetails): Observable<RentalBuildingDetails>`
+
+**Status Flags (16 total):**
+- مغلقة (Closed)
+- تعمل (Working)
+- مؤجرة - نشطة (Rented - Active)
+- عقد منتهي (Contract Expired)
+- تحت الصيانة (Under Maintenance)
+- شاغرة (Vacant)
+- تعمل بكفاءة (Operating Efficiently)
+- بحاجة للإصلاح (Needs Repair)
+- قيد المراجعة (Under Review)
+- معتمد (Approved)
+- تم التبرع بها (Donated)
+- تم شراؤها (Purchased)
+- صدر قرار بردها للمالك (Decision to Return to Owner)
+- تم نزع ملكيتها (Expropriated)
+- جاري اتخاذ إجراءات شراء بعد البت (Purchase Procedures After Decision)
+- جاري البت للشراء (Purchase Under Deliberation)
+
+**Report Categories (26 total):**
+
+*In-Progress (قيد الدراسة):*
+- دراسة الاحتياج (Need Study)
+- صلاحية الموقع (Location Validity)
+- استكمال بيانات (Data Completion)
+- اعتمادات اللجنة (Committee Approvals)
+- تدرس باللجنة (Under Committee Study)
+- توقيع م. الهيئة (Authority Signature)
+
+*Completed (تم الدراسة):*
+- اتخاذ ج. استيلاء (Seizure Decision)
+- اخراج وشأن الادارة (Eviction/Admin Matter)
+- رد للمالك (كلى/جزء/شرط) (Return to Owner - Total/Partial/Conditional)
+- اتخاذ نزع ملكية (Expropriation Action)
+- الايقاف والتصفية (Stop and Liquidation)
+- استمرار الايجار (Continue Rental)
+- قبول التبرع (Accept Donation)
+- لجنة البت (Decision Committee)
+- اتخاذ ج. شراء بعدب (Purchase Decision After)
+- تفاوض على شراء (Purchase Negotiation)
+
+*Finished (تم الانتهاء):*
+- تم التعويض بحكم (Compensation by Ruling)
+- رد قبل معرفة الرقم (Return Before ID Known)
+- رد للمالك (Return to Owner)
+- شراء (Purchase)
+- نزع الملكية (Expropriation)
+- تم التبرع (Donated)
+- الاخراج وشأن الادارة (Eviction/Admin Matter)
+- الايقاف وتصفية مبني (Stop and Liquidate Building)
 
 **Used In:**
 - `rental-inquiry-building.component.ts`
@@ -63,6 +114,7 @@ This application uses mock database services to simulate backend API calls. All 
 - `rental-building-details.component.ts`
 - `rental-building-location.component.ts`
 - `rental-status-edit.component.ts`
+- `rental-status-report.component.ts`
 
 ### 4. MockSchoolMapDatabaseService
 

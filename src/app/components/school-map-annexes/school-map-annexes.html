@@ -10,15 +10,175 @@
 <div class="container">
   <div class="page-content">
     <h1>بيانات الملاحق</h1>
+    <p class="subtitle">أدخل بيانات البحث للحصول على تفاصيل الملحق</p>
 
-    <div class="annexes-grid">
-      <div *ngFor="let annex of annexes" class="annex-card">
-        <h3>{{ annex.name }}</h3>
-        <div class="annex-info">
-          <p><strong>النوع (Type):</strong> {{ annex.type }}</p>
-          <p><strong>المساحة (Area):</strong> {{ annex.area }}</p>
+    <!-- Search Form -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>كود المبني <span class="required">*</span></label>
+          <input 
+            type="text" 
+            formControlName="buildingCode"
+            [class.error]="searchForm.get('buildingCode')?.invalid && searchForm.get('buildingCode')?.touched"
+            placeholder="أدخل كود المبني"
+          />
+          @if (searchForm.get('buildingCode')?.invalid && searchForm.get('buildingCode')?.touched) {
+            <span class="error-message">كود المبني مطلوب</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>مسلسل الملحق <span class="required">*</span></label>
+          <input 
+            type="text" 
+            formControlName="annexSerial"
+            [class.error]="searchForm.get('annexSerial')?.invalid && searchForm.get('annexSerial')?.touched"
+            placeholder="أدخل مسلسل الملحق"
+          />
+          @if (searchForm.get('annexSerial')?.invalid && searchForm.get('annexSerial')?.touched) {
+            <span class="error-message">مسلسل الملحق مطلوب</span>
+          }
         </div>
       </div>
-    </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <span>🔍</span>
+          بحث
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="onReset()">
+          <span>↺</span>
+          إعادة تعيين
+        </button>
+      </div>
+    </form>
+
+    <!-- Annex Details -->
+    @if (showDetails() && annexData()) {
+      <div class="details-container">
+        <!-- Basic Info -->
+        <div class="info-section">
+          <h2 class="section-title">المعلومات الأساسية</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">اسم المبني:</span>
+              <span class="value">{{ annexData()!.buildingName }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">عدد الأدوار:</span>
+              <span class="value">{{ annexData()!.floorsCount }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">إجمالي المساحة:</span>
+              <span class="value">{{ annexData()!.totalArea }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Structural Condition -->
+        <div class="info-section">
+          <h2 class="section-title">الحالة الإنشائية</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">الهيكل:</span>
+              <span class="value">{{ annexData()!.structuralCondition.structure }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">الكهرباء:</span>
+              <span class="value">{{ annexData()!.structuralCondition.electricity }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">تشطيبات داخلية:</span>
+              <span class="value">{{ annexData()!.structuralCondition.interiorFinishing }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">صحي:</span>
+              <span class="value">{{ annexData()!.structuralCondition.sanitary }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">قابلية المبني للتعلية:</span>
+              <span class="value">{{ annexData()!.structuralCondition.expansionCapability }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">تاريخ الإنشاء:</span>
+              <span class="value">{{ annexData()!.structuralCondition.constructionDate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Construction -->
+        <div class="info-section">
+          <h2 class="section-title">الإنشاء</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">نظام الإنشاء:</span>
+              <span class="value">{{ annexData()!.construction.constructionSystem }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">طريقة الإنشاء:</span>
+              <span class="value">{{ annexData()!.construction.constructionMethod }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">حوائط (موارد البناء):</span>
+              <span class="value">{{ annexData()!.construction.buildingMaterials.walls }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">أسقف (موارد البناء):</span>
+              <span class="value">{{ annexData()!.construction.buildingMaterials.ceilings }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">تشطيبات الواجهات:</span>
+              <span class="value">{{ annexData()!.construction.facadeFinishing }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finishing Table -->
+        <div class="info-section">
+          <h2 class="section-title">التشطيبات</h2>
+          <div class="finishing-table-wrapper">
+            <table class="finishing-table">
+              <thead>
+                <tr>
+                  <th>النوع</th>
+                  <th>فصول</th>
+                  <th>طرقات</th>
+                  <th>دورات</th>
+                  <th>معامل</th>
+                  <th>أخرى</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-label">أرضيات</td>
+                  <td>{{ annexData()!.finishingTable.floors.classrooms }}</td>
+                  <td>{{ annexData()!.finishingTable.floors.corridors }}</td>
+                  <td>{{ annexData()!.finishingTable.floors.bathrooms }}</td>
+                  <td>{{ annexData()!.finishingTable.floors.labs }}</td>
+                  <td>{{ annexData()!.finishingTable.floors.other }}</td>
+                </tr>
+                <tr>
+                  <td class="row-label">حوائط</td>
+                  <td>{{ annexData()!.finishingTable.walls.classrooms }}</td>
+                  <td>{{ annexData()!.finishingTable.walls.corridors }}</td>
+                  <td>{{ annexData()!.finishingTable.walls.bathrooms }}</td>
+                  <td>{{ annexData()!.finishingTable.walls.labs }}</td>
+                  <td>{{ annexData()!.finishingTable.walls.other }}</td>
+                </tr>
+                <tr>
+                  <td class="row-label">أسقف</td>
+                  <td>{{ annexData()!.finishingTable.ceilings.classrooms }}</td>
+                  <td>{{ annexData()!.finishingTable.ceilings.corridors }}</td>
+                  <td>{{ annexData()!.finishingTable.ceilings.bathrooms }}</td>
+                  <td>{{ annexData()!.finishingTable.ceilings.labs }}</td>
+                  <td>{{ annexData()!.finishingTable.ceilings.other }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </div>

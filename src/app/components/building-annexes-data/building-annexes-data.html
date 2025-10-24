@@ -14,194 +14,247 @@
 
     <!-- Building Number Search -->
     <div class="search-section">
-      <div class="form-group">
-        <label>رقم المبني <span class="required">*</span></label>
-        <div class="search-input-wrapper">
-          <input 
-            [(ngModel)]="buildingNumber" 
-            name="buildingNumber"
-            type="text" 
-            class="form-input"
-            placeholder="أدخل رقم المبني"
-            (keyup.enter)="searchBuilding()"
-          />
-          <button type="button" (click)="searchBuilding()" class="btn btn-search">
-            <span>🔍</span>
-            بحث
-          </button>
+      <form [formGroup]="buildingNumberForm">
+        <div class="form-group">
+          <label>رقم المبني <span class="required">*</span></label>
+          <div class="search-input-wrapper">
+            <input 
+              formControlName="buildingNumber"
+              type="text" 
+              class="form-input"
+              [class.error]="buildingNumberForm.get('buildingNumber')?.invalid && buildingNumberForm.get('buildingNumber')?.touched"
+              placeholder="أدخل رقم المبني"
+              (keyup.enter)="searchBuilding()"
+            />
+            <button type="button" (click)="searchBuilding()" class="btn btn-search">
+              <span>🔍</span>
+              بحث
+            </button>
+          </div>
+          @if (buildingNumberForm.get('buildingNumber')?.invalid && buildingNumberForm.get('buildingNumber')?.touched) {
+            <span class="error-message">رقم المبني مطلوب</span>
+          }
         </div>
-      </div>
+      </form>
     </div>
 
     <!-- Annexes Form (shown after search) -->
     @if (showForm()) {
-      <form (ngSubmit)="submitData()" class="annexes-form">
-      <div *ngFor="let annex of annexesList; let i = index" class="annex-item">
-        <div class="annex-header">
-          <h3>الملحق رقم {{ annex.id }}</h3>
-          <button
-            *ngIf="annexesList.length > 1"
-            type="button"
-            (click)="removeAnnex(i)"
-            class="btn-remove"
-          >
-            ✕
-          </button>
-        </div>
+      <form [formGroup]="annexesForm" (ngSubmit)="submitData()" class="annexes-form">
+        <div formArrayName="annexes">
+          @for (annex of annexes.controls; track $index) {
+            <div [formGroupName]="$index" class="annex-item">
+              <div class="annex-header">
+                <h3>الملحق رقم {{ $index + 1 }}</h3>
+                @if (annexes.length > 1) {
+                  <button
+                    type="button"
+                    (click)="removeAnnex($index)"
+                    class="btn-remove"
+                  >
+                    ✕
+                  </button>
+                }
+              </div>
 
         <div class="annex-fields">
           <div class="form-row">
             <div class="form-group">
               <label>إجمالي عدد الأدوار <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.totalFloors" 
-                [name]="'totalFloors' + i" 
+                formControlName="totalFloors"
                 type="number" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'totalFloors')?.invalid && getAnnexControl($index, 'totalFloors')?.touched"
                 placeholder="أدخل عدد الأدوار"
               />
+              @if (getAnnexControl($index, 'totalFloors')?.invalid && getAnnexControl($index, 'totalFloors')?.touched) {
+                <span class="error-message">عدد الأدوار مطلوب ويجب أن يكون أكبر من صفر</span>
+              }
             </div>
 
             <div class="form-group">
               <label>حالة هيكل الملحق <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.structureCondition" 
-                [name]="'structureCondition' + i" 
+                formControlName="structureCondition"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'structureCondition')?.invalid && getAnnexControl($index, 'structureCondition')?.touched"
                 placeholder="أدخل حالة الهيكل"
               />
+              @if (getAnnexControl($index, 'structureCondition')?.invalid && getAnnexControl($index, 'structureCondition')?.touched) {
+                <span class="error-message">حالة الهيكل مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>إجمالي مساحة الملحق <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.totalArea" 
-                [name]="'totalArea' + i" 
+                formControlName="totalArea"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'totalArea')?.invalid && getAnnexControl($index, 'totalArea')?.touched"
                 placeholder="أدخل المساحة (م²)"
               />
+              @if (getAnnexControl($index, 'totalArea')?.invalid && getAnnexControl($index, 'totalArea')?.touched) {
+                <span class="error-message">المساحة مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>تاريخ إنشاء الملحق <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.constructionDate" 
-                [name]="'constructionDate' + i" 
+                formControlName="constructionDate"
                 type="date" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'constructionDate')?.invalid && getAnnexControl($index, 'constructionDate')?.touched"
               />
+              @if (getAnnexControl($index, 'constructionDate')?.invalid && getAnnexControl($index, 'constructionDate')?.touched) {
+                <span class="error-message">تاريخ الإنشاء مطلوب</span>
+              }
             </div>
 
             <div class="form-group">
               <label>حالة تشطيبات داخلية <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.interiorFinishingCondition" 
-                [name]="'interiorFinishingCondition' + i" 
+                formControlName="interiorFinishingCondition"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'interiorFinishingCondition')?.invalid && getAnnexControl($index, 'interiorFinishingCondition')?.touched"
                 placeholder="أدخل حالة التشطيبات"
               />
+              @if (getAnnexControl($index, 'interiorFinishingCondition')?.invalid && getAnnexControl($index, 'interiorFinishingCondition')?.touched) {
+                <span class="error-message">حالة التشطيبات مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>قابلية الملحق للتعلية <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.expansionCapability" 
-                [name]="'expansionCapability' + i" 
+                formControlName="expansionCapability"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'expansionCapability')?.invalid && getAnnexControl($index, 'expansionCapability')?.touched"
                 placeholder="أدخل قابلية التعلية"
               />
+              @if (getAnnexControl($index, 'expansionCapability')?.invalid && getAnnexControl($index, 'expansionCapability')?.touched) {
+                <span class="error-message">قابلية التعلية مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>نظام إنشاء الملحق <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.constructionSystem" 
-                [name]="'constructionSystem' + i" 
+                formControlName="constructionSystem"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'constructionSystem')?.invalid && getAnnexControl($index, 'constructionSystem')?.touched"
                 placeholder="أدخل نظام الإنشاء"
               />
+              @if (getAnnexControl($index, 'constructionSystem')?.invalid && getAnnexControl($index, 'constructionSystem')?.touched) {
+                <span class="error-message">نظام الإنشاء مطلوب</span>
+              }
             </div>
 
             <div class="form-group">
               <label>طريقة إنشاء الملحق <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.constructionMethod" 
-                [name]="'constructionMethod' + i" 
+                formControlName="constructionMethod"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'constructionMethod')?.invalid && getAnnexControl($index, 'constructionMethod')?.touched"
                 placeholder="أدخل طريقة الإنشاء"
               />
+              @if (getAnnexControl($index, 'constructionMethod')?.invalid && getAnnexControl($index, 'constructionMethod')?.touched) {
+                <span class="error-message">طريقة الإنشاء مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>مواد بناء الأسقف <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.ceilingMaterials" 
-                [name]="'ceilingMaterials' + i" 
+                formControlName="ceilingMaterials"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'ceilingMaterials')?.invalid && getAnnexControl($index, 'ceilingMaterials')?.touched"
                 placeholder="أدخل مواد الأسقف"
               />
+              @if (getAnnexControl($index, 'ceilingMaterials')?.invalid && getAnnexControl($index, 'ceilingMaterials')?.touched) {
+                <span class="error-message">مواد الأسقف مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>مواد بناء حوائط الملحق <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.wallMaterials" 
-                [name]="'wallMaterials' + i" 
+                formControlName="wallMaterials"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'wallMaterials')?.invalid && getAnnexControl($index, 'wallMaterials')?.touched"
                 placeholder="أدخل مواد الحوائط"
               />
+              @if (getAnnexControl($index, 'wallMaterials')?.invalid && getAnnexControl($index, 'wallMaterials')?.touched) {
+                <span class="error-message">مواد الحوائط مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>تشطيب الواجهات خارجي <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.exteriorFacadeFinishing" 
-                [name]="'exteriorFacadeFinishing' + i" 
+                formControlName="exteriorFacadeFinishing"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'exteriorFacadeFinishing')?.invalid && getAnnexControl($index, 'exteriorFacadeFinishing')?.touched"
                 placeholder="أدخل تشطيب الواجهات"
               />
+              @if (getAnnexControl($index, 'exteriorFacadeFinishing')?.invalid && getAnnexControl($index, 'exteriorFacadeFinishing')?.touched) {
+                <span class="error-message">تشطيب الواجهات مطلوب</span>
+              }
             </div>
 
             <div class="form-group">
               <label>أعمال صحية <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.sanitaryWorks" 
-                [name]="'sanitaryWorks' + i" 
+                formControlName="sanitaryWorks"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'sanitaryWorks')?.invalid && getAnnexControl($index, 'sanitaryWorks')?.touched"
                 placeholder="أدخل حالة الأعمال الصحية"
               />
+              @if (getAnnexControl($index, 'sanitaryWorks')?.invalid && getAnnexControl($index, 'sanitaryWorks')?.touched) {
+                <span class="error-message">حالة الأعمال الصحية مطلوبة</span>
+              }
             </div>
 
             <div class="form-group">
               <label>أعمال كهربائية <span class="required">*</span></label>
               <input 
-                [(ngModel)]="annex.electricalWorks" 
-                [name]="'electricalWorks' + i" 
+                formControlName="electricalWorks"
                 type="text" 
                 class="form-input"
+                [class.error]="getAnnexControl($index, 'electricalWorks')?.invalid && getAnnexControl($index, 'electricalWorks')?.touched"
                 placeholder="أدخل حالة الأعمال الكهربائية"
               />
+              @if (getAnnexControl($index, 'electricalWorks')?.invalid && getAnnexControl($index, 'electricalWorks')?.touched) {
+                <span class="error-message">حالة الأعمال الكهربائية مطلوبة</span>
+              }
             </div>
           </div>
         </div>
       </div>
+          }
+        </div>
 
       <button type="button" (click)="addAnnex()" class="btn btn-add">
-        + إضافة ملحق
+        <span>➕</span>
+        إضافة ملحق جديد
       </button>
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">✓ حفظ البيانات</button>
+        <button type="submit" class="btn btn-primary">
+          <span>💾</span>
+          حفظ البيانات
+        </button>
       </div>
     </form>
     }

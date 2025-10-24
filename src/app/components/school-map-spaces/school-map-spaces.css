@@ -13,8 +13,36 @@
 
 h1 {
   color: #1f2937;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1rem 0;
   font-size: 1.75rem;
+}
+
+.school-info {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 8px;
+  border-right: 4px solid #3b82f6;
+}
+
+.school-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-label {
+  font-weight: 700;
+  color: #1e40af;
+  font-size: 1rem;
+}
+
+.info-value {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1rem;
 }
 
 .spaces-table {

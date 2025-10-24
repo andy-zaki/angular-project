@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,10 +13,15 @@ import { HeaderComponent } from '../shared/header/header';
 export class SchoolMapSpacesComponent {
   private router = inject(Router);
 
+  schoolNumber = signal<string>('12345');
+  schoolName = signal<string>('مدرسة النور الابتدائية');
+
   spaces = [
-    { id: 1, name: 'الفصل 101', floor: 1, area: '50 م²', capacity: 30, status: 'جيد' },
-    { id: 2, name: 'الفصل 102', floor: 1, area: '50 م²', capacity: 28, status: 'جيد' },
-    { id: 3, name: 'الفصل 201', floor: 2, area: '50 م²', capacity: 32, status: 'يحتاج صيانة' }
+    { annex: 'ملحق 1', floor: 'الدور الأول', code: '001', serial: '1001', branchName: 'فرع النور', area: '50 م²' },
+    { annex: 'ملحق 1', floor: 'الدور الأول', code: '002', serial: '1002', branchName: 'فرع النور', area: '45 م²' },
+    { annex: 'ملحق 2', floor: 'الدور الثاني', code: '003', serial: '2001', branchName: 'فرع الأمل', area: '60 م²' },
+    { annex: 'ملحق 2', floor: 'الدور الثاني', code: '004', serial: '2002', branchName: 'فرع الأمل', area: '55 م²' },
+    { annex: 'ملحق 3', floor: 'الدور الأرضي', code: '005', serial: '0001', branchName: 'فرع الهدى', area: '70 م²' }
   ];
 
   navigateBack() {

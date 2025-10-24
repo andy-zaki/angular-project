@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,14 @@ interface MapOption {
   route: string;
 }
 
+interface BuildingData {
+  buildingNumber: string;
+  schoolName: string;
+  usageStatus: string;
+  affiliation: string;
+  buildingOwnership: string;
+}
+
 @Component({
   selector: 'app-school-map-inquiry',
   templateUrl: './school-map-inquiry.html',
@@ -23,6 +31,8 @@ export class SchoolMapInquiryComponent {
   private fb = inject(FormBuilder);
 
   inquiryForm!: FormGroup;
+  showModal = signal<boolean>(false);
+  searchResults = signal<BuildingData[]>([]);
 
   mapOptions: MapOption[] = [
     {
@@ -80,10 +90,41 @@ export class SchoolMapInquiryComponent {
   onSearch() {
     if (this.inquiryForm.valid) {
       console.log('Search Data:', this.inquiryForm.value);
-      // Perform search logic here
+      
+      // Dummy data for demonstration
+      const dummyResults: BuildingData[] = [
+        {
+          buildingNumber: '12345',
+          schoolName: 'مدرسة النور الابتدائية',
+          usageStatus: 'قيد الاستخدام',
+          affiliation: 'حكومي',
+          buildingOwnership: 'ملك'
+        },
+        {
+          buildingNumber: '67890',
+          schoolName: 'مدرسة الأمل الإعدادية',
+          usageStatus: 'قيد الاستخدام',
+          affiliation: 'حكومي',
+          buildingOwnership: 'إيجار'
+        },
+        {
+          buildingNumber: '11223',
+          schoolName: 'مدرسة المستقبل الثانوية',
+          usageStatus: 'غير مستخدم',
+          affiliation: 'خاص',
+          buildingOwnership: 'ملك'
+        }
+      ];
+
+      this.searchResults.set(dummyResults);
+      this.showModal.set(true);
     } else {
       this.markFormGroupTouched(this.inquiryForm);
     }
+  }
+
+  closeModal() {
+    this.showModal.set(false);
   }
 
   onReset() {

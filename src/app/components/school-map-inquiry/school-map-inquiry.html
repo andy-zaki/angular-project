@@ -231,3 +231,54 @@
     </div>
   </div>
 </div>
+
+<!-- Search Results Modal -->
+@if (showModal()) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>نتائج البحث</h2>
+        <button class="modal-close" (click)="closeModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        @if (searchResults().length > 0) {
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>رقم المبنى</th>
+                  <th>اسم المدرسة</th>
+                  <th>موقف الاستخدام</th>
+                  <th>تبعية</th>
+                  <th>ملكية المبنى</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of searchResults(); track $index) {
+                  <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.buildingNumber }}</td>
+                    <td>{{ item.schoolName }}</td>
+                    <td>{{ item.usageStatus }}</td>
+                    <td>{{ item.affiliation }}</td>
+                    <td>{{ item.buildingOwnership }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <p>لا توجد نتائج</p>
+          </div>
+        }
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+}

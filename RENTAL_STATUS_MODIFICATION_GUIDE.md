@@ -33,18 +33,16 @@ Rental Status Menu (/rental-status-menu)
 - **Route:** `/rental-status-report`
 - **Title:** بيان بموقف المباني المؤجرة
 - **Features:**
-  - Displays numeric values for 6 status categories:
-    - دراسة الاحتياج (Need Assessment)
-    - صلاحية الموقع (Site Validity)
-    - استكمال بيانات (Data Completion)
-    - اعتمادات اللجنة (Committee Approvals)
-    - تدرس باللجنة (Under Committee Review)
-    - توقيع م. الهيئة (Authority Signature)
+  - Uses `MockRentalDatabaseService.getRentalReportCategories()` for dynamic data
+  - Displays 26 status categories organized in 3 sections:
+    - **In-Progress (6 categories):** دراسة الاحتياج, صلاحية الموقع, استكمال بيانات, etc.
+    - **Completed (12 categories):** اتخاذ ج. استيلاء, اخراج وشأن الادارة, رد للمالك variants, etc.
+    - **Finished (8 categories):** تم التعويض بحكم, شراء, نزع الملكية, تم التبرع, etc.
   - Statistics cards with:
-    - Numeric values (45, 38, 52, 35, 42, 38)
-    - Percentage breakdown (18%, 15%, 21%, 14%, 17%, 15%)
-    - Color-coded progress bars
-    - Total count: 250 buildings
+    - Total count, closed count, working count per category
+    - Percentage breakdown
+    - Color-coded progress bars (blue, green, emerald)
+    - Dynamic calculations based on mock data
 
 ### 3. Rental Decision Buildings (`rental-decision-buildings`)
 - **Route:** `/rental-decision-buildings`
@@ -83,9 +81,16 @@ Rental Status Menu (/rental-status-menu)
 - **Title:** تعديل موقف المباني المؤجرة
 - **Features:**
   - Displays building ID from query parameter
-  - 8 checkbox flags to edit:
+  - Uses `MockRentalDatabaseService.getRentalStatusFlags()` for dynamic data
+  - 16 checkbox flags to edit (now includes 8 additional flags):
     - مغلقة (Closed)
     - تعمل (Working)
+    - مؤجرة - نشطة (Rented - Active)
+    - مؤجرة - مصادرة لكن يتم الاستخدام (Rented - Confiscated but in Use)
+    - مؤجرة - مغلقة (Rented - Closed)
+    - مؤجرة - صدر قرار ايقاف (Rented - Stop Order Issued)
+    - مؤجرة - صدر قرار استمرار (Rented - Continue Order Issued)
+    - مؤجرة - صدر قرار تعديل (Rented - Modification Order Issued)
     - تم التبرع بها (Donated)
     - تم شراؤها (Purchased)
     - صدر قرار بردها للمالك (Returned Decision)
@@ -95,6 +100,7 @@ Rental Status Menu (/rental-status-menu)
   - Multi-select capability
   - Save/Cancel buttons
   - Validation to ensure at least one flag is selected
+  - Connected to mock service for persistence
 
 ## Routes Added to `app.routes.ts`
 

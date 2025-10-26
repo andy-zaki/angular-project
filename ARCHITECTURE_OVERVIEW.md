@@ -35,11 +35,12 @@
 │  │  │ MockLand       │  │ MockBuilding   │  │ MockRental      │ │  │
 │  │  │ DatabaseService│  │ DatabaseService│  │ DatabaseService │ │  │
 │  │  │                │  │                │  │                 │ │  │
-│  │  │ 6 methods      │  │ 7 methods      │  │ 8 methods       │ │  │
+│  │  │ 5 methods      │  │ 7 methods      │  │ 10 methods      │ │  │
 │  │  │ - getLand      │  │ - searchBldgs  │  │ - getByIdNum    │ │  │
-│  │  │ - getBuildings │  │ - getBasicData │  │ - getAllRentals │ │  │
-│  │  │ - getCoords    │  │ - getAnnexes   │  │ - getDetails    │ │  │
-│  │  │ - saveLand     │  │ - getCosts     │  │ - getLocation   │ │  │
+│  │  │ - getAllLands  │  │ - getBasicData │  │ - getAllRentals │ │  │
+│  │  │ - getBuildings │  │ - getAnnexes   │  │ - getDetails    │ │  │
+│  │  │ - getCoords    │  │ - getCosts     │  │ - getStatusFlags│ │  │
+│  │  │ - saveLand     │  │ - saveAnnex    │  │ - getCategories │ │  │
 │  │  └────────────────┘  └────────────────┘  └─────────────────┘ │  │
 │  │                                                                │  │
 │  │  ┌────────────────┐  ┌────────────────┐                      │  │
@@ -61,7 +62,7 @@
 │  │  │   Land   │  │ Building │  │  Rental  │  │SchoolMap │     │  │
 │  │  │  Models  │  │  Models  │  │  Models  │  │  Models  │     │  │
 │  │  │          │  │          │  │          │  │          │     │  │
-│  │  │ 3 types  │  │ 4 types  │  │ 5 types  │  │ 5 types  │     │  │
+│  │  │ 3 types  │  │ 4 types  │  │ 6 types  │  │ 5 types  │     │  │
 │  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │  │
 │  │                                                                │  │
 │  │  ┌──────────────────────┐                                     │  │
@@ -298,14 +299,14 @@ src/app/
 │   ├── index.ts                    # Central export
 │   ├── land.model.ts              # 3 interfaces
 │   ├── building.model.ts          # 4 interfaces
-│   ├── rental.model.ts            # 5 interfaces
+│   ├── rental.model.ts            # 6 interfaces
 │   ├── school-map.model.ts        # 5 interfaces
 │   └── displacement.model.ts      # 9 interfaces
 │
 ├── services/                       # Business logic & data access
-│   ├── mock-land-database.service.ts          # 6 methods
+│   ├── mock-land-database.service.ts          # 5 methods
 │   ├── mock-building-database.service.ts      # 7 methods
-│   ├── mock-rental-database.service.ts        # 8 methods
+│   ├── mock-rental-database.service.ts        # 10 methods
 │   ├── mock-school-map-database.service.ts    # 8 methods
 │   └── mock-displacement-database.service.ts  # 11 methods
 │

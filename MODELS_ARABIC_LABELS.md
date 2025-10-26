@@ -151,7 +151,7 @@ This document provides a complete reference of all data models (TypeScript inter
 
 | Property | Type | Arabic Label | Description |
 |----------|------|--------------|-------------|
-| `id` | string | المعرف | Unique identifier |
+| `id` | string | المسلسل | Serial ID / Unique identifier |
 | `buildingId` | string | معرف المبنى | Building ID |
 | `annexType` | string | نوع الملحق | Annex type |
 | `area` | number | المساحة | Area (m²) |
@@ -182,7 +182,7 @@ This document provides a complete reference of all data models (TypeScript inter
 
 | Property | Type | Arabic Label | Description |
 |----------|------|--------------|-------------|
-| `id` | string | المعرف | Unique identifier |
+| `id` | string | المسلسل | Serial ID / Unique identifier |
 | `buildingId` | string | معرف المبنى | Building ID |
 | `networkType` | string | نوع الشبكة | Network type |
 | `installationCost` | number | تكلفة التركيب | Installation cost |

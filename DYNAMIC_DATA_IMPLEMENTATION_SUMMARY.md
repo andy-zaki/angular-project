@@ -15,11 +15,11 @@ Five comprehensive model files were created with fully-typed TypeScript interfac
 
 - **`land.model.ts`** - Land parcels, building locations, and coordinates (3 interfaces)
 - **`building.model.ts`** - Buildings, annexes, and network costs (4 interfaces)
-- **`rental.model.ts`** - Rental buildings, locations, and decisions (5 interfaces)
+- **`rental.model.ts`** - Rental buildings, locations, decisions, flags, and categories (6 interfaces)
 - **`school-map.model.ts`** - Study periods, roads, annexes, and spaces (5 interfaces)
 - **`displacement.model.ts`** - Displacement processes and compensation (9 interfaces)
 
-**Total:** 26 TypeScript interfaces covering all application data structures
+**Total:** 27 TypeScript interfaces covering all application data structures
 
 ### 2. Mock Database Services Created
 **Location:** `src/app/services/`
@@ -31,7 +31,7 @@ Five production-ready mock services that simulate real database/API behavior:
 - Handles building locations
 - Manages land coordinates
 - Simulates network delays (300-800ms)
-- **6 public methods**
+- **5 public methods**
 
 #### `mock-building-database.service.ts`
 - Manages building and school data
@@ -43,9 +43,10 @@ Five production-ready mock services that simulate real database/API behavior:
 #### `mock-rental-database.service.ts`
 - Manages rental building information
 - Handles location data
-- Manages rental status flags
+- Manages rental status flags and report categories
 - Tracks rental decisions
-- **8 public methods**
+- Supports status updates and building save operations
+- **10 public methods**
 
 #### `mock-school-map-database.service.ts`
 - Manages study period data
@@ -61,7 +62,7 @@ Five production-ready mock services that simulate real database/API behavior:
 - Tracks real estate units and decisions
 - **11 public methods**
 
-**Total:** 40 service methods providing complete data access layer
+**Total:** 41 service methods providing complete data access layer
 
 ### 3. Components Updated
 
@@ -174,11 +175,12 @@ Six key components were updated to use mock services:
 
 ### Realistic Data Generation
 - Arabic language support for all generated text
-- Realistic Saudi Arabian location names
+- Realistic Egyptian location names (governorates, cities, districts)
 - Appropriate date ranges (2015-2024)
 - Realistic numerical values with proper ranges
 - Status values in Arabic (معتمد، قيد المراجعة، etc.)
 - Multiple variations to avoid repetitive data
+- Currency in Egyptian Pounds (EGP / ج.م)
 
 ### Network Simulation
 - Simulated network delays (200-800ms)
@@ -212,7 +214,7 @@ Six key components were updated to use mock services:
 
 ### Code Created
 - **5** model files with 27 interfaces
-- **5** mock service files with 40+ methods
+- **5** mock service files with 41 methods
 - **3** comprehensive documentation files
 - **~2,500** lines of TypeScript code
 - **~1,200** lines of documentation
@@ -224,9 +226,12 @@ Six key components were updated to use mock services:
 - **100%** of updated components use TypeScript interfaces
 
 ### Service Methods
-- **40** total mock service methods
-- **6** methods in LandDatabaseService
+- **41** total mock service methods
+- **5** methods in LandDatabaseService
 - **7** methods in BuildingDatabaseService
+- **10** methods in RentalDatabaseService
+- **8** methods in SchoolMapDatabaseService
+- **11** methods in DisplacementDatabaseService
 - **8** methods in RentalDatabaseService
 - **8** methods in SchoolMapDatabaseService
 - **11** methods in DisplacementDatabaseService

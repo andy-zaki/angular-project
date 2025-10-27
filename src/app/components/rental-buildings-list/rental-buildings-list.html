@@ -13,18 +13,20 @@
     <p class="subtitle">مدارس مؤجرة (صدر لها قرار مجلس محلي)</p>
 
     <div class="buildings-list">
-      <div *ngFor="let building of buildings" (click)="selectBuilding(building.id)" class="building-item">
-        <div class="building-info">
-          <h3>{{ building.name }}</h3>
-          <div class="building-details">
-            <span class="status" [class.rented]="building.status === 'مؤجرة'">
-              {{ building.status }}
-            </span>
-            <span class="tenant">{{ building.tenant }}</span>
+      @for (building of buildings(); track building.id) {
+        <div (click)="selectBuilding(building.id)" class="building-item">
+          <div class="building-info">
+            <h3>{{ building.name }}</h3>
+            <div class="building-details">
+              <span class="status" [class.rented]="building.status === 'مؤجرة'">
+                {{ building.status }}
+              </span>
+              <span class="tenant">{{ building.tenant }}</span>
+            </div>
           </div>
+          <span class="arrow">→</span>
         </div>
-        <span class="arrow">→</span>
-      </div>
+      }
     </div>
   </div>
 </div>

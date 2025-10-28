@@ -49,6 +49,18 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        // Configure all string properties to use Unicode (NVARCHAR) for Arabic support
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            foreach (var property in entityType.GetProperties())
+            {
+                if (property.ClrType == typeof(string))
+                {
+                    property.SetIsUnicode(true);
+                }
+            }
+        }
+
         // Configure unique indexes
         modelBuilder.Entity<Land>()
             .HasIndex(l => l.ReferenceNumber)

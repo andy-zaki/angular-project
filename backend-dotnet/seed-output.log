@@ -1,0 +1,89 @@
+Changed database context to 'AngularProjectDB'.
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(5 rows affected)
+
+(5 rows affected)
+
+(5 rows affected)
+
+(5 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(0 rows affected)
+
+(3 rows affected)
+
+(3 rows affected)
+
+(3 rows affected)
+
+(4 rows affected)
+Msg 102, Level 15, State 1, Server Andrew-Samy\MSSQLSERVER2, Line 93
+Incorrect syntax near '??????'.
+TableName                 RecordCount
+------------------------- -----------
+BuildingAnnexes                     0
+BuildingBasicData                   0
+BuildingLocations                   0
+Buildings                           0
+CouncilApprovals                    0
+DisplacementCompensations           0
+DisplacementRecords                 0
+EducationalBuildings                0
+LandCoordinates                     0
+Lands                               0
+Libraries                           3
+Menus                               3
+NetworkCosts                        0
+Programs                            3
+RentalBuildingLocations             0
+RentalBuildings                     0
+RentalDecisions                     0
+RentalStatusFlags                   4
+SchoolAnnexes                       0
+SchoolRoads                         0
+SchoolSpaces                        0
+StudyPeriods                        0
+Users                               0
+
+(23 rows affected)
+Database populated successfully with dummy data!
+Default login credentials:
+Username: admin, Password: password123
+Username: manager, Password: password123
+Username: user1, Password: password123

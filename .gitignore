@@ -41,3 +41,12 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# .NET
+backend-dotnet/bin/
+backend-dotnet/obj/
+backend-dotnet/Debug/
+backend-dotnet/Release/
+*.dll
+*.pdb
+*.cache

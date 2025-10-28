@@ -1,10 +1,18 @@
 ﻿-- SQL Script to Populate AngularProjectDB with Dummy Data
+-- NOTE: Save this file as UTF-8 (with BOM). For correct Arabic rendering in sqlcmd:
+--   1) In PowerShell: chcp 65001
+--   2) Run: sqlcmd -S <server> -d AngularProjectDB -i seed-database.sql -u
+--      (Optionally add -f 65001 if your sqlcmd version needs explicit input codepage)
 -- Server: ANDREW-SAMY\MSSQLSERVER2
 -- Database: AngularProjectDB
 -- Execute this script after database creation
 
 USE AngularProjectDB;
 GO
+
+-- Ensure Unicode-friendly session behavior for Arabic text
+SET NOCOUNT ON;
+SET LANGUAGE Arabic;
 
 -- Clear existing data (in reverse order of dependencies)
 DELETE FROM [RentalDecisions];
@@ -156,12 +164,12 @@ INSERT INTO [Lands] ([Id], [ReferenceNumber], [UsageStatus], [Headquarters], [Ap
     [IdentificationNumber], [CenterDepartment], [TotalArea], [Phase], [Approval], [EducationalBuildingId],
     [Village], [CurrentOwner], [OriginalOwner], [CreatedAt], [UpdatedAt])
 VALUES 
-    (@Land1, N'LAND-2024-001', NN'مستخدم', NN'إدارة التعليم بالرياض', NN'معتمد', N'ID-001-2024', NN'قسم الأراضي', 5000.00, 
-     NN'المرحلة الأولى', NN'موافقة رقم 12345', @EduBuilding1, NN'حي الملز', NN'وزارة التعليم', NN'وزارة التعليم', GETUTCDATE(), GETUTCDATE()),
-    (@Land2, N'LAND-2024-002', NN'غير مستخدم', NN'إدارة التعليم بجدة', NN'قيد المراجعة', N'ID-002-2024', NN'قسم الأراضي', 6500.00, 
-     NN'المرحلة الثانية', NN'قيد الانتظار', @EduBuilding2, NN'حي الروضة', NN'وزارة التعليم', NN'وزارة التعليم', GETUTCDATE(), GETUTCDATE()),
-    (@Land3, N'LAND-2024-003', NN'مستخدم', NN'إدارة التعليم بالدمام', NN'معتمد', N'ID-003-2024', NN'قسم الأراضي', 7000.00, 
-     NN'المرحلة الأولى', NN'موافقة رقم 54321', @EduBuilding3, NN'حي الفيصلية', NN'وزارة التعليم', NN'وزارة التعليم', GETUTCDATE(), GETUTCDATE());
+    (@Land1, N'LAND-2024-001', N'مستخدم', N'إدارة التعليم بالرياض', N'معتمد', N'ID-001-2024', N'قسم الأراضي', 5000.00, 
+     N'المرحلة الأولى', N'موافقة رقم 12345', @EduBuilding1, N'حي الملز', N'وزارة التعليم', N'وزارة التعليم', GETUTCDATE(), GETUTCDATE()),
+    (@Land2, N'LAND-2024-002', N'غير مستخدم', N'إدارة التعليم بجدة', N'قيد المراجعة', N'ID-002-2024', N'قسم الأراضي', 6500.00, 
+     N'المرحلة الثانية', N'قيد الانتظار', @EduBuilding2, N'حي الروضة', N'وزارة التعليم', N'وزارة التعليم', GETUTCDATE(), GETUTCDATE()),
+    (@Land3, N'LAND-2024-003', N'مستخدم', N'إدارة التعليم بالدمام', N'معتمد', N'ID-003-2024', N'قسم الأراضي', 7000.00, 
+     N'المرحلة الأولى', N'موافقة رقم 54321', @EduBuilding3, N'حي الفيصلية', N'وزارة التعليم', N'وزارة التعليم', GETUTCDATE(), GETUTCDATE());
 
 -- 11. Insert Land Coordinates (إحداثيات الأراضي)
 INSERT INTO [LandCoordinates] ([Id], [LandId], [PointNumber], [Latitude], [Longitude], [Elevation], [CreatedAt])

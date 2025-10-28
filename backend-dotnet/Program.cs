@@ -1,10 +1,17 @@
 using AngularProjectApi.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Text.Encodings.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    // Ensure Arabic characters are returned as UTF-8 without escaping
+    options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -35,6 +42,15 @@ app.UseSwaggerUI();
 app.UseCors("AllowAngular");
 app.UseAuthorization();
 app.MapControllers();
+
+// Localization: prefer Arabic (Saudi Arabia) for request culture; supports parsing Arabic numerals/dates
+var supportedCultures = new[] { new CultureInfo("ar-SA"), new CultureInfo("en-US") };
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("ar-SA"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
 
 // Initialize database
 using (var scope = app.Services.CreateScope())

@@ -49,6 +49,10 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        // Ensure Arabic-aware comparisons/sorting at the model level
+        // Note: This does not change existing column collations, but applies to EF Core queries it generates
+        modelBuilder.UseCollation("Arabic_CI_AS");
+
         // Configure all string properties to use Unicode (NVARCHAR) for Arabic support
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {

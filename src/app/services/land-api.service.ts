@@ -1,40 +1,71 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { LandData, BuildingLocationData, LandCoordinates } from '../models/land.model';
 import { environment } from '../../environments/environment';
+import { ErrorHandlerService } from './error-handler.service';
 
 /**
  * Land API Service
  * Handles HTTP requests for land-related data
  * Replaces MockLandDatabaseService with real database integration
+ * 
+ * Backend Route: api/lands (matches LandsController)
  */
 @Injectable({
   providedIn: 'root'
 })
 export class LandApiService {
   private readonly http = inject(HttpClient);
+  private readonly errorHandler = inject(ErrorHandlerService);
   private readonly baseUrl = `${environment.apiUrl}/api/lands`;
 
   /**
    * Get all lands
+   * Backend: GET api/lands
    */
   getAllLands(): Observable<LandData[]> {
-    return this.http.get<LandData[]>(this.baseUrl);
+    return this.http.get<LandData[]>(this.baseUrl).pipe(
+      tap(data => console.log(`Fetched ${data.length} lands`)),
+      catchError(error => this.errorHandler.handleError(error))
+    );
   }
 
   /**
    * Get land data by reference number
+   * Backend: GET api/lands/reference/{referenceNumber}
    */
   getLandByReferenceNumber(referenceNumber: string): Observable<LandData | null> {
-    return this.http.get<LandData | null>(`${this.baseUrl}/by-reference/${referenceNumber}`);
+    try {
+      this.errorHandler.validateString(referenceNumber, 'الرقم المرجعي');
+    } catch (error: any) {
+      this.errorHandler.logAndShowError(error, 'getLandByReferenceNumber');
+      return throwError(() => error);
+    }
+
+    return this.http.get<LandData | null>(`${this.baseUrl}/reference/${referenceNumber}`).pipe(
+      tap(data => console.log(`Fetched land by reference: ${referenceNumber}`, data)),
+      catchError(error => this.errorHandler.handleError(error))
+    );
   }
 
   /**
    * Get land by ID
+   * Backend: GET api/lands/{id}
    */
   getLandById(id: string): Observable<LandData> {
-    return this.http.get<LandData>(`${this.baseUrl}/${id}`);
+    try {
+      this.errorHandler.validateGuid(id, 'معرف الأرض');
+    } catch (error: any) {
+      this.errorHandler.logAndShowError(error, 'getLandById');
+      return throwError(() => error);
+    }
+
+    return this.http.get<LandData>(`${this.baseUrl}/${id}`).pipe(
+      tap(data => console.log(`Fetched land by ID: ${id}`, data)),
+      catchError(error => this.errorHandler.handleError(error))
+    );
   }
 
   /**

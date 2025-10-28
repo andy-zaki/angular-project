@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AngularProjectApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+537e614895aa09c1219b0cdf85a4d2dd4cdc743e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+993092740f8e13c9aa3c5ec7663608c8cbffedb0")]
 [assembly: System.Reflection.AssemblyProductAttribute("AngularProjectApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AngularProjectApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

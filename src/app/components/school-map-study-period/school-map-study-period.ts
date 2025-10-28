@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { StudyPeriodData } from '../../models/school-map.model';
-import { MockSchoolMapDatabaseService } from '../../services/mock-school-map-database.service';
+import { SchoolMapApiService } from '../../services/school-map-api.service';
 
 @Component({
   selector: 'app-school-map-study-period',
@@ -15,7 +15,7 @@ import { MockSchoolMapDatabaseService } from '../../services/mock-school-map-dat
 export class SchoolMapStudyPeriodComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
-  private schoolMapDatabaseService = inject(MockSchoolMapDatabaseService);
+  private schoolMapDatabaseService = inject(SchoolMapApiService);
 
   searchForm!: FormGroup;
   showModal = signal<boolean>(false);

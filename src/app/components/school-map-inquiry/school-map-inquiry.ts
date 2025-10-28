@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { BuildingData } from '../../models/building.model';
-import { MockBuildingDatabaseService } from '../../services/mock-building-database.service';
+import { BuildingApiService } from '../../services/building-api.service';
 
 interface MapOption {
   id: number;
@@ -23,7 +23,7 @@ interface MapOption {
 export class SchoolMapInquiryComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
-  private buildingDatabaseService = inject(MockBuildingDatabaseService);
+  private buildingDatabaseService = inject(BuildingApiService);
 
   inquiryForm!: FormGroup;
   showModal = signal<boolean>(false);

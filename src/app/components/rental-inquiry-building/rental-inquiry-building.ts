@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { RentalStatusEditComponent } from '../rental-status-edit/rental-status-edit';
 import { RentalBuildingInfo } from '../../models/rental.model';
-import { MockRentalDatabaseService } from '../../services/mock-rental-database.service';
+import { RentalApiService } from '../../services/rental-api.service';
 
 @Component({
   selector: 'app-rental-inquiry-building',
@@ -17,7 +17,7 @@ import { MockRentalDatabaseService } from '../../services/mock-rental-database.s
 })
 export class RentalInquiryBuildingComponent {
   private router = inject(Router);
-  private rentalDatabaseService = inject(MockRentalDatabaseService);
+  private rentalDatabaseService = inject(RentalApiService);
 
   protected identificationNumber = signal('');
   protected buildingInfo = signal<RentalBuildingInfo | null>(null);

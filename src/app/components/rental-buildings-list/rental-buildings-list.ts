@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header';
 import { RentalBuildingInfo } from '../../models/rental.model';
-import { MockRentalDatabaseService } from '../../services/mock-rental-database.service';
+import { RentalApiService } from '../../services/rental-api.service';
 
 @Component({
   selector: 'app-rental-buildings-list',
@@ -13,7 +13,7 @@ import { MockRentalDatabaseService } from '../../services/mock-rental-database.s
 })
 export class RentalBuildingsListComponent implements OnInit {
   private router = inject(Router);
-  private rentalDatabaseService = inject(MockRentalDatabaseService);
+  private rentalDatabaseService = inject(RentalApiService);
 
   buildings = signal<RentalBuildingInfo[]>([]);
 

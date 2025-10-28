@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { LandData, BuildingLocationData } from '../../models/land.model';
-import { MockLandDatabaseService } from '../../services/mock-land-database.service';
+import { LandApiService } from '../../services/land-api.service';
 
 @Component({
   selector: 'app-land-inquiry',
@@ -17,7 +17,7 @@ export class LandInquiryComponent {
   private router = inject(Router);
   private location = inject(Location);
   private fb = inject(FormBuilder);
-  private landDatabaseService = inject(MockLandDatabaseService);
+  private landDatabaseService = inject(LandApiService);
   
   protected searchForm: FormGroup;
   protected isSearching = signal(false);

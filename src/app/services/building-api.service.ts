@@ -8,7 +8,7 @@ import {
   BuildingAnnexData,
   NetworkCostsData
 } from '../models/building.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 import { ErrorHandlerService } from './error-handler.service';
 
 /**

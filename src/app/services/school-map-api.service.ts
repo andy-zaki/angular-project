@@ -9,7 +9,7 @@ import {
   SchoolSpaceData,
   EducationalBuildingData
 } from '../models/school-map.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 import { ErrorHandlerService } from './error-handler.service';
 
 /**

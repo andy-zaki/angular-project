@@ -6,7 +6,7 @@ import {
   FinalCompensationEntry,
   CouncilApprovalData
 } from '../models/displacement.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 
 /**
  * Displacement API Service

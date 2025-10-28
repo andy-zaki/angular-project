@@ -8,7 +8,7 @@ import {
   RentalStatusFlag,
   RentalDecision
 } from '../models/rental.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 
 /**
  * Rental API Service

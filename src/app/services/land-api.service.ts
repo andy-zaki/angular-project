@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { LandData, BuildingLocationData, LandCoordinates } from '../models/land.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.development';
 import { ErrorHandlerService } from './error-handler.service';
 
 /**
@@ -34,7 +34,7 @@ export class LandApiService {
 
   /**
    * Get land data by reference number
-   * Backend: GET api/lands/reference/{referenceNumber}
+   * Backend: GET api/lands/by-reference/{referenceNumber}
    */
   getLandByReferenceNumber(referenceNumber: string): Observable<LandData | null> {
     try {
@@ -44,7 +44,7 @@ export class LandApiService {
       return throwError(() => error);
     }
 
-    return this.http.get<LandData | null>(`${this.baseUrl}/reference/${referenceNumber}`).pipe(
+    return this.http.get<LandData | null>(`${this.baseUrl}/by-reference/${referenceNumber}`).pipe(
       tap(data => console.log(`Fetched land by reference: ${referenceNumber}`, data)),
       catchError(error => this.errorHandler.handleError(error))
     );

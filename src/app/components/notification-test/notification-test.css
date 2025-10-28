@@ -1,0 +1,70 @@
+.notification-test-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  direction: rtl;
+}
+
+.notification-test-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.test-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.test-buttons button {
+  padding: 15px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: white;
+  font-weight: bold;
+}
+
+.success-btn {
+  background-color: #28a745;
+}
+
+.success-btn:hover {
+  background-color: #218838;
+}
+
+.error-btn {
+  background-color: #dc3545;
+}
+
+.error-btn:hover {
+  background-color: #c82333;
+}
+
+.warning-btn {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.warning-btn:hover {
+  background-color: #e0a800;
+}
+
+.info-btn {
+  background-color: #17a2b8;
+}
+
+.info-btn:hover {
+  background-color: #138496;
+}
+
+.api-error-btn {
+  background-color: #6c757d;
+}
+
+.api-error-btn:hover {
+  background-color: #5a6268;
+}

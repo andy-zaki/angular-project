@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { HeaderComponent } from '../shared/header/header';
 import { StudyPeriodData } from '../../models/school-map.model';
 import { SchoolMapApiService } from '../../services/school-map-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-school-map-study-period',
@@ -16,6 +17,7 @@ export class SchoolMapStudyPeriodComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private schoolMapDatabaseService = inject(SchoolMapApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   searchForm!: FormGroup;
   showModal = signal<boolean>(false);
@@ -42,8 +44,11 @@ export class SchoolMapStudyPeriodComponent {
           this.showModal.set(true);
         },
         error: (error) => {
-          console.error('Error fetching study periods:', error);
-          alert('حدث خطأ أثناء تحميل بيانات الفترات الدراسية');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'تحميل بيانات الفترات الدراسية'
+          );
+          alert(errorMessage);
         }
       });
     } else {

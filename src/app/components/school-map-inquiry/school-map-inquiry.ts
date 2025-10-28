@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { HeaderComponent } from '../shared/header/header';
 import { BuildingData } from '../../models/building.model';
 import { BuildingApiService } from '../../services/building-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 interface MapOption {
   id: number;
@@ -24,6 +25,7 @@ export class SchoolMapInquiryComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private buildingDatabaseService = inject(BuildingApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   inquiryForm!: FormGroup;
   showModal = signal<boolean>(false);
@@ -93,8 +95,11 @@ export class SchoolMapInquiryComponent {
           this.showModal.set(true);
         },
         error: (error) => {
-          console.error('Error searching buildings:', error);
-          alert('حدث خطأ أثناء البحث عن المباني');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'البحث عن المباني'
+          );
+          alert(errorMessage);
         }
       });
     } else {

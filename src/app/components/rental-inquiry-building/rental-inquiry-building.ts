@@ -6,6 +6,7 @@ import { HeaderComponent } from '../shared/header/header';
 import { RentalStatusEditComponent } from '../rental-status-edit/rental-status-edit';
 import { RentalBuildingInfo } from '../../models/rental.model';
 import { RentalApiService } from '../../services/rental-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-rental-inquiry-building',
@@ -18,6 +19,7 @@ import { RentalApiService } from '../../services/rental-api.service';
 export class RentalInquiryBuildingComponent {
   private router = inject(Router);
   private rentalDatabaseService = inject(RentalApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   protected identificationNumber = signal('');
   protected buildingInfo = signal<RentalBuildingInfo | null>(null);
@@ -41,12 +43,15 @@ export class RentalInquiryBuildingComponent {
           this.showDetails.set(false);
         },
         error: (error) => {
-          console.error('Error fetching rental building:', error);
-          alert('حدث خطأ أثناء البحث عن المبنى');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'البحث عن المبنى المستأجر'
+          );
+          alert(errorMessage);
         }
       });
     } else {
-      alert('الرجاء إدخال الرقم التعريفي');
+      alert('⚠️ الرجاء إدخال الرقم التعريفي للمبنى');
     }
   }
 

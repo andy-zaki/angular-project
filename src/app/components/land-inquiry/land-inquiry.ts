@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { HeaderComponent } from '../shared/header/header';
 import { LandData, BuildingLocationData } from '../../models/land.model';
 import { LandApiService } from '../../services/land-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-land-inquiry',
@@ -18,6 +19,7 @@ export class LandInquiryComponent {
   private location = inject(Location);
   private fb = inject(FormBuilder);
   private landDatabaseService = inject(LandApiService);
+  private errorHandler = inject(ErrorHandlerService);
   
   protected searchForm: FormGroup;
   protected isSearching = signal(false);
@@ -52,9 +54,12 @@ export class LandInquiryComponent {
           this.isSearching.set(false);
         },
         error: (error) => {
-          console.error('Error fetching land data:', error);
           this.isSearching.set(false);
-          alert('حدث خطأ أثناء البحث عن البيانات');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'البحث عن بيانات الأرض'
+          );
+          alert(errorMessage);
         }
       });
     } else {
@@ -91,8 +96,11 @@ export class LandInquiryComponent {
           this.showBuildingPopup.set(true);
         },
         error: (error) => {
-          console.error('Error fetching building data:', error);
-          alert('حدث خطأ أثناء تحميل بيانات المباني');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'تحميل بيانات المباني'
+          );
+          alert(errorMessage);
         }
       });
     }

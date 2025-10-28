@@ -3,73 +3,179 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 /**
+ * Enhanced Error Information Interface
+ */
+export interface ErrorDetails {
+  message: string;
+  status?: number;
+  statusText?: string;
+  error?: any;
+  context?: string;
+  suggestion?: string;
+  technicalDetails?: string;
+}
+
+/**
  * Error Handler Service
- * Centralized error handling for HTTP requests
+ * Centralized error handling for HTTP requests with detailed context
  */
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorHandlerService {
   /**
-   * Handle HTTP errors and return user-friendly messages
+   * Handle HTTP errors and return detailed user-friendly messages
+   * @param error The HTTP error response
+   * @param context Optional context about what operation was being performed
    */
-  handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'حدث خطأ غير متوقع'; // Default error message in Arabic
+  handleError(error: HttpErrorResponse, context?: string): Observable<never> {
+    const errorDetails = this.buildErrorDetails(error, context);
+
+    // Log full error for debugging
+    console.error('Error Details:', errorDetails);
+    console.error('Full error object:', error);
+
+    return throwError(() => errorDetails);
+  }
+
+  /**
+   * Build detailed error information based on HTTP error
+   */
+  private buildErrorDetails(error: HttpErrorResponse, context?: string): ErrorDetails {
+    let message = 'حدث خطأ غير متوقع';
+    let suggestion = 'الرجاء المحاولة مرة أخرى';
+    let technicalDetails = '';
 
     if (error.error instanceof ErrorEvent) {
       // Client-side or network error
-      errorMessage = `خطأ في الاتصال: ${error.error.message}`;
+      message = 'فشل الاتصال بالخادم';
+      suggestion = 'تحقق من اتصال الإنترنت وحاول مرة أخرى';
+      technicalDetails = `خطأ في الشبكة: ${error.error.message}`;
       console.error('Client-side error:', error.error.message);
     } else {
       // Backend returned an unsuccessful response code
-      switch (error.status) {
-        case 0:
-          errorMessage = 'لا يمكن الاتصال بالخادم. تأكد من تشغيل الخادم.';
-          console.error('Cannot connect to server. Backend may be down.');
-          break;
-        case 400:
-          errorMessage = 'البيانات المرسلة غير صحيحة أو غير مكتملة';
-          console.error('Bad Request (400):', error.error);
-          break;
-        case 401:
-          errorMessage = 'غير مصرح لك بالوصول. يرجى تسجيل الدخول.';
-          console.error('Unauthorized (401)');
-          break;
-        case 403:
-          errorMessage = 'ليس لديك صلاحية للوصول إلى هذا المورد';
-          console.error('Forbidden (403)');
-          break;
-        case 404:
-          errorMessage = 'البيانات المطلوبة غير موجودة';
-          console.error('Not Found (404):', error.url);
-          break;
-        case 409:
-          errorMessage = 'البيانات موجودة مسبقاً أو يوجد تعارض';
-          console.error('Conflict (409):', error.error);
-          break;
-        case 500:
-          errorMessage = 'خطأ في الخادم. يرجى المحاولة لاحقاً.';
-          console.error('Internal Server Error (500):', error.error);
-          break;
-        case 503:
-          errorMessage = 'الخدمة غير متوفرة حالياً. يرجى المحاولة لاحقاً.';
-          console.error('Service Unavailable (503)');
-          break;
-        default:
-          errorMessage = `خطأ من الخادم: ${error.status} - ${error.statusText}`;
-          console.error(`Server Error (${error.status}):`, error.error);
-      }
+      const errorInfo = this.getErrorInfoByStatus(error.status, error);
+      message = errorInfo.message;
+      suggestion = errorInfo.suggestion;
+      technicalDetails = errorInfo.technicalDetails;
     }
 
-    // Log full error for debugging
-    console.error('Full error object:', error);
+    // Add context to message if provided
+    if (context) {
+      message = `خطأ في ${context}: ${message}`;
+    }
 
-    return throwError(() => ({
-      message: errorMessage,
+    return {
+      message,
       status: error.status,
       statusText: error.statusText,
-      error: error.error
-    }));
+      error: error.error,
+      context,
+      suggestion,
+      technicalDetails
+    };
+  }
+
+  /**
+   * Get detailed error information based on HTTP status code
+   */
+  private getErrorInfoByStatus(status: number, error: HttpErrorResponse): {
+    message: string;
+    suggestion: string;
+    technicalDetails: string;
+  } {
+    switch (status) {
+      case 0:
+        console.error('Cannot connect to server. Backend may be down.');
+        return {
+          message: 'تعذر الاتصال بالخادم',
+          suggestion: 'تأكد من أن الخادم يعمل على http://localhost:5000 ثم حاول مرة أخرى',
+          technicalDetails: 'لا يوجد استجابة من الخادم (Status 0 - خادم متوقف أو مشكلة في CORS)'
+        };
+
+      case 400:
+        console.error('Bad Request (400):', error.error);
+        const serverError = error.error?.errors || error.error?.message || '';
+        return {
+          message: 'البيانات المدخلة غير صحيحة',
+          suggestion: 'تحقق من صحة البيانات المدخلة وتأكد من ملء جميع الحقول المطلوبة',
+          technicalDetails: `طلب غير صحيح (400): ${serverError}`
+        };
+
+      case 401:
+        console.error('Unauthorized (401)');
+        return {
+          message: 'انتهت صلاحية الجلسة',
+          suggestion: 'يرجى تسجيل الدخول مرة أخرى للمتابعة',
+          technicalDetails: 'غير مصرح (401) - يتطلب مصادقة'
+        };
+
+      case 403:
+        console.error('Forbidden (403)');
+        return {
+          message: 'ليس لديك صلاحية لهذه العملية',
+          suggestion: 'اتصل بمسؤول النظام للحصول على الصلاحيات المطلوبة',
+          technicalDetails: 'ممنوع (403) - لا توجد صلاحيات كافية'
+        };
+
+      case 404:
+        console.error('Not Found (404):', error.url);
+        return {
+          message: 'البيانات المطلوبة غير موجودة',
+          suggestion: 'تحقق من صحة الرقم المرجعي أو المعرف المدخل',
+          technicalDetails: `غير موجود (404): ${error.url}`
+        };
+
+      case 409:
+        console.error('Conflict (409):', error.error);
+        return {
+          message: 'تعارض في البيانات',
+          suggestion: 'البيانات موجودة مسبقاً أو يوجد تعارض مع بيانات أخرى',
+          technicalDetails: `تعارض (409): ${JSON.stringify(error.error)}`
+        };
+
+      case 422:
+        console.error('Unprocessable Entity (422):', error.error);
+        const validationErrors = error.error?.errors || {};
+        const errorMessages = Object.values(validationErrors).flat().join(', ');
+        return {
+          message: 'فشل التحقق من البيانات',
+          suggestion: `الأخطاء: ${errorMessages || 'بيانات غير صالحة'}`,
+          technicalDetails: `كيان غير قابل للمعالجة (422): ${JSON.stringify(validationErrors)}`
+        };
+
+      case 500:
+        console.error('Internal Server Error (500):', error.error);
+        return {
+          message: 'خطأ داخلي في الخادم',
+          suggestion: 'حدثت مشكلة في الخادم، الرجاء المحاولة لاحقاً أو الاتصال بالدعم الفني',
+          technicalDetails: `خطأ خادم داخلي (500): ${error.error?.message || error.message}`
+        };
+
+      case 503:
+        console.error('Service Unavailable (503)');
+        return {
+          message: 'الخدمة غير متوفرة مؤقتاً',
+          suggestion: 'الخادم مشغول أو تحت الصيانة، الرجاء المحاولة بعد قليل',
+          technicalDetails: 'خدمة غير متاحة (503)'
+        };
+
+      case 504:
+        console.error('Gateway Timeout (504)');
+        return {
+          message: 'انتهت مهلة الاتصال',
+          suggestion: 'استغرق الطلب وقتاً طويلاً، الرجاء المحاولة مرة أخرى',
+          technicalDetails: 'انتهاء مهلة البوابة (504)'
+        };
+
+      default:
+        console.error(`Server Error (${status}):`, error.error);
+        return {
+          message: `خطأ من الخادم (${status})`,
+          suggestion: 'حدث خطأ غير متوقع، الرجاء المحاولة لاحقاً',
+          technicalDetails: `${status} - ${error.statusText}: ${error.error?.message || error.message}`
+        };
+    }
   }
 
   /**
@@ -125,13 +231,59 @@ export class ErrorHandlerService {
   }
 
   /**
-   * Log and display error to user
+   * Format error for display with full details
+   */
+  formatErrorMessage(error: any): string {
+    if (error && typeof error === 'object') {
+      const details = error as ErrorDetails;
+      let formatted = details.message;
+      
+      if (details.suggestion) {
+        formatted += `\n\nالحل المقترح: ${details.suggestion}`;
+      }
+      
+      if (details.technicalDetails && console) {
+        console.error('Technical Details:', details.technicalDetails);
+      }
+      
+      return formatted;
+    }
+    
+    return error?.message || error?.error?.message || 'حدث خطأ غير متوقع';
+  }
+
+  /**
+   * Get a user-friendly error message with suggestions
+   */
+  getUserFriendlyMessage(error: any, operation?: string): string {
+    let message = '';
+    
+    if (operation) {
+      message = `خطأ أثناء ${operation}\n\n`;
+    }
+    
+    if (error && typeof error === 'object' && 'message' in error) {
+      const details = error as ErrorDetails;
+      message += details.message;
+      
+      if (details.suggestion) {
+        message += `\n\n💡 ${details.suggestion}`;
+      }
+    } else {
+      message += error?.message || 'حدث خطأ غير متوقع';
+      message += '\n\n💡 الرجاء المحاولة مرة أخرى أو الاتصال بالدعم الفني';
+    }
+    
+    return message;
+  }
+
+  /**
+   * Log and display error to user with detailed information
    */
   logAndShowError(error: any, context: string): void {
     console.error(`Error in ${context}:`, error);
     
-    // You can integrate with a toast/snackbar service here
-    const message = error.message || error.error?.message || 'حدث خطأ غير متوقع';
-    alert(`خطأ في ${context}: ${message}`);
+    const message = this.getUserFriendlyMessage(error, context);
+    alert(message);
   }
 }

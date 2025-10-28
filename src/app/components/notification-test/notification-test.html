@@ -1,0 +1,31 @@
+<app-header 
+  [pageTitle]="'اختبار الإشعارات'"
+  (backClicked)="goBack()"
+  (logoutClicked)="logout()">
+</app-header>
+
+<div class="notification-test-container">
+  <h2>اختبار خدمة الإشعارات</h2>
+  
+  <div class="test-buttons">
+    <button class="success-btn" (click)="testSuccess()">
+      اختبار إشعار النجاح
+    </button>
+    
+    <button class="error-btn" (click)="testError()">
+      اختبار إشعار الخطأ
+    </button>
+    
+    <button class="warning-btn" (click)="testWarning()">
+      اختبار إشعار التحذير
+    </button>
+    
+    <button class="info-btn" (click)="testInfo()">
+      اختبار إشعار المعلومات
+    </button>
+    
+    <button class="api-error-btn" (click)="testApiError()">
+      اختبار خطأ API
+    </button>
+  </div>
+</div>

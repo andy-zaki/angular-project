@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../shared/header/header';
 import { RentalBuildingInfo } from '../../models/rental.model';
 import { RentalApiService } from '../../services/rental-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-rental-buildings-list',
@@ -14,6 +15,7 @@ import { RentalApiService } from '../../services/rental-api.service';
 export class RentalBuildingsListComponent implements OnInit {
   private router = inject(Router);
   private rentalDatabaseService = inject(RentalApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   buildings = signal<RentalBuildingInfo[]>([]);
 
@@ -24,8 +26,11 @@ export class RentalBuildingsListComponent implements OnInit {
         this.buildings.set(buildings);
       },
       error: (error) => {
-        console.error('Error loading rental buildings:', error);
-        alert('حدث خطأ أثناء تحميل قائمة المباني');
+        const errorMessage = this.errorHandler.getUserFriendlyMessage(
+          error,
+          'تحميل قائمة المباني المستأجرة'
+        );
+        alert(errorMessage);
       }
     });
   }

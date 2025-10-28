@@ -28,7 +28,7 @@ export class LandApiService {
   getAllLands(): Observable<LandData[]> {
     return this.http.get<LandData[]>(this.baseUrl).pipe(
       tap(data => console.log(`Fetched ${data.length} lands`)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'تحميل قائمة الأراضي'))
     );
   }
 
@@ -46,7 +46,7 @@ export class LandApiService {
 
     return this.http.get<LandData | null>(`${this.baseUrl}/by-reference/${referenceNumber}`).pipe(
       tap(data => console.log(`Fetched land by reference: ${referenceNumber}`, data)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, `البحث عن أرض برقم مرجعي: ${referenceNumber}`))
     );
   }
 
@@ -64,7 +64,7 @@ export class LandApiService {
 
     return this.http.get<LandData>(`${this.baseUrl}/${id}`).pipe(
       tap(data => console.log(`Fetched land by ID: ${id}`, data)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, `تحميل بيانات الأرض`))
     );
   }
 
@@ -72,17 +72,24 @@ export class LandApiService {
    * Search lands by criteria
    */
   searchLands(criteria: Partial<LandData>): Observable<LandData[]> {
-    return this.http.post<LandData[]>(`${this.baseUrl}/search`, criteria);
+    return this.http.post<LandData[]>(`${this.baseUrl}/search`, criteria).pipe(
+      catchError(error => this.errorHandler.handleError(error, 'البحث عن الأراضي'))
+    );
   }
 
   /**
    * Create or update land data
    */
   saveLand(land: LandData): Observable<LandData> {
+    const operation = land.id ? 'تحديث' : 'إضافة';
     if (land.id) {
-      return this.http.put<LandData>(`${this.baseUrl}/${land.id}`, land);
+      return this.http.put<LandData>(`${this.baseUrl}/${land.id}`, land).pipe(
+        catchError(error => this.errorHandler.handleError(error, `${operation} بيانات الأرض`))
+      );
     } else {
-      return this.http.post<LandData>(this.baseUrl, land);
+      return this.http.post<LandData>(this.baseUrl, land).pipe(
+        catchError(error => this.errorHandler.handleError(error, `${operation} بيانات الأرض`))
+      );
     }
   }
 
@@ -90,27 +97,35 @@ export class LandApiService {
    * Delete land
    */
   deleteLand(id: string): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`).pipe(
+      catchError(error => this.errorHandler.handleError(error, 'حذف الأرض'))
+    );
   }
 
   /**
    * Get building locations for a land parcel
    */
   getBuildingLocationsByLandId(landId: string): Observable<BuildingLocationData[]> {
-    return this.http.get<BuildingLocationData[]>(`${this.baseUrl}/${landId}/buildings`);
+    return this.http.get<BuildingLocationData[]>(`${this.baseUrl}/${landId}/buildings`).pipe(
+      catchError(error => this.errorHandler.handleError(error, 'تحميل مواقع المباني على الأرض'))
+    );
   }
 
   /**
    * Get coordinates for a land parcel
    */
   getLandCoordinates(landId: string): Observable<LandCoordinates[]> {
-    return this.http.get<LandCoordinates[]>(`${this.baseUrl}/${landId}/coordinates`);
+    return this.http.get<LandCoordinates[]>(`${this.baseUrl}/${landId}/coordinates`).pipe(
+      catchError(error => this.errorHandler.handleError(error, 'تحميل إحداثيات الأرض'))
+    );
   }
 
   /**
    * Add coordinates to a land parcel
    */
   addLandCoordinates(landId: string, coordinates: Omit<LandCoordinates, 'id' | 'landId'>): Observable<LandCoordinates> {
-    return this.http.post<LandCoordinates>(`${this.baseUrl}/${landId}/coordinates`, coordinates);
+    return this.http.post<LandCoordinates>(`${this.baseUrl}/${landId}/coordinates`, coordinates).pipe(
+      catchError(error => this.errorHandler.handleError(error, 'إضافة إحداثيات الأرض'))
+    );
   }
 }

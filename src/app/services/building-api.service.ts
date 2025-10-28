@@ -33,7 +33,7 @@ export class BuildingApiService {
   getAllBuildings(): Observable<BuildingData[]> {
     return this.http.get<BuildingData[]>(this.baseUrl).pipe(
       tap(data => console.log(`Fetched ${data.length} buildings`)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'تحميل قائمة المباني'))
     );
   }
 
@@ -51,7 +51,7 @@ export class BuildingApiService {
 
     return this.http.get<BuildingData>(`${this.baseUrl}/by-number/${buildingNumber}`).pipe(
       tap(data => console.log(`Fetched building by number: ${buildingNumber}`, data)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, `البحث عن مبنى برقم: ${buildingNumber}`))
     );
   }
 
@@ -69,7 +69,7 @@ export class BuildingApiService {
 
     return this.http.get<BuildingData>(`${this.baseUrl}/${id}`).pipe(
       tap(data => console.log(`Fetched building by ID: ${id}`, data)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'تحميل بيانات المبنى'))
     );
   }
 
@@ -80,7 +80,7 @@ export class BuildingApiService {
   searchBuildings(criteria: Partial<BuildingData>): Observable<BuildingData[]> {
     return this.http.post<BuildingData[]>(`${this.baseUrl}/search`, criteria).pipe(
       tap(data => console.log(`Found ${data.length} buildings matching criteria`)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'البحث عن المباني حسب المعايير'))
     );
   }
 
@@ -91,7 +91,7 @@ export class BuildingApiService {
   createBuilding(building: Omit<BuildingData, 'id'>): Observable<BuildingData> {
     return this.http.post<BuildingData>(this.baseUrl, building).pipe(
       tap(result => console.log('Created building:', result)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'إنشاء مبنى جديد'))
     );
   }
 

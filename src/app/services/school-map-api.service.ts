@@ -42,10 +42,7 @@ export class SchoolMapApiService {
 
     return this.http.get<StudyPeriodData[]>(`${this.baseUrl}/study-periods/${buildingCode}`).pipe(
       tap(data => console.log(`Fetched ${data.length} study periods for building ${buildingCode}`)),
-      catchError(error => {
-        console.error('Error fetching study periods:', error);
-        return this.errorHandler.handleError(error);
-      })
+      catchError(error => this.errorHandler.handleError(error, `تحميل الفترات الدراسية للمبنى: ${buildingCode}`))
     );
   }
 
@@ -63,7 +60,7 @@ export class SchoolMapApiService {
 
     return this.http.get<SchoolRoadData[]>(`${this.baseUrl}/roads/${buildingId}`).pipe(
       tap(data => console.log(`Fetched ${data.length} school roads for building ${buildingId}`)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'تحميل بيانات الطرق المحيطة'))
     );
   }
 
@@ -81,7 +78,7 @@ export class SchoolMapApiService {
 
     return this.http.get<SchoolAnnexData[]>(`${this.baseUrl}/annexes/${buildingId}`).pipe(
       tap(data => console.log(`Fetched ${data.length} school annexes for building ${buildingId}`)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'تحميل بيانات الملاحق'))
     );
   }
 
@@ -99,7 +96,7 @@ export class SchoolMapApiService {
 
     return this.http.get<SchoolSpaceData[]>(`${this.baseUrl}/spaces/${buildingId}`).pipe(
       tap(data => console.log(`Fetched ${data.length} school spaces for building ${buildingId}`)),
-      catchError(error => this.errorHandler.handleError(error))
+      catchError(error => this.errorHandler.handleError(error, 'تحميل بيانات الفراغات'))
     );
   }
 

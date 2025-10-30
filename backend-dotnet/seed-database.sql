@@ -162,14 +162,34 @@ VALUES
 
 INSERT INTO [Lands] ([Id], [ReferenceNumber], [UsageStatus], [Headquarters], [ApprovalStatus], 
     [IdentificationNumber], [CenterDepartment], [TotalArea], [Phase], [Approval], [EducationalBuildingId],
-    [Village], [CurrentOwner], [OriginalOwner], [CreatedAt], [UpdatedAt])
+    [Village], [CurrentOwner], [OriginalOwner], [LandCode], [Housing], [CommitteePricing], [PurchasePrice], 
+    [SaleNegotiations], [Model], [Documents], [Plan], [BranchNotification], [RealEstateStatus],
+    [BuildingBoundaries], [NetworkData], [NetworkObservations], [LandAreaFromTotal], [LandUseDatabase],
+    [LandInspectionDatabase], [LandConstructionObstacles], [LandCreationObstacles], [LandConstructionData],
+    [LandReceiptDatabase], [PaidAmountsDatabase], [DecisionData], [LandCommittees], [LandFacilities],
+    [LandCoordinatesData], [EducationalStudies], [LandReviewCommittees], [CreatedAt], [UpdatedAt])
 VALUES 
     (@Land1, N'LAND-2024-001', N'مستخدم', N'إدارة التعليم بالرياض', N'معتمد', N'ID-001-2024', N'قسم الأراضي', 5000.00, 
-     N'المرحلة الأولى', N'موافقة رقم 12345', @EduBuilding1, N'حي الملز', N'وزارة التعليم', N'وزارة التعليم', GETUTCDATE(), GETUTCDATE()),
+     N'المرحلة الأولى', N'موافقة رقم 12345', @EduBuilding1, N'حي الملز', N'وزارة التعليم', N'وزارة التعليم', 
+     N'LC-2024-001', N'إسكان متوفر', N'2,500,000', N'2,500,000', N'مكتملة', N'نموذج A1', 
+     N'صك ملكية، خرائط معتمدة', N'مخطط معتمد', N'تم إبلاغ الفرع', N'مسجل', N'محددة بالكامل', N'متوفرة', 
+     N'شبكة كهرباء ومياه', N'6500 م²', N'مدرج', N'تم التفتيش', N'لا توجد', N'لا توجد', N'بيانات كاملة', 
+     N'تم الاستلام', N'سددت بالكامل', N'قرار رقم 2024-001', N'لجنة التسعير', N'جميع المرافق متاحة', 
+     N'إحداثيات GPS متوفرة', N'دراسة جدوى معتمدة', N'تمت المراجعة', GETUTCDATE(), GETUTCDATE()),
     (@Land2, N'LAND-2024-002', N'غير مستخدم', N'إدارة التعليم بجدة', N'قيد المراجعة', N'ID-002-2024', N'قسم الأراضي', 6500.00, 
-     N'المرحلة الثانية', N'قيد الانتظار', @EduBuilding2, N'حي الروضة', N'وزارة التعليم', N'وزارة التعليم', GETUTCDATE(), GETUTCDATE()),
+     N'المرحلة الثانية', N'قيد الانتظار', @EduBuilding2, N'حي الروضة', N'وزارة التعليم', N'وزارة التعليم',
+     N'LC-2024-002', N'إسكان قيد الإنشاء', N'3,200,000', N'3,150,000', N'جارية', N'نموذج B2', 
+     N'صك ملكية، خرائط أولية', N'مخطط قيد المراجعة', N'جاري الإبلاغ', N'قيد التسجيل', N'محددة جزئياً', N'قيد التجهيز', 
+     N'شبكة كهرباء متوفرة، مياه قيد التوصيل', N'6500 م²', N'قيد الإدراج', N'جاري التفتيش', N'عوائق بسيطة', N'تحت الدراسة', N'بيانات جزئية', 
+     N'جاري الاستلام', N'دفعة أولى', N'قرار رقم 2024-002', N'لجنة المراجعة', N'كهرباء ومياه قيد التوصيل', 
+     N'إحداثيات GPS جزئية', N'دراسة قيد الإعداد', N'جارية', GETUTCDATE(), GETUTCDATE()),
     (@Land3, N'LAND-2024-003', N'مستخدم', N'إدارة التعليم بالدمام', N'معتمد', N'ID-003-2024', N'قسم الأراضي', 7000.00, 
-     N'المرحلة الأولى', N'موافقة رقم 54321', @EduBuilding3, N'حي الفيصلية', N'وزارة التعليم', N'وزارة التعليم', GETUTCDATE(), GETUTCDATE());
+     N'المرحلة الأولى', N'موافقة رقم 54321', @EduBuilding3, N'حي الفيصلية', N'وزارة التعليم', N'وزارة التعليم',
+     N'LC-2024-003', N'إسكان متوفر', N'3,500,000', N'3,450,000', N'مكتملة', N'نموذج A2', 
+     N'صك ملكية، خرائط معتمدة', N'مخطط معتمد', N'تم إبلاغ الفرع', N'مسجل', N'محددة بالكامل', N'متوفرة', 
+     N'شبكة كهرباء ومياه وصرف', N'7000 م²', N'مدرج', N'تم التفتيش', N'لا توجد', N'لا توجد', N'بيانات كاملة', 
+     N'تم الاستلام', N'سددت بالكامل', N'قرار رقم 2024-003', N'لجنة التسعير', N'جميع المرافق متاحة', 
+     N'إحداثيات GPS متوفرة', N'دراسة جدوى معتمدة', N'تمت المراجعة', GETUTCDATE(), GETUTCDATE());
 
 -- 11. Insert Land Coordinates (إحداثيات الأراضي)
 INSERT INTO [LandCoordinates] ([Id], [LandId], [PointNumber], [Latitude], [Longitude], [Elevation], [CreatedAt])

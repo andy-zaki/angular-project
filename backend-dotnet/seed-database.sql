@@ -111,21 +111,21 @@ INSERT INTO [EducationalBuildings] ([Id], [BuildingCode], [BuildingName], [Educa
     [TotalArea], [NumberOfClassrooms], [NumberOfLabs], [HasLibrary], [HasGym], [HasCafeteria], 
     [ConstructionYear], [LastRenovationYear], [CreatedAt], [UpdatedAt])
 VALUES 
-    (@EduBuilding1, N'EDU-001', N'مدرسة النيل الابتدائية', N'ابتدائي', N'نشط', 2500.00, 20, 2, 1, 1, 1, 2015, 2022, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding2, N'EDU-002', N'مدرسة التحرير الإعدادية', N'إعدادي', N'نشط', 3000.00, 24, 3, 1, 1, 1, 2018, NULL, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding3, N'EDU-003', N'مدرسة المنار الثانوية', N'ثانوي', N'نشط', 3500.00, 30, 5, 1, 1, 1, 2020, NULL, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding4, N'EDU-004', N'مدرسة الورد الأولى', N'روضة', N'قيد الصيانة', 1500.00, 10, 0, 0, 0, 1, 2010, 2021, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding5, N'EDU-005', N'مدرسة الشروق الابتدائية', N'ابتدائي', N'نشط', 2800.00, 22, 2, 1, 1, 1, 2019, NULL, GETUTCDATE(), GETUTCDATE());
+    (@EduBuilding1, N'101234', N'مدرسة النيل الابتدائية', N'ابتدائي', N'نشط', 2500.00, 20, 2, 1, 1, 1, 2015, 2022, GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding2, N'102456', N'مدرسة التحرير الإعدادية', N'إعدادي', N'نشط', 3000.00, 24, 3, 1, 1, 1, 2018, NULL, GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding3, N'103789', N'مدرسة المنار الثانوية', N'ثانوي', N'نشط', 3500.00, 30, 5, 1, 1, 1, 2020, NULL, GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding4, N'104512', N'مدرسة الورد الأولى', N'روضة', N'قيد الصيانة', 1500.00, 10, 0, 0, 0, 1, 2010, 2021, GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding5, N'105678', N'مدرسة الشروق الابتدائية', N'ابتدائي', N'نشط', 2800.00, 22, 2, 1, 1, 1, 2019, NULL, GETUTCDATE(), GETUTCDATE());
 
 -- 6. Insert Study Periods (الفترات الدراسية)
 INSERT INTO [StudyPeriods] ([Id], [EducationalBuildingId], [BuildingCode], [SchoolName], [Period], 
     [StudentCount], [ClassroomCount], [TeacherCount], [EducationalLevel], [CreatedAt], [UpdatedAt])
 VALUES 
-    (NEWID(), @EduBuilding1, N'EDU-001', N'مدرسة النيل الابتدائية', N'الفترة الصباحية', 450, 20, 35, N'ابتدائي', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding1, N'EDU-001', N'مدرسة النيل الابتدائية', N'الفترة المسائية', 380, 18, 28, N'ابتدائي', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding2, N'EDU-002', N'مدرسة التحرير الإعدادية', N'الفترة الصباحية', 520, 24, 42, N'إعدادي', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding3, N'EDU-003', N'مدرسة المنار الثانوية', N'الفترة الصباحية', 600, 30, 50, N'ثانوي', GETUTCDATE(), GETUTCDATE()),
-        (NEWID(), @EduBuilding5, N'EDU-005', N'مدرسة الشروق الابتدائية', N'الفترة الصباحية', 480, 22, 38, N'ابتدائي', GETUTCDATE(), GETUTCDATE());
+    (NEWID(), @EduBuilding1, N'101234', N'مدرسة النيل الابتدائية', N'الفترة الصباحية', 450, 20, 35, N'ابتدائي', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding1, N'101234', N'مدرسة النيل الابتدائية', N'الفترة المسائية', 380, 18, 28, N'ابتدائي', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding2, N'102456', N'مدرسة التحرير الإعدادية', N'الفترة الصباحية', 520, 24, 42, N'إعدادي', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding3, N'103789', N'مدرسة المنار الثانوية', N'الفترة الصباحية', 600, 30, 50, N'ثانوي', GETUTCDATE(), GETUTCDATE()),
+        (NEWID(), @EduBuilding5, N'105678', N'مدرسة الشروق الابتدائية', N'الفترة الصباحية', 480, 22, 38, N'ابتدائي', GETUTCDATE(), GETUTCDATE());
 
 -- 7. Insert School Roads (طرق المدرسة)
 
@@ -133,31 +133,31 @@ VALUES
 INSERT INTO [SchoolRoads] ([Id], [EducationalBuildingId], [BuildingId], [Direction], [RoadName], 
     [RoadWidth], [RoadType], [Condition], [CreatedAt])
 VALUES 
-    (NEWID(), @EduBuilding1, N'EDU-001', N'شمال', N'طريق النيل', 20.00, N'رئيسي', N'جيد', GETUTCDATE()),
-    (NEWID(), @EduBuilding1, N'EDU-001', N'جنوب', N'شارع النيل الجديد', 15.00, N'فرعي', N'جيد', GETUTCDATE()),
-    (NEWID(), @EduBuilding2, N'EDU-002', N'شرق', N'طريق التحرير', 25.00, N'رئيسي', N'ممتاز', GETUTCDATE()),
-    (NEWID(), @EduBuilding3, N'EDU-003', N'غرب', N'شارع الثورة', 18.00, N'فرعي', N'جيد', GETUTCDATE()),
-    (NEWID(), @EduBuilding5, N'EDU-005', N'شمال', N'طريق السادس من أكتوبر', 22.00, N'رئيسي', N'جيد', GETUTCDATE());
+    (NEWID(), @EduBuilding1, N'101234', N'شمال', N'طريق النيل', 20.00, N'رئيسي', N'جيد', GETUTCDATE()),
+    (NEWID(), @EduBuilding1, N'101234', N'جنوب', N'شارع النيل الجديد', 15.00, N'فرعي', N'جيد', GETUTCDATE()),
+    (NEWID(), @EduBuilding2, N'102456', N'شرق', N'طريق التحرير', 25.00, N'رئيسي', N'ممتاز', GETUTCDATE()),
+    (NEWID(), @EduBuilding3, N'103789', N'غرب', N'شارع الثورة', 18.00, N'فرعي', N'جيد', GETUTCDATE()),
+    (NEWID(), @EduBuilding5, N'105678', N'شمال', N'طريق السادس من أكتوبر', 22.00, N'رئيسي', N'جيد', GETUTCDATE());
 
 -- 8. Insert School Annexes (ملاحق المدرسة)
 INSERT INTO [SchoolAnnexes] ([Id], [EducationalBuildingId], [BuildingId], [AnnexType], [Area], 
     [Capacity], [Condition], [Purpose], [CreatedAt], [UpdatedAt])
 VALUES 
-    (NEWID(), @EduBuilding1, N'EDU-001', N'مبنى إداري', 250.00, 20, N'جيد', N'الإدارة والمكاتب', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding1, N'EDU-001', N'صالة رياضية', 400.00, 100, N'ممتاز', N'الأنشطة الرياضية', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding2, N'EDU-002', N'مختبر علوم', 180.00, 30, N'جيد', N'التجارب العلمية', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding3, N'EDU-003', N'مكتبة', 300.00, 50, N'ممتاز', N'المطالعة والبحث', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding5, N'EDU-005', N'قاعة متعددة الأغراض', 350.00, 150, N'جيد', N'الفعاليات والاجتماعات', GETUTCDATE(), GETUTCDATE());
+    (NEWID(), @EduBuilding1, N'101234', N'مبنى إداري', 250.00, 20, N'جيد', N'الإدارة والمكاتب', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding1, N'101234', N'صالة رياضية', 400.00, 100, N'ممتاز', N'الأنشطة الرياضية', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding2, N'102456', N'مختبر علوم', 180.00, 30, N'جيد', N'التجارب العلمية', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding3, N'103789', N'مكتبة', 300.00, 50, N'ممتاز', N'المطالعة والبحث', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding5, N'105678', N'قاعة متعددة الأغراض', 350.00, 150, N'جيد', N'الفعاليات والاجتماعات', GETUTCDATE(), GETUTCDATE());
 
 -- 9. Insert School Spaces (الفراغات المدرسية)
 INSERT INTO [SchoolSpaces] ([Id], [EducationalBuildingId], [BuildingId], [SpaceType], [Area], 
     [Quantity], [Condition], [Usage], [CreatedAt], [UpdatedAt])
 VALUES 
-    (NEWID(), @EduBuilding1, N'EDU-001', N'فصول دراسية', 80.00, 20, N'جيد', N'التدريس', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding1, N'EDU-001', N'مختبرات', 100.00, 2, N'جيد', N'التجارب العملية', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding2, N'EDU-002', N'فصول دراسية', 85.00, 24, N'ممتاز', N'التدريس', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding3, N'EDU-003', N'قاعات محاضرات', 120.00, 6, N'جيد', N'المحاضرات', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @EduBuilding5, N'EDU-005', N'فصول دراسية', 82.00, 22, N'جيد', N'التدريس', GETUTCDATE(), GETUTCDATE());
+    (NEWID(), @EduBuilding1, N'101234', N'فصول دراسية', 80.00, 20, N'جيد', N'التدريس', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding1, N'101234', N'مختبرات', 100.00, 2, N'جيد', N'التجارب العملية', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding2, N'102456', N'فصول دراسية', 85.00, 24, N'ممتاز', N'التدريس', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding3, N'103789', N'قاعات محاضرات', 120.00, 6, N'جيد', N'المحاضرات', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @EduBuilding5, N'105678', N'فصول دراسية', 82.00, 22, N'جيد', N'التدريس', GETUTCDATE(), GETUTCDATE());
 
 -- 10. Insert Lands (الأراضي)
 
@@ -170,26 +170,26 @@ INSERT INTO [Lands] ([Id], [ReferenceNumber], [UsageStatus], [Headquarters], [Ap
     [LandReceiptDatabase], [PaidAmountsDatabase], [DecisionData], [LandCommittees], [LandFacilities],
     [LandCoordinatesData], [EducationalStudies], [LandReviewCommittees], [CreatedAt], [UpdatedAt])
 VALUES 
-    (@Land1, N'LAND-2024-001', N'مستخدم', N'إدارة التعليم بالقاهرة', N'معتمد', N'132513', N'قسم الأراضي', 5000.00, 
-     N'المرحلة الأولى', N'موافقة رقم 12345', @EduBuilding1, N'حي الزمالك', N'وزارة التعليم والتعليم الفني', N'وزارة التعليم والتعليم الفني', 
-     N'LC-2024-001', N'إسكان متوفر', N'2,500,000', N'2,500,000', N'مكتملة', N'نموذج A1', 
+    (@Land1, N'201234', N'مستخدم', N'إدارة التعليم بالقاهرة', N'معتمد', N'132513', N'قسم الأراضي', 5000.00, 
+     N'المرحلة الأولى', N'موافقة رقم 312456', @EduBuilding1, N'حي الزمالك', N'وزارة التعليم والتعليم الفني', N'وزارة التعليم والتعليم الفني', 
+     N'301234', N'إسكان متوفر', N'2,500,000', N'2,500,000', N'مكتملة', N'نموذج A1', 
      N'صك ملكية، خرائط معتمدة', N'مخطط معتمد', N'تم إبلاغ الفرع', N'مسجل', N'محددة بالكامل', N'متوفرة', 
      N'شبكة كهرباء ومياه', N'6500 م²', N'مدرج', N'تم التفتيش', N'لا توجد', N'لا توجد', N'بيانات كاملة', 
-     N'تم الاستلام', N'سددت بالكامل', N'قرار رقم 2024-001', N'لجنة التسعير', N'جميع المرافق متاحة', 
+     N'تم الاستلام', N'سددت بالكامل', N'قرار رقم 401234', N'لجنة التسعير', N'جميع المرافق متاحة', 
      N'إحداثيات GPS متوفرة', N'دراسة جدوى معتمدة', N'تمت المراجعة', GETUTCDATE(), GETUTCDATE()),
-    (@Land2, N'LAND-2024-002', N'غير مستخدم', N'إدارة التعليم بالإسكندرية', N'قيد المراجعة', N'284756', N'قسم الأراضي', 6500.00, 
+    (@Land2, N'202456', N'غير مستخدم', N'إدارة التعليم بالإسكندرية', N'قيد المراجعة', N'284756', N'قسم الأراضي', 6500.00, 
      N'المرحلة الثانية', N'قيد الانتظار', @EduBuilding2, N'حي الرمل', N'وزارة التعليم والتعليم الفني', N'وزارة التعليم والتعليم الفني',
-     N'LC-2024-002', N'إسكان قيد الإنشاء', N'3,200,000', N'3,150,000', N'جارية', N'نموذج B2', 
+     N'302456', N'إسكان قيد الإنشاء', N'3,200,000', N'3,150,000', N'جارية', N'نموذج B2', 
      N'صك ملكية، خرائط أولية', N'مخطط قيد المراجعة', N'جاري الإبلاغ', N'قيد التسجيل', N'محددة جزئياً', N'قيد التجهيز', 
      N'شبكة كهرباء متوفرة، مياه قيد التوصيل', N'6500 م²', N'قيد الإدراج', N'جاري التفتيش', N'عوائق بسيطة', N'تحت الدراسة', N'بيانات جزئية', 
-     N'جاري الاستلام', N'دفعة أولى', N'قرار رقم 2024-002', N'لجنة المراجعة', N'كهرباء ومياه قيد التوصيل', 
+     N'جاري الاستلام', N'دفعة أولى', N'قرار رقم 402456', N'لجنة المراجعة', N'كهرباء ومياه قيد التوصيل', 
      N'إحداثيات GPS جزئية', N'دراسة قيد الإعداد', N'جارية', GETUTCDATE(), GETUTCDATE()),
-    (@Land3, N'LAND-2024-003', N'مستخدم', N'إدارة التعليم بالجيزة', N'معتمد', N'ID-003-2024', N'قسم الأراضي', 7000.00, 
-     N'المرحلة الأولى', N'موافقة رقم 54321', @EduBuilding3, N'حي الهرم', N'وزارة التعليم والتعليم الفني', N'وزارة التعليم والتعليم الفني',
-     N'LC-2024-003', N'إسكان متوفر', N'3,500,000', N'3,450,000', N'مكتملة', N'نموذج A2', 
+    (@Land3, N'203789', N'مستخدم', N'إدارة التعليم بالجيزة', N'معتمد', N'547821', N'قسم الأراضي', 7000.00, 
+     N'المرحلة الأولى', N'موافقة رقم 312789', @EduBuilding3, N'حي الهرم', N'وزارة التعليم والتعليم الفني', N'وزارة التعليم والتعليم الفني',
+     N'303789', N'إسكان متوفر', N'3,500,000', N'3,450,000', N'مكتملة', N'نموذج A2', 
      N'صك ملكية، خرائط معتمدة', N'مخطط معتمد', N'تم إبلاغ الفرع', N'مسجل', N'محددة بالكامل', N'متوفرة', 
      N'شبكة كهرباء ومياه وصرف', N'7000 م²', N'مدرج', N'تم التفتيش', N'لا توجد', N'لا توجد', N'بيانات كاملة', 
-     N'تم الاستلام', N'سددت بالكامل', N'قرار رقم 2024-003', N'لجنة التسعير', N'جميع المرافق متاحة', 
+     N'تم الاستلام', N'سددت بالكامل', N'قرار رقم 403789', N'لجنة التسعير', N'جميع المرافق متاحة', 
      N'إحداثيات GPS متوفرة', N'دراسة جدوى معتمدة', N'تمت المراجعة', GETUTCDATE(), GETUTCDATE());
 
 -- 11. Insert Land Coordinates (إحداثيات الأراضي)
@@ -206,10 +206,10 @@ VALUES
 -- 12. Insert Building Locations (مواقع المباني على الأراضي)
 INSERT INTO [BuildingLocations] ([Id], [LandId], [Code], [LocationName], [Coordinates], [Status], [RequiredStatus], [CreatedAt])
 VALUES 
-    (NEWID(), @Land1, N'LOC-001', N'الموقع الشمالي الشرقي', 1, N'متاح', N'قيد الإنشاء', GETUTCDATE()),
-    (NEWID(), @Land1, N'LOC-002', N'الموقع الجنوبي الغربي', 2, N'محجوز', N'معتمد', GETUTCDATE()),
-    (NEWID(), @Land2, N'LOC-003', N'الموقع المركزي', 1, N'متاح', N'قيد الدراسة', GETUTCDATE()),
-    (NEWID(), @Land3, N'LOC-004', N'الموقع الشرقي', 1, N'محجوز', N'معتمد', GETUTCDATE());
+    (NEWID(), @Land1, N'501234', N'الموقع الشمالي الشرقي', 1, N'متاح', N'قيد الإنشاء', GETUTCDATE()),
+    (NEWID(), @Land1, N'502456', N'الموقع الجنوبي الغربي', 2, N'محجوز', N'معتمد', GETUTCDATE()),
+    (NEWID(), @Land2, N'503789', N'الموقع المركزي', 1, N'متاح', N'قيد الدراسة', GETUTCDATE()),
+    (NEWID(), @Land3, N'504512', N'الموقع الشرقي', 1, N'محجوز', N'معتمد', GETUTCDATE());
 
 -- 13. Insert Buildings (المباني)
 
@@ -217,11 +217,11 @@ INSERT INTO [Buildings] ([Id], [BuildingNumber], [SchoolName], [UsageStatus], [A
     [Governorate], [RegionalCenter], [EducationalAdministration], [District], [Neighborhood], [Stage], [EducationType], 
     [EducationalBuildingId], [CreatedAt], [UpdatedAt])
 VALUES 
-    (@Building1, N'BLD-001', N'مدرسة النيل الابتدائية', N'نشط', N'وزارة التعليم والتعليم الفني', N'حكومي', N'محافظة القاهرة', N'مركز القاهرة', 
+    (@Building1, N'601234', N'مدرسة النيل الابتدائية', N'نشط', N'وزارة التعليم والتعليم الفني', N'حكومي', N'محافظة القاهرة', N'مركز القاهرة', 
      N'إدارة تعليم القاهرة', N'منطقة القاهرة', N'حي الزمالك', N'ابتدائي', N'تعليم عام', @EduBuilding1, GETUTCDATE(), GETUTCDATE()),
-    (@Building2, N'BLD-002', N'مدرسة التحرير الإعدادية', N'نشط', N'وزارة التعليم والتعليم الفني', N'حكومي', N'محافظة القاهرة', N'مركز القاهرة', 
+    (@Building2, N'602456', N'مدرسة التحرير الإعدادية', N'نشط', N'وزارة التعليم والتعليم الفني', N'حكومي', N'محافظة القاهرة', N'مركز القاهرة', 
      N'إدارة تعليم القاهرة', N'منطقة القاهرة', N'حي النيل', N'إعدادي', N'تعليم عام', @EduBuilding2, GETUTCDATE(), GETUTCDATE()),
-    (@Building3, N'BLD-003', N'مدرسة المنار الثانوية', N'نشط', N'وزارة التعليم والتعليم الفني', N'حكومي', N'محافظة الإسكندرية', N'مركز الإسكندرية', 
+    (@Building3, N'603789', N'مدرسة المنار الثانوية', N'نشط', N'وزارة التعليم والتعليم الفني', N'حكومي', N'محافظة الإسكندرية', N'مركز الإسكندرية', 
      N'إدارة تعليم الإسكندرية', N'محافظة الإسكندرية', N'حي الرمل', N'ثانوي', N'تعليم عام', @EduBuilding3, GETUTCDATE(), GETUTCDATE());
 
 -- 14. Insert Building Basic Data (البيانات الأساسية للمبنى)
@@ -229,11 +229,11 @@ INSERT INTO [BuildingBasicData] ([Id], [BuildingId], [BuildingNumber], [SchoolNa
     [BuiltArea], [Floors], [ConstructionYear], [LastMaintenanceYear], [BuildingCondition], [OwnershipType], 
     [RentalStatus], [CreatedAt], [UpdatedAt])
 VALUES 
-    (NEWID(), @Building1, N'BLD-001', N'مدرسة النيل الابتدائية', N'مبنى رئيسي', 2500.00, 1800.00, 2, 2015, 2022, 
+    (NEWID(), @Building1, N'601234', N'مدرسة النيل الابتدائية', N'مبنى رئيسي', 2500.00, 1800.00, 2, 2015, 2022, 
      N'جيد', N'ملك', N'غير مؤجر', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @Building2, N'BLD-002', N'مدرسة التحرير الإعدادية', N'مبنى رئيسي', 3000.00, 2200.00, 3, 2018, NULL, 
+    (NEWID(), @Building2, N'602456', N'مدرسة التحرير الإعدادية', N'مبنى رئيسي', 3000.00, 2200.00, 3, 2018, NULL, 
      N'ممتاز', N'ملك', N'غير مؤجر', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @Building3, N'BLD-003', N'مدرسة المنار الثانوية', N'مبنى رئيسي', 3500.00, 2800.00, 3, 2020, NULL, 
+    (NEWID(), @Building3, N'603789', N'مدرسة المنار الثانوية', N'مبنى رئيسي', 3500.00, 2800.00, 3, 2020, NULL, 
      N'ممتاز', N'ملك', N'غير مؤجر', GETUTCDATE(), GETUTCDATE());
 
 -- 15. Insert Building Annexes (ملحقات المبنى)
@@ -248,10 +248,10 @@ VALUES
 INSERT INTO [NetworkCosts] ([Id], [BuildingId], [NetworkType], [InstallationCost], [MaintenanceCost], 
     [InstallationDate], [Provider], [ContractNumber], [CreatedAt], [UpdatedAt])
 VALUES 
-    (NEWID(), @Building1, N'كهرباء', 150000.00, 5000.00, N'2015-03-15', N'الشركة المصرية لتوزيع الكهرباء', N'ELEC-2015-001', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @Building1, N'مياه', 80000.00, 3000.00, N'2015-03-20', N'شركة المياه الوطنية المصرية', N'WATER-2015-001', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @Building2, N'كهرباء', 180000.00, 6000.00, N'2018-05-10', N'الشركة المصرية لتوزيع الكهرباء', N'ELEC-2018-002', GETUTCDATE(), GETUTCDATE()),
-    (NEWID(), @Building3, N'إنترنت', 50000.00, 4000.00, N'2020-08-01', N'شركة الاتصالات المصرية', N'NET-2020-003', GETUTCDATE(), GETUTCDATE());
+    (NEWID(), @Building1, N'كهرباء', 150000.00, 5000.00, N'2015-03-15', N'الشركة المصرية لتوزيع الكهرباء', N'701234', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @Building1, N'مياه', 80000.00, 3000.00, N'2015-03-20', N'شركة المياه الوطنية المصرية', N'702456', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @Building2, N'كهرباء', 180000.00, 6000.00, N'2018-05-10', N'الشركة المصرية لتوزيع الكهرباء', N'703789', GETUTCDATE(), GETUTCDATE()),
+    (NEWID(), @Building3, N'إنترنت', 50000.00, 4000.00, N'2020-08-01', N'شركة الاتصالات المصرية', N'704512', GETUTCDATE(), GETUTCDATE());
 
 -- 17. Insert Rental Buildings (المباني المستأجرة)
 
@@ -260,13 +260,13 @@ INSERT INTO [RentalBuildings] ([Id], [IdentificationNumber], [Name], [StatusFlag
     [NumberOfRooms], [NumberOfFloors], [YearBuilt], [LastInspectionDate], [InspectionStatus], [MaintenanceRequired], 
     [EducationalBuildingId], [CreatedAt], [UpdatedAt])
 VALUES 
-    (@Rental1, N'RB-2024-001', N'مبنى إداري مستأجر - حي الزمالك', @StatusActive, N'نشط', N'ساري', N'إدارة التعليم', 
+    (@Rental1, N'801234', N'مبنى إداري مستأجر - حي الزمالك', @StatusActive, N'نشط', N'ساري', N'إدارة التعليم', 
      N'القاهرة - حي الزمالك - شارع النيل', 25000.00, N'2024-01-01', N'2025-12-31', N'إداري', 500.00, 450.00, 
      10, 2, 2018, N'2024-09-01', N'جيد', 0, @EduBuilding1, GETUTCDATE(), GETUTCDATE()),
-    (@Rental2, N'RB-2024-002', N'مبنى تعليمي مستأجر - حي النيل', @StatusActive, N'نشط', N'ساري', N'إدارة التعليم', 
+    (@Rental2, N'802456', N'مبنى تعليمي مستأجر - حي النيل', @StatusActive, N'نشط', N'ساري', N'إدارة التعليم', 
      N'القاهرة - حي النيل - شارع التحرير', 35000.00, N'2024-02-01', N'2026-01-31', N'تعليمي', 800.00, 750.00, 
      15, 3, 2019, N'2024-08-15', N'ممتاز', 0, @EduBuilding2, GETUTCDATE(), GETUTCDATE()),
-    (@Rental3, N'RB-2024-003', N'مبنى مستأجر - حي الرمل', @StatusPending, N'قيد المراجعة', N'تجديد', N'إدارة التعليم', 
+    (@Rental3, N'803789', N'مبنى مستأجر - حي الرمل', @StatusPending, N'قيد المراجعة', N'تجديد', N'إدارة التعليم', 
      N'الإسكندرية - حي الرمل - طريق الكورنيش', 30000.00, N'2023-06-01', N'2024-05-31', N'مختلط', 600.00, 550.00, 
      12, 2, 2020, N'2024-04-20', N'جيد', 1, @EduBuilding4, GETUTCDATE(), GETUTCDATE());
 
@@ -285,11 +285,11 @@ VALUES
 INSERT INTO [RentalDecisions] ([Id], [BuildingId], [DecisionNumber], [DecisionDate], [DecisionType], 
     [ApprovedBy], [Notes], [CreatedAt])
 VALUES 
-    (NEWID(), @Rental1, N'DEC-2024-001', N'2024-01-01', N'عقد إيجار جديد', N'مدير إدارة التعليم', 
+    (NEWID(), @Rental1, N'901234', N'2024-01-01', N'عقد إيجار جديد', N'مدير إدارة التعليم', 
      N'تم الموافقة على استئجار المبنى لمدة عامين', GETUTCDATE()),
-    (NEWID(), @Rental2, N'DEC-2024-002', N'2024-02-01', N'عقد إيجار جديد', N'مدير إدارة التعليم', 
+    (NEWID(), @Rental2, N'902456', N'2024-02-01', N'عقد إيجار جديد', N'مدير إدارة التعليم', 
      N'تم الموافقة على استئجار المبنى التعليمي', GETUTCDATE()),
-    (NEWID(), @Rental3, N'DEC-2023-015', N'2023-06-01', N'تجديد عقد', N'مدير إدارة التعليم', 
+    (NEWID(), @Rental3, N'903789', N'2023-06-01', N'تجديد عقد', N'مدير إدارة التعليم', 
      N'تجديد العقد تحت المراجعة', GETUTCDATE());
 
 -- 20. Insert Displacement Records (سجلات الإحلال)
@@ -297,9 +297,9 @@ VALUES
 INSERT INTO [DisplacementRecords] ([Id], [ReferenceNumber], [BuildingCode], [DisplacementType], [Status], 
     [RequestDate], [ApprovalDate], [CompletionDate], [Reason], [Notes], [EducationalBuildingId], [CreatedAt], [UpdatedAt])
 VALUES 
-    (@Displacement1, N'DISP-2024-001', N'EDU-001', N'إحلال كامل', N'معتمد', N'2024-03-01', N'2024-04-15', NULL, 
+    (@Displacement1, N'101512', N'101234', N'إحلال كامل', N'معتمد', N'2024-03-01', N'2024-04-15', NULL, 
      N'البنية التحتية القديمة تحتاج إلى إحلال', N'مشروع إحلال شامل للمبنى', @EduBuilding1, GETUTCDATE(), GETUTCDATE()),
-    (@Displacement2, N'DISP-2024-002', N'EDU-004', N'صيانة وترميم', N'قيد التنفيذ', N'2024-05-10', N'2024-06-20', NULL, 
+    (@Displacement2, N'102678', N'104512', N'صيانة وترميم', N'قيد التنفيذ', N'2024-05-10', N'2024-06-20', NULL, 
      N'أعمال صيانة دورية', N'صيانة المرافق والفصول الدراسية', @EduBuilding4, GETUTCDATE(), GETUTCDATE());
 
 -- 21. Insert Displacement Compensations (التعويضات)
@@ -317,11 +317,11 @@ VALUES
 INSERT INTO [CouncilApprovals] ([Id], [DisplacementId], [CouncilName], [ApprovalNumber], [ApprovalDate], 
     [ApprovalStatus], [DecisionDetails], [CreatedAt])
 VALUES 
-    (NEWID(), @Displacement1, N'مجلس إدارة التعليم', N'APP-2024-001', N'2024-04-15', N'معتمد', 
+    (NEWID(), @Displacement1, N'مجلس إدارة التعليم', N'201234', N'2024-04-15', N'معتمد', 
      N'تمت الموافقة على مشروع الإحلال بالإجماع', GETUTCDATE()),
-    (NEWID(), @Displacement1, N'اللجنة المالية', N'APP-2024-002', N'2024-04-20', N'معتمد', 
+    (NEWID(), @Displacement1, N'اللجنة المالية', N'202456', N'2024-04-20', N'معتمد', 
      N'تمت الموافقة على الميزانية المقترحة', GETUTCDATE()),
-    (NEWID(), @Displacement2, N'لجنة الصيانة', N'APP-2024-010', N'2024-06-20', N'معتمد', 
+    (NEWID(), @Displacement2, N'لجنة الصيانة', N'203789', N'2024-06-20', N'معتمد', 
      N'الموافقة على خطة الصيانة والترميم', GETUTCDATE());
 
 -- 23. Insert Users (المستخدمون)

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { DisplacementApiService } from '../../services/displacement-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-building-displacement-pre',
@@ -14,6 +16,8 @@ import { HeaderComponent } from '../shared/header/header';
 export class BuildingDisplacementPreComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private displacementService = inject(DisplacementApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   protected displacementForm: FormGroup;
   protected submitStatus = signal<'idle' | 'success' | 'error'>('idle');
@@ -76,15 +80,45 @@ export class BuildingDisplacementPreComponent {
 
   protected onSubmit(): void {
     if (this.displacementForm.valid) {
-      console.log('Form Data:', this.displacementForm.value);
-      this.submitStatus.set('success');
-      setTimeout(() => {
-        this.submitStatus.set('idle');
-        this.router.navigate(['/displacement-council-approval']);
-      }, 2000);
+      const formData = this.displacementForm.value;
+      
+      // Create displacement record object matching backend DisplacementRecord model
+      const displacementData = {
+        referenceNumber: `DISP-PRE-${Date.now()}`,
+        buildingCode: formData.rentedBuildingCode,
+        displacementType: 'قبل التنظيم',
+        status: 'قيد المعالجة',
+        requestDate: new Date().toISOString(),
+        reason: `مساحة: ${formData.area}م² - قبل التنظيم: ${formData.areaBeforeOrganization}م² - بعد التنظيم: ${formData.areaAfterOrganization}م²`,
+        notes: `موقف الاستخدام: ${formData.usageStatus}\nسعر الاستشاري: ${formData.consultantLandPricePerMeter || 'غير محدد'}\nقيمة التعويض: ${formData.compensationValue || 'غير محدد'}`
+      };
+      
+      // Save to database via API
+      this.displacementService.createDisplacement(displacementData as any).subscribe({
+        next: (savedDisplacement) => {
+          console.log('Displacement saved successfully:', savedDisplacement);
+          this.submitStatus.set('success');
+          alert('✅ تم حفظ بيانات النزع بنجاح');
+          setTimeout(() => {
+            this.submitStatus.set('idle');
+            this.router.navigate(['/displacement-council-approval']);
+          }, 2000);
+        },
+        error: (error) => {
+          console.error('Error saving displacement:', error);
+          this.submitStatus.set('error');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'حفظ بيانات النزع'
+          );
+          alert(errorMessage);
+          setTimeout(() => this.submitStatus.set('idle'), 3000);
+        }
+      });
     } else {
       this.submitStatus.set('error');
       this.markFormGroupTouched(this.displacementForm);
+      alert('⚠️ الرجاء ملء جميع الحقول المطلوبة');
       setTimeout(() => this.submitStatus.set('idle'), 3000);
     }
   }

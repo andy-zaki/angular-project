@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { BuildingApiService } from '../../services/building-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-building-network-costs',
@@ -14,6 +16,8 @@ import { HeaderComponent } from '../shared/header/header';
 })
 export class BuildingNetworkCostsComponent {
   private router = inject(Router);
+  private buildingService = inject(BuildingApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   protected formData = {
     governmentNumber: '',
@@ -45,9 +49,76 @@ export class BuildingNetworkCostsComponent {
 
   protected submitForm(): void {
     if (this.validateForm()) {
-      alert('تم حفظ بيانات تكاليف الشبكات بنجاح');
-      this.goBack();
+      const governmentNumber = this.formData.governmentNumber;
+      
+      // First, find or create the building
+      this.buildingService.searchBuildings({ buildingNumber: governmentNumber }).subscribe({
+        next: (buildings: any[]) => {
+          let buildingId: string;
+          
+          if (buildings && buildings.length > 0) {
+            buildingId = buildings[0].id;
+            this.saveNetworkCosts(buildingId);
+          } else {
+            // Create building first
+            const buildingData = {
+              buildingNumber: governmentNumber,
+              schoolName: 'مبنى - ' + governmentNumber,
+              governorate: 'غير محدد',
+              regionalCenter: 'غير محدد',
+              educationalAdministration: 'غير محدد',
+              district: 'غير محدد',
+              neighborhood: 'غير محدد'
+            };
+            
+            this.buildingService.createBuilding(buildingData as any).subscribe({
+              next: (created: any) => {
+                this.saveNetworkCosts(created.id);
+              },
+              error: (error: any) => {
+                const errorMessage = this.errorHandler.getUserFriendlyMessage(
+                  error,
+                  'إنشاء المبنى'
+                );
+                alert(errorMessage);
+              }
+            });
+          }
+        },
+        error: (error: any) => {
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'البحث عن المبنى'
+          );
+          alert(errorMessage);
+        }
+      });
     }
+  }
+  
+  private saveNetworkCosts(buildingId: string): void {
+    const costsData = {
+      networkType: this.formData.networkType,
+      totalCost: parseFloat(this.formData.costAmount) || 0,
+      costDescription: this.formData.description || '',
+      installationDate: new Date().toISOString().split('T')[0]
+    };
+    
+    this.buildingService.addNetworkCosts(buildingId, costsData as any).subscribe({
+      next: (saved: any) => {
+        console.log('Network costs saved:', saved);
+        alert('✅ تم حفظ بيانات تكاليف الشبكات بنجاح');
+        this.goBack();
+      },
+      error: (error: any) => {
+        console.error('Error saving network costs:', error);
+        const errorMessage = this.errorHandler.getUserFriendlyMessage(
+          error,
+          'حفظ تكاليف الشبكات'
+        );
+        alert(errorMessage);
+      }
+    });
   }
 
   private validateForm(): boolean {

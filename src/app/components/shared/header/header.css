@@ -63,7 +63,7 @@
 }
 
 .page-info .page-title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   margin: 0;
   color: white;
@@ -80,15 +80,19 @@
 }
 
 .user-info .welcome-title {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
   margin: 0;
   opacity: 0.95;
   letter-spacing: 0.1px;
 }
 
+.user-info .welcome-title strong {
+  font-weight: var(--font-weight-bold);
+}
+
 .user-info .last-login {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-base);
   opacity: 0.8;
   margin: 0;
   font-weight: var(--font-weight-normal);
@@ -217,7 +221,7 @@
 
 /* Logout Button */
 .logout-button {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(220, 38, 38, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(114, 125, 134, 0.95) 0%, rgba(49, 57, 68, 0.95) 100%);
   color: white;
   border: none;
   border-radius: var(--radius-lg);
@@ -229,8 +233,8 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.295);
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
@@ -243,7 +247,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.5s;
 }
 

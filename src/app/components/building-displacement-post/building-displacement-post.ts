@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { DisplacementApiService } from '../../services/displacement-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-building-displacement-post',
@@ -16,6 +17,7 @@ export class BuildingDisplacementPostComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private displacementDatabaseService = inject(DisplacementApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   // School data - will be loaded from database service
   protected schoolNumber = signal<string>('12345');
@@ -59,7 +61,7 @@ export class BuildingDisplacementPostComponent implements OnInit {
     { id: 2, title: 'كشوف العرض', icon: '📊' },
     { id: 3, title: 'شهادات المطابقة', icon: '📜' },
     { id: 4, title: 'قرار الوزير المختص', icon: '📋' },
-    { id: 5, title: 'صحيفة وحدة عقارية', icon: '🏠' },
+    { id: 5, title: 'صحيفة وحدة صحية', icon: '🏠' },
     { id: 6, title: 'استمارات البيع', icon: '📝' }
   ];
 
@@ -181,15 +183,45 @@ export class BuildingDisplacementPostComponent implements OnInit {
 
   protected onSubmit(): void {
     if (this.displacementPostForm.valid) {
-      console.log('Form Data:', this.displacementPostForm.value);
-      this.submitStatus.set('success');
-      setTimeout(() => {
-        this.submitStatus.set('idle');
-        this.router.navigate(['/building-displacement-menu']);
-      }, 2000);
+      const formData = this.displacementPostForm.value;
+      
+      // Create displacement record for post-organization
+      const displacementData = {
+        referenceNumber: `DISP-POST-${Date.now()}`,
+        buildingCode: this.schoolNumber(),
+        displacementType: 'بعد التنظيم',
+        status: 'قيد المعالجة',
+        requestDate: new Date().toISOString(),
+        reason: `قرار لجنة المبيعات: ${formData.salesCommitteeDecision || 'غير محدد'}`,
+        notes: `رقم جلسة المبيعات: ${formData.salesSessionNumber || ''}\nتفاصيل إضافية من النموذج`
+      };
+      
+      // Save to database
+      this.displacementDatabaseService.createDisplacement(displacementData as any).subscribe({
+        next: (savedDisplacement) => {
+          console.log('Post-displacement saved successfully:', savedDisplacement);
+          this.submitStatus.set('success');
+          alert('✅ تم حفظ بيانات النزع بعد التنظيم بنجاح');
+          setTimeout(() => {
+            this.submitStatus.set('idle');
+            this.router.navigate(['/building-displacement-menu']);
+          }, 2000);
+        },
+        error: (error) => {
+          console.error('Error saving displacement:', error);
+          this.submitStatus.set('error');
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'حفظ بيانات النزع بعد التنظيم'
+          );
+          alert(errorMessage);
+          setTimeout(() => this.submitStatus.set('idle'), 3000);
+        }
+      });
     } else {
       this.submitStatus.set('error');
       this.markFormGroupTouched(this.displacementPostForm);
+      alert('⚠️ الرجاء ملء جميع الحقول المطلوبة');
       setTimeout(() => this.submitStatus.set('idle'), 3000);
     }
   }

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { SchoolMapApiService } from '../../services/school-map-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-school-map-roads',
@@ -14,6 +16,8 @@ import { HeaderComponent } from '../shared/header/header';
 export class SchoolMapRoadsComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private schoolMapService = inject(SchoolMapApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   roadsForm!: FormGroup;
 
@@ -42,10 +46,33 @@ export class SchoolMapRoadsComponent {
 
   onSubmit() {
     if (this.roadsForm.valid) {
-      console.log('Roads Data:', this.roadsForm.value);
-      // Handle form submission
-      alert('تم حفظ البيانات بنجاح');
-      this.roadsForm.reset();
+      const formData = this.roadsForm.value;
+      
+      const roadData = {
+        buildingCode: formData.buildingCode,
+        centerCode: formData.centerCode,
+        branchCode: formData.branchCode,
+        mainRoadTypeCode: formData.mainRoadTypeCode,
+        roadWidth: parseFloat(formData.roadWidth) || 0,
+        movementDirectionCode: formData.movementDirectionCode
+      };
+      
+      // Save to database
+      this.schoolMapService.addSchoolRoad(roadData as any).subscribe({
+        next: (saved: any) => {
+          console.log('Road data saved:', saved);
+          alert('✅ تم حفظ بيانات الطرق بنجاح');
+          this.roadsForm.reset();
+        },
+        error: (error: any) => {
+          console.error('Error saving road data:', error);
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'حفظ بيانات الطرق'
+          );
+          alert(errorMessage);
+        }
+      });
     } else {
       this.markFormGroupTouched(this.roadsForm);
     }

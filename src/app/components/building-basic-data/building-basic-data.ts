@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { BuildingApiService } from '../../services/building-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-building-basic-data',
@@ -14,6 +16,8 @@ import { HeaderComponent } from '../shared/header/header';
 export class BuildingBasicDataComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private buildingService = inject(BuildingApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   buildingForm: FormGroup;
 
@@ -64,12 +68,40 @@ export class BuildingBasicDataComponent {
 
   onSubmit() {
     if (this.buildingForm.valid) {
-      console.log('Building basic data submitted:', this.buildingForm.value);
-      alert('تم حفظ البيانات بنجاح!');
-      this.buildingForm.reset();
+      const formData = this.buildingForm.value;
+      
+      // Create a building record first
+      const buildingData = {
+        buildingNumber: formData.buildingNumber,
+        schoolName: 'مبنى تعليمي - ' + formData.buildingNumber,
+        usageStatus: formData.usageStatus,
+        buildingOwnership: formData.buildingOwnership,
+        governorate: 'غير محدد',
+        regionalCenter: 'غير محدد',
+        educationalAdministration: 'غير محدد',
+        district: 'غير محدد',
+        neighborhood: formData.street || 'غير محدد'
+      };
+      
+      // Save to database
+      this.buildingService.createBuilding(buildingData as any).subscribe({
+        next: (saved: any) => {
+          console.log('Building basic data saved:', saved);
+          alert('✅ تم حفظ البيانات الأساسية للمبنى بنجاح!');
+          this.buildingForm.reset();
+        },
+        error: (error: any) => {
+          console.error('Error saving building data:', error);
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'حفظ البيانات الأساسية للمبنى'
+          );
+          alert(errorMessage);
+        }
+      });
     } else {
       this.markFormGroupTouched(this.buildingForm);
-      alert('الرجاء ملء جميع الحقول المطلوبة');
+      alert('⚠️ الرجاء ملء جميع الحقول المطلوبة');
     }
   }
 

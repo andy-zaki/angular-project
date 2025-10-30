@@ -56,7 +56,21 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    
+    // Ensure database is created but don't drop existing data
     context.Database.EnsureCreated();
+    
+    // Only seed data if database is empty (first run)
+    if (!context.Users.Any())
+    {
+        Console.WriteLine("Database is empty. Consider running seed-database.sql manually.");
+        // Note: Seed data should be loaded manually via SQL script
+        // to avoid overwriting existing data on every restart
+    }
+    else
+    {
+        Console.WriteLine($"Database already contains data. Found {context.Users.Count()} users.");
+    }
 }
 
 app.Run();

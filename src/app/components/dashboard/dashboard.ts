@@ -22,8 +22,8 @@ export class DashboardComponent {
   private router = inject(Router);
   
   protected userInfo = signal({
-    name: 'المستخدم', // Default user name in Arabic
-    lastLogin: new Date().toLocaleDateString('ar-SA')
+    name: 'أندرو سامي', // Default user name in Arabic
+    lastLogin: new Date().toLocaleDateString('ar-EG')
   });
 
   protected menuOptions: MenuOption[] = [

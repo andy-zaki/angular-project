@@ -63,128 +63,68 @@
           <h3>تفاصيل المبنى</h3>
           <div class="details-grid">
             <div class="detail-row">
-              <span class="detail-label">كود المبني:</span>
-              <span class="detail-value">12345678</span>
+              <span class="detail-label">الرقم التعريفي:</span>
+              <span class="detail-value">{{ buildingDetails()?.identificationNumber || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">اسم المدرسة:</span>
-              <span class="detail-value">مدرسة الرازي الابتدائية</span>
+              <span class="detail-label">اسم المبنى:</span>
+              <span class="detail-value">{{ buildingDetails()?.name || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">المحافظة:</span>
-              <span class="detail-value">محافظة القاهرة</span>
+              <span class="detail-label">نوع المبنى:</span>
+              <span class="detail-value">{{ buildingDetails()?.buildingType || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">مركز:</span>
-              <span class="detail-value">مركز القاهرة</span>
+              <span class="detail-label">المستأجر:</span>
+              <span class="detail-value">{{ buildingDetails()?.tenant || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">الادارة التعليمية:</span>
-              <span class="detail-value">إدارة المنيل التعليمية</span>
+              <span class="detail-label">الموقع:</span>
+              <span class="detail-value">{{ buildingDetails()?.location || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">نوعية التعليم:</span>
-              <span class="detail-value">تعليم عام</span>
+              <span class="detail-label">المساحة الكلية:</span>
+              <span class="detail-value">{{ buildingDetails()?.totalArea ? (buildingDetails()?.totalArea + ' م²') : 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">التبعية:</span>
-              <span class="detail-value">وزارة التربية والتعليم</span>
+              <span class="detail-label">المساحة القابلة للاستخدام:</span>
+              <span class="detail-value">{{ buildingDetails()?.usableArea ? (buildingDetails()?.usableArea + ' م²') : 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">موقف الاستخدام:</span>
-              <span class="detail-value">مستخدم</span>
+              <span class="detail-label">عدد الغرف:</span>
+              <span class="detail-value">{{ buildingDetails()?.numberOfRooms || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">المرحلة التعليمية:</span>
-              <span class="detail-value">ابتدائي</span>
+              <span class="detail-label">عدد الطوابق:</span>
+              <span class="detail-value">{{ buildingDetails()?.numberOfFloors || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">فترات الاستخدام:</span>
-              <span class="detail-value">فترتان (صباحية ومسائية)</span>
+              <span class="detail-label">سنة الإنشاء:</span>
+              <span class="detail-value">{{ buildingDetails()?.yearBuilt || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">النوع (الجنس):</span>
-              <span class="detail-value">مشترك</span>
+              <span class="detail-label">الإيجار الشهري:</span>
+              <span class="detail-value">{{ buildingDetails()?.monthlyRent ? (buildingDetails()?.monthlyRent | number:'1.2-2') + ' ريال' : 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">اسم مدرسة الفترة الثانية:</span>
-              <span class="detail-value">مدرسة النور المسائية</span>
+              <span class="detail-label">تاريخ بدء العقد:</span>
+              <span class="detail-value">{{ buildingDetails()?.contractStartDate ? (buildingDetails()?.contractStartDate | date:'dd/MM/yyyy') : 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">اسم مدرسة الفترة الثالثة:</span>
-              <span class="detail-value">-</span>
+              <span class="detail-label">تاريخ انتهاء العقد:</span>
+              <span class="detail-value">{{ buildingDetails()?.contractEndDate ? (buildingDetails()?.contractEndDate | date:'dd/MM/yyyy') : 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">اجمالي تلاميذ المدرسة:</span>
-              <span class="detail-value">450 تلميذ</span>
+              <span class="detail-label">تاريخ آخر تفتيش:</span>
+              <span class="detail-value">{{ buildingDetails()?.lastInspectionDate ? (buildingDetails()?.lastInspectionDate | date:'dd/MM/yyyy') : 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">بنين:</span>
-              <span class="detail-value">225 تلميذ</span>
+              <span class="detail-label">حالة التفتيش:</span>
+              <span class="detail-value">{{ buildingDetails()?.inspectionStatus || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">بنات:</span>
-              <span class="detail-value">225 تلميذة</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">ملكية الارض:</span>
-              <span class="detail-value">حكومية</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">ملكية المبني:</span>
-              <span class="detail-value">حكومية</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">اجمالي مساحة الموقع:</span>
-              <span class="detail-value">2500 م²</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">مسطح المبني:</span>
-              <span class="detail-value">1800 م²</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">عدد الملاحق:</span>
-              <span class="detail-value">3 ملاحق</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">السور:</span>
-              <span class="detail-value">متوفر</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">نظام الانشاء:</span>
-              <span class="detail-value">خرسانة مسلحة</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">طريقة الانشاء:</span>
-              <span class="detail-value">إطارات</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">مصدر التيار:</span>
-              <span class="detail-value">كهرباء حكومية</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">الصرف الصحي:</span>
-              <span class="detail-value">شبكة عامة</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">التغذية:</span>
-              <span class="detail-value">مياه الشرب متوفرة</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">عدد الفصول:</span>
-              <span class="detail-value">18 فصل</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">عدد الفراغات التعليمية:</span>
-              <span class="detail-value">20 فراغ</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">حالة الاستضافة:</span>
-              <span class="detail-value">غير مستضيف</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">عدد الفراغات التكميلية:</span>
-              <span class="detail-value">8 فراغات</span>
+              <span class="detail-label">الصيانة مطلوبة:</span>
+              <span class="detail-value">{{ buildingDetails()?.maintenanceRequired ? 'نعم' : 'لا' }}</span>
             </div>
           </div>
         </div>
@@ -195,6 +135,8 @@
 
 <app-rental-status-edit
   [buildingId]="buildingInfo()?.id || ''"
+  [currentStatus]="buildingInfo()?.status || ''"
+  [currentSubstatus]="buildingInfo()?.substatus || ''"
   [isOpen]="showEditPopup()"
   (closePopup)="closeEditPopup()"
   (submitSuccess)="handleEditSubmit($event)"

@@ -19,7 +19,7 @@
       
       @if (showUserInfo() && userInfo()) {
         <div class="user-info" role="region" aria-label="معلومات المستخدم">
-          <p class="welcome-title">مرحباً {{ userInfo()!.name }}</p>
+          <p class="welcome-title">مرحباً <strong>{{ userInfo()!.name }}</strong></p>
           @if (userInfo()!.lastLogin) {
             <p class="last-login">آخر تسجيل دخول: {{ userInfo()!.lastLogin }}</p>
           }

@@ -52,14 +52,14 @@ public class RentalsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateRentalBuilding(Guid id, RentalBuilding rental)
+    public async Task<ActionResult<RentalBuilding>> UpdateRentalBuilding(Guid id, RentalBuilding rental)
     {
         if (id != rental.Id) return BadRequest();
         rental.UpdatedAt = DateTime.UtcNow;
         _context.Entry(rental).State = EntityState.Modified;
         try { await _context.SaveChangesAsync(); }
         catch (DbUpdateConcurrencyException) { if (!_context.RentalBuildings.Any(e => e.Id == id)) return NotFound(); throw; }
-        return NoContent();
+        return Ok(rental);
     }
 
     [HttpDelete("{id}")]

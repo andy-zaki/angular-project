@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormArray, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
+import { BuildingApiService } from '../../services/building-api.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-building-annexes-data',
@@ -13,6 +15,8 @@ import { HeaderComponent } from '../shared/header/header';
 export class BuildingAnnexesDataComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private buildingService = inject(BuildingApiService);
+  private errorHandler = inject(ErrorHandlerService);
 
   buildingNumberForm: FormGroup;
   annexesForm: FormGroup;
@@ -73,13 +77,100 @@ export class BuildingAnnexesDataComponent {
 
   submitData() {
     if (this.annexesForm.valid) {
-      console.log('Annexes data submitted:', this.annexesForm.value);
-      alert('تم حفظ بيانات الملاحق بنجاح! ✓');
-      this.router.navigate(['/building-data-completion']);
+      const buildingNumber = this.buildingNumberForm.get('buildingNumber')?.value;
+      
+      // First, find or create the building
+      this.buildingService.searchBuildings(buildingNumber).subscribe({
+        next: (buildings: any[]) => {
+          let buildingId: string;
+          
+          if (buildings && buildings.length > 0) {
+            buildingId = buildings[0].id;
+            this.saveAnnexes(buildingId);
+          } else {
+            // Create building first
+            const buildingData = {
+              buildingNumber: buildingNumber,
+              schoolName: 'مبنى - ' + buildingNumber,
+              governorate: 'غير محدد',
+              regionalCenter: 'غير محدد',
+              educationalAdministration: 'غير محدد',
+              district: 'غير محدد',
+              neighborhood: 'غير محدد'
+            };
+            
+            this.buildingService.createBuilding(buildingData as any).subscribe({
+              next: (created: any) => {
+                this.saveAnnexes(created.id);
+              },
+              error: (error: any) => {
+                const errorMessage = this.errorHandler.getUserFriendlyMessage(
+                  error,
+                  'إنشاء المبنى'
+                );
+                alert(errorMessage);
+              }
+            });
+          }
+        },
+        error: (error: any) => {
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'البحث عن المبنى'
+          );
+          alert(errorMessage);
+        }
+      });
     } else {
       this.markFormGroupTouched(this.annexesForm);
       alert('الرجاء ملء جميع الحقول المطلوبة في جميع الملاحق');
     }
+  }
+  
+  private saveAnnexes(buildingId: string) {
+    const annexesData = this.annexesForm.value.annexes;
+    let savedCount = 0;
+    let errorOccurred = false;
+    
+    annexesData.forEach((annex: any, index: number) => {
+      const annexData = {
+        annexNumber: (index + 1).toString(),
+        totalFloors: annex.totalFloors,
+        structureCondition: annex.structureCondition,
+        totalArea: annex.totalArea,
+        constructionDate: annex.constructionDate,
+        interiorFinishingCondition: annex.interiorFinishingCondition,
+        expansionCapability: annex.expansionCapability === 'نعم',
+        constructionSystem: annex.constructionSystem,
+        constructionMethod: annex.constructionMethod,
+        ceilingMaterials: annex.ceilingMaterials,
+        wallMaterials: annex.wallMaterials,
+        exteriorFacadeFinishing: annex.exteriorFacadeFinishing,
+        sanitaryWorks: annex.sanitaryWorks,
+        electricalWorks: annex.electricalWorks
+      };
+      
+      this.buildingService.addBuildingAnnex(buildingId, annexData as any).subscribe({
+        next: (saved: any) => {
+          console.log('Annex saved:', saved);
+          savedCount++;
+          
+          if (savedCount === annexesData.length && !errorOccurred) {
+            alert('✅ تم حفظ جميع بيانات الملاحق بنجاح!');
+            this.router.navigate(['/building-data-completion']);
+          }
+        },
+        error: (error: any) => {
+          errorOccurred = true;
+          console.error('Error saving annex:', error);
+          const errorMessage = this.errorHandler.getUserFriendlyMessage(
+            error,
+            'حفظ بيانات الملحق رقم ' + (index + 1)
+          );
+          alert(errorMessage);
+        }
+      });
+    });
   }
 
   private markFormGroupTouched(formGroup: FormGroup | FormArray) {

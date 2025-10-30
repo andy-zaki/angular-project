@@ -38,7 +38,14 @@ export class RentalApiService {
    * Get rental building by identification number
    */
   getRentalBuildingByIdNumber(identificationNumber: string): Observable<RentalBuildingInfo> {
-    return this.http.get<RentalBuildingInfo>(`${this.baseUrl}/by-id-number/${identificationNumber}`).pipe(
+    // Add cache-busting headers to prevent stale data
+    const headers = {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    };
+    
+    return this.http.get<RentalBuildingInfo>(`${this.baseUrl}/by-id-number/${identificationNumber}`, { headers }).pipe(
       catchError(error => this.errorHandler.handleError(error, `البحث عن مبنى مستأجر برقم: ${identificationNumber}`))
     );
   }

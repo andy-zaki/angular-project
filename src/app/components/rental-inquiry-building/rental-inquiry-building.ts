@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { RentalStatusEditComponent } from '../rental-status-edit/rental-status-edit';
-import { RentalBuildingInfo } from '../../models/rental.model';
+import { RentalBuildingInfo, RentalBuildingDetails } from '../../models/rental.model';
 import { RentalApiService } from '../../services/rental-api.service';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 
@@ -23,6 +23,7 @@ export class RentalInquiryBuildingComponent {
 
   protected identificationNumber = signal('');
   protected buildingInfo = signal<RentalBuildingInfo | null>(null);
+  protected buildingDetails = signal<RentalBuildingDetails | null>(null);
   protected showDetails = signal(false);
   protected showEditPopup = signal(false);
 
@@ -36,11 +37,21 @@ export class RentalInquiryBuildingComponent {
 
   protected search(): void {
     if (this.identificationNumber().trim()) {
-      // Use mock database service to fetch rental building data
+      // Fetch rental building data
       this.rentalDatabaseService.getRentalBuildingByIdNumber(this.identificationNumber()).subscribe({
         next: (building) => {
           this.buildingInfo.set(building);
           this.showDetails.set(false);
+          
+          // Fetch full details
+          this.rentalDatabaseService.getRentalBuildingById(building.id).subscribe({
+            next: (details) => {
+              this.buildingDetails.set(details);
+            },
+            error: (error) => {
+              console.error('Error fetching building details:', error);
+            }
+          });
         },
         error: (error) => {
           const errorMessage = this.errorHandler.getUserFriendlyMessage(
@@ -70,8 +81,63 @@ export class RentalInquiryBuildingComponent {
   }
 
   protected handleEditSubmit(selectedFlags: any[]): void {
-    console.log('Status flags updated:', selectedFlags);
-    alert(`تم تحديث الحالات:\n${selectedFlags.map(f => f.label).join('\n')}`);
+    const building = this.buildingInfo();
+    if (!building) return;
+
+    // Prepare the status string from selected flags
+    const newStatus = selectedFlags.map(f => f.label).join(', ');
+    
+    // First, get the complete building details
+    this.rentalDatabaseService.getRentalBuildingById(building.id).subscribe({
+      next: (fullBuilding) => {
+        // Merge the status changes with the full building object
+        const updatedBuilding = {
+          ...fullBuilding,
+          status: newStatus,
+          substatus: selectedFlags[0]?.label || building.substatus
+        };
+        
+        // Update the building
+        this.rentalDatabaseService.updateRentalBuilding(building.id, updatedBuilding).subscribe({
+          next: (result) => {
+            // Re-fetch the building from database to ensure we have the latest data
+            this.rentalDatabaseService.getRentalBuildingByIdNumber(building.identificationNumber).subscribe({
+              next: (refreshedBuilding) => {
+                // Update with fresh data from database
+                this.buildingInfo.set(refreshedBuilding);
+                
+                alert(`✅ تم تحديث موقف المبنى بنجاح\n\nالحالات الجديدة:\n${selectedFlags.map(f => f.label).join('\n')}`);
+                this.closeEditPopup();
+              },
+              error: (error) => {
+                // Even if refresh fails, close popup since update succeeded
+                this.buildingInfo.set({
+                  ...building,
+                  status: newStatus,
+                  substatus: selectedFlags[0]?.label || building.substatus
+                });
+                alert(`✅ تم تحديث موقف المبنى بنجاح\n\nالحالات الجديدة:\n${selectedFlags.map(f => f.label).join('\n')}`);
+                this.closeEditPopup();
+              }
+            });
+          },
+          error: (error) => {
+            const errorMessage = this.errorHandler.getUserFriendlyMessage(
+              error,
+              'تحديث موقف المبنى'
+            );
+            alert(errorMessage);
+          }
+        });
+      },
+      error: (error) => {
+        const errorMessage = this.errorHandler.getUserFriendlyMessage(
+          error,
+          'تحميل بيانات المبنى'
+        );
+        alert(errorMessage);
+      }
+    });
   }
 
   protected goHome(): void {

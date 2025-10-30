@@ -339,15 +339,15 @@
                 </tr>
               </thead>
               <tbody>
-                @for (building of buildingData(); track building.id) {
+                @for (building of buildingData() | sortByCode; track building.id) {
                   <tr class="building-row">
-                    <td class="building-id">{{ building.id }}</td>
                     <td class="building-code">{{ building.code }}</td>
+                    <td class="location-name">{{ building.locationName }}</td>
                     <td class="coordinates">{{ building.coordinates }}</td>
                     <td class="status">{{ building.status }}</td>
                     <td class="empty-field">-</td>
                     <td class="required-status">{{ building.requiredStatus }}</td>
-                    <td class="location-name">{{ building.locationName }}</td>
+                    <td class="location-description">{{ building.neighborDescription || 'شارع النيل' }}</td>
                   </tr>
                 }
               </tbody>

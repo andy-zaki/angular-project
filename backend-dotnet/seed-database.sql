@@ -203,13 +203,36 @@ VALUES
     (NEWID(), @Land3, 1, 30.00790000, 31.20890000, 85.50, GETUTCDATE()),
     (NEWID(), @Land3, 2, 30.00800000, 31.20900000, 86.00, GETUTCDATE());
 
--- 12. Insert Building Locations (مواقع المباني على الأراضي)
-INSERT INTO [BuildingLocations] ([Id], [LandId], [Code], [LocationName], [Coordinates], [Status], [RequiredStatus], [CreatedAt])
+-- 12. Insert Building Locations (مواقع المباني على الأراضي - حدود وجوانب الأرض)
+-- Land 1 Boundaries (مدرسة النيل الابتدائية - كود 201234)
+INSERT INTO [BuildingLocations] ([Id], [LandId], [Code], [LocationName], [Coordinates], [Status], [RequiredStatus], [NeighborDescription], [CreatedAt])
 VALUES 
-    (NEWID(), @Land1, N'501234', N'الموقع الشمالي الشرقي', 1, N'متاح', N'قيد الإنشاء', GETUTCDATE()),
-    (NEWID(), @Land1, N'502456', N'الموقع الجنوبي الغربي', 2, N'محجوز', N'معتمد', GETUTCDATE()),
-    (NEWID(), @Land2, N'503789', N'الموقع المركزي', 1, N'متاح', N'قيد الدراسة', GETUTCDATE()),
-    (NEWID(), @Land3, N'504512', N'الموقع الشرقي', 1, N'محجوز', N'معتمد', GETUTCDATE());
+    (NEWID(), @Land1, N'01', N'شمال', 35, N'يوجد', N'مطلوب', N'شارع النيل الرئيسي', GETUTCDATE()),
+    (NEWID(), @Land1, N'02', N'شمال شرق', 42, N'يوجد', N'مطلوب', N'شارع النيل الفرعي', GETUTCDATE()),
+    (NEWID(), @Land1, N'03', N'جنوب شرق', 38, N'يوجد', N'مطلوب', N'طريق التحرير', GETUTCDATE()),
+    (NEWID(), @Land1, N'04', N'شمال غرب', 45, N'يوجد', N'مطلوب', N'شارع الزمالك', GETUTCDATE()),
+    (NEWID(), @Land1, N'05', N'جنوب غرب', 40, N'يوجد', N'مطلوب', N'شارع النيل الجديد', GETUTCDATE()),
+    (NEWID(), @Land1, N'06', N'جنوب', 48, N'يوجد', N'مطلوب', N'الطريق الساحلي', GETUTCDATE());
+    
+-- Land 2 Boundaries (مدرسة التحرير الإعدادية - كود 202456)
+INSERT INTO [BuildingLocations] ([Id], [LandId], [Code], [LocationName], [Coordinates], [Status], [RequiredStatus], [NeighborDescription], [CreatedAt])
+VALUES 
+    (NEWID(), @Land2, N'01', N'شمال', 50, N'يوجد', N'مطلوب', N'شارع كورنيش الإسكندرية', GETUTCDATE()),
+    (NEWID(), @Land2, N'02', N'شمال شرق', 55, N'يوجد', N'مطلوب', N'شارع الرمل', GETUTCDATE()),
+    (NEWID(), @Land2, N'03', N'جنوب شرق', 52, N'يوجد', N'مطلوب', N'طريق الجيش', GETUTCDATE()),
+    (NEWID(), @Land2, N'04', N'شمال غرب', 60, N'يوجد', N'مطلوب', N'شارع سعد زغلول', GETUTCDATE()),
+    (NEWID(), @Land2, N'05', N'جنوب غرب', 58, N'يوجد', N'مطلوب', N'شارع الفاروقية', GETUTCDATE()),
+    (NEWID(), @Land2, N'06', N'جنوب', 54, N'يوجد', N'مطلوب', N'الشارع الجديد', GETUTCDATE());
+
+-- Land 3 Boundaries (مدرسة المنار الثانوية - كود 203789)
+INSERT INTO [BuildingLocations] ([Id], [LandId], [Code], [LocationName], [Coordinates], [Status], [RequiredStatus], [NeighborDescription], [CreatedAt])
+VALUES 
+    (NEWID(), @Land3, N'01', N'شمال', 32, N'يوجد', N'مطلوب', N'شارع الهرم الرئيسي', GETUTCDATE()),
+    (NEWID(), @Land3, N'02', N'شمال شرق', 28, N'يوجد', N'مطلوب', N'شارع السادس من أكتوبر', GETUTCDATE()),
+    (NEWID(), @Land3, N'03', N'جنوب شرق', 36, N'يوجد', N'مطلوب', N'طريق الأهرام', GETUTCDATE()),
+    (NEWID(), @Land3, N'04', N'شمال غرب', 30, N'يوجد', N'مطلوب', N'شارع النيل الأوسط', GETUTCDATE()),
+    (NEWID(), @Land3, N'05', N'جنوب غرب', 34, N'يوجد', N'مطلوب', N'شارع الجيزة', GETUTCDATE()),
+    (NEWID(), @Land3, N'06', N'جنوب', 26, N'يوجد', N'مطلوب', N'الطريق الزراعي', GETUTCDATE());
 
 -- 13. Insert Buildings (المباني)
 

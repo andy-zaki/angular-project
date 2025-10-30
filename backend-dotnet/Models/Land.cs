@@ -181,6 +181,9 @@ public class BuildingLocation
     [MaxLength(50)]
     public string? RequiredStatus { get; set; }
     
+    [MaxLength(255)]
+    public string? NeighborDescription { get; set; }
+    
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     // Navigation property

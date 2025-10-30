@@ -58,6 +58,7 @@ export interface BuildingLocationData {
   coordinates: number;
   status: string;
   requiredStatus: string;
+  neighborDescription?: string;
 }
 
 /**

@@ -7,12 +7,13 @@ import { HeaderComponent } from '../shared/header/header';
 import { LandData, BuildingLocationData } from '../../models/land.model';
 import { LandApiService } from '../../services/land-api.service';
 import { ErrorHandlerService } from '../../services/error-handler.service';
+import { SortByCodePipe } from '../../pipes/sort-by-code.pipe';
 
 @Component({
   selector: 'app-land-inquiry',
   templateUrl: './land-inquiry.html',
   styleUrl: './land-inquiry.css',
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent]
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, SortByCodePipe]
 })
 export class LandInquiryComponent {
   private router = inject(Router);

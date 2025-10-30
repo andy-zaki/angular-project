@@ -135,11 +135,25 @@ public class LandsController : ControllerBase
 
     // GET: api/lands/{landId}/buildings
     [HttpGet("{landId}/buildings")]
-    public async Task<ActionResult<IEnumerable<BuildingLocation>>> GetBuildingLocations(Guid landId)
+    public async Task<ActionResult<IEnumerable<object>>> GetBuildingLocations(Guid landId)
     {
-        return await _context.BuildingLocations
+        var locations = await _context.BuildingLocations
             .Where(b => b.LandId == landId)
             .ToListAsync();
+        
+        // Map to DTO with camelCase property names for JSON serialization
+        var result = locations.Select(b => new 
+        {
+            id = b.Id,
+            code = b.Code,
+            locationName = b.LocationName,
+            coordinates = b.Coordinates,
+            status = b.Status,
+            requiredStatus = b.RequiredStatus,
+            neighborDescription = b.NeighborDescription ?? ""
+        }).ToList();
+        
+        return result;
     }
 
     // GET: api/lands/{landId}/coordinates

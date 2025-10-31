@@ -60,6 +60,88 @@ public class RentalBuilding
     
     public bool MaintenanceRequired { get; set; } = false;
     
+    // Additional Fields from Buildings table
+    [MaxLength(100)]
+    public string? Governorate { get; set; }
+    
+    [MaxLength(100)]
+    public string? RegionalCenter { get; set; }
+    
+    [MaxLength(100)]
+    public string? EducationalAdministration { get; set; }
+    
+    [MaxLength(50)]
+    public string? EducationType { get; set; }
+    
+    [MaxLength(100)]
+    public string? Affiliation { get; set; }
+    
+    [MaxLength(50)]
+    public string? UsageStatus { get; set; }
+    
+    [MaxLength(50)]
+    public string? Stage { get; set; }
+    
+    [MaxLength(50)]
+    public string? BuildingOwnership { get; set; }
+    
+    // Additional Fields from BuildingBasicData table
+    [MaxLength(100)]
+    public string? UsagePeriods { get; set; }
+    
+    [MaxLength(50)]
+    public string? Gender { get; set; }
+    
+    [MaxLength(255)]
+    public string? SecondPeriodSchoolName { get; set; }
+    
+    [MaxLength(255)]
+    public string? ThirdPeriodSchoolName { get; set; }
+    
+    public int? TotalStudents { get; set; }
+    
+    public int? BoysCount { get; set; }
+    
+    public int? GirlsCount { get; set; }
+    
+    [MaxLength(50)]
+    public string? LandOwnership { get; set; }
+    
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal? LandArea { get; set; }
+    
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal? BuiltArea { get; set; }
+    
+    public int? AnnexesCount { get; set; }
+    
+    [MaxLength(100)]
+    public string? FenceType { get; set; }
+    
+    [MaxLength(100)]
+    public string? ConstructionSystem { get; set; }
+    
+    [MaxLength(100)]
+    public string? ConstructionMethod { get; set; }
+    
+    [MaxLength(100)]
+    public string? PowerSource { get; set; }
+    
+    [MaxLength(100)]
+    public string? SewerageSystem { get; set; }
+    
+    [MaxLength(100)]
+    public string? WaterSupply { get; set; }
+    
+    public int? ClassroomsCount { get; set; }
+    
+    public int? EducationalSpacesCount { get; set; }
+    
+    [MaxLength(50)]
+    public string? HostingStatus { get; set; }
+    
+    public int? ComplementarySpacesCount { get; set; }
+    
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     

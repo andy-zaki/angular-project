@@ -254,14 +254,24 @@ VALUES
 -- 14. Insert Building Basic Data (البيانات الأساسية للمبنى)
 INSERT INTO [BuildingBasicData] ([Id], [BuildingId], [BuildingNumber], [SchoolName], [BuildingName], [LandArea], 
     [BuiltArea], [Floors], [ConstructionYear], [LastMaintenanceYear], [BuildingCondition], [OwnershipType], 
-    [RentalStatus], [CreatedAt], [UpdatedAt])
+    [RentalStatus], [UsagePeriods], [Gender], [SecondPeriodSchoolName], [ThirdPeriodSchoolName], 
+    [TotalStudents], [BoysCount], [GirlsCount], [LandOwnership], [AnnexesCount], [FenceType], 
+    [ConstructionSystem], [ConstructionMethod], [PowerSource], [SewerageSystem], [WaterSupply], 
+    [ClassroomsCount], [EducationalSpacesCount], [HostingStatus], [ComplementarySpacesCount], 
+    [CreatedAt], [UpdatedAt])
 VALUES 
     (NEWID(), @Building1, N'601234', N'مدرسة النيل الابتدائية', N'مبنى رئيسي', 2500.00, 1800.00, 2, 2015, 2022, 
-     N'جيد', N'ملك', N'غير مؤجر', GETUTCDATE(), GETUTCDATE()),
+     N'جيد', N'ملك', N'غير مؤجر', N'فترة صباحية ومسائية', N'مشترك', N'مدرسة النيل المسائية', NULL,
+     830, 450, 380, N'ملك حكومي', 2, N'سور خرساني', N'هيكل خرساني', N'طوب أحمر', N'كهرباء حكومية', 
+     N'صرف صحي عام', N'مياه الشبكة', 20, 22, N'غير مستضيف', 5, GETUTCDATE(), GETUTCDATE()),
     (NEWID(), @Building2, N'602456', N'مدرسة التحرير الإعدادية', N'مبنى رئيسي', 3000.00, 2200.00, 3, 2018, NULL, 
-     N'ممتاز', N'ملك', N'غير مؤجر', GETUTCDATE(), GETUTCDATE()),
+     N'ممتاز', N'ملك', N'غير مؤجر', N'فترة صباحية', N'بنين', NULL, NULL,
+     520, 520, 0, N'ملك حكومي', 3, N'سور خرساني', N'هيكل خرساني', N'طوب أحمر', N'كهرباء حكومية', 
+     N'صرف صحي عام', N'مياه الشبكة', 24, 27, N'غير مستضيف', 6, GETUTCDATE(), GETUTCDATE()),
     (NEWID(), @Building3, N'603789', N'مدرسة المنار الثانوية', N'مبنى رئيسي', 3500.00, 2800.00, 3, 2020, NULL, 
-     N'ممتاز', N'ملك', N'غير مؤجر', GETUTCDATE(), GETUTCDATE());
+     N'ممتاز', N'ملك', N'غير مؤجر', N'فترة صباحية', N'بنات', NULL, NULL,
+     600, 0, 600, N'ملك حكومي', 4, N'سور خرساني', N'هيكل خرساني مسلح', N'طوب أحمر', N'كهرباء حكومية', 
+     N'صرف صحي عام', N'مياه الشبكة', 30, 35, N'غير مستضيف', 8, GETUTCDATE(), GETUTCDATE());
 
 -- 15. Insert Building Annexes (ملحقات المبنى)
 INSERT INTO [BuildingAnnexes] ([Id], [BuildingId], [AnnexType], [Area], [ConstructionYear], [Condition], [Purpose], [CreatedAt])

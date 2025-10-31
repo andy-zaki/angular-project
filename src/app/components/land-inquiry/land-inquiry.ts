@@ -5,7 +5,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../shared/header/header';
 import { LandData, BuildingLocationData } from '../../models/land.model';
+import { BuildingData } from '../../models/building.model';
 import { LandApiService } from '../../services/land-api.service';
+import { BuildingApiService } from '../../services/building-api.service';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 import { SortByCodePipe } from '../../pipes/sort-by-code.pipe';
 
@@ -20,6 +22,7 @@ export class LandInquiryComponent {
   private location = inject(Location);
   private fb = inject(FormBuilder);
   private landDatabaseService = inject(LandApiService);
+  private buildingApiService = inject(BuildingApiService);
   private errorHandler = inject(ErrorHandlerService);
   
   protected searchForm: FormGroup;
@@ -27,6 +30,9 @@ export class LandInquiryComponent {
   protected hasSearched = signal(false);
   protected landData = signal<LandData | null>(null);
   protected showFullData = signal(false);
+  protected showFullDisplayPopup = signal(false);
+  protected buildingFullData = signal<BuildingData | null>(null);
+  protected isLoadingBuilding = signal(false);
   
   // Popup signals
   protected showBuildingPopup = signal(false);
@@ -144,17 +150,36 @@ export class LandInquiryComponent {
   }
 
   protected showFullDisplay(): void {
-    // Toggle full data display
-    const newState = !this.showFullData();
-    this.showFullData.set(newState);
+    // For now, use a default building number since BuildingLocations
+    // are land boundaries, not actual building references
+    // TODO: Add proper Land-to-Building relationship in the database
+    const defaultBuildingNumber = '601234'; // مدرسة النيل الابتدائية
     
-    // Scroll to the full data section only when showing
-    if (newState) {
-      setTimeout(() => {
-        const resultCard = document.querySelector('.result-card');
-        resultCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
+    this.loadBuildingFullData(defaultBuildingNumber);
+  }
+
+  private loadBuildingFullData(buildingNumber: string): void {
+    this.isLoadingBuilding.set(true);
+    this.buildingApiService.getBuildingByNumber(buildingNumber).subscribe({
+      next: (building) => {
+        this.buildingFullData.set(building);
+        this.showFullDisplayPopup.set(true);
+        this.isLoadingBuilding.set(false);
+      },
+      error: (error) => {
+        this.isLoadingBuilding.set(false);
+        const errorMessage = this.errorHandler.getUserFriendlyMessage(
+          error,
+          'تحميل بيانات المبنى الكاملة'
+        );
+        alert(errorMessage);
+      }
+    });
+  }
+
+  protected closeFullDisplayPopup(): void {
+    this.showFullDisplayPopup.set(false);
+    this.buildingFullData.set(null);
   }
 
   protected getFieldError(fieldName: string): string | null {

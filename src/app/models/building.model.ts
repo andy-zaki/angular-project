@@ -15,6 +15,29 @@ export interface BuildingData {
   neighborhood?: string;
   stage?: string;
   educationType?: string;
+  // Additional fields for full display
+  usagePeriods?: string;
+  gender?: string;
+  secondPeriodSchoolName?: string;
+  thirdPeriodSchoolName?: string;
+  totalStudents?: number;
+  boysCount?: number;
+  girlsCount?: number;
+  landOwnership?: string;
+  annexesCount?: number;
+  fenceType?: string;
+  constructionSystem?: string;
+  constructionMethod?: string;
+  powerSource?: string;
+  sewerageSystem?: string;
+  waterSupply?: string;
+  classroomsCount?: number;
+  educationalSpacesCount?: number;
+  hostingStatus?: string;
+  complementarySpacesCount?: number;
+  directorate?: string;
+  village?: string;
+  address?: string;
 }
 
 /**
@@ -33,6 +56,26 @@ export interface BuildingBasicData {
   buildingCondition: string;
   ownershipType: string;
   rentalStatus?: string;
+  // Additional fields for full display
+  usagePeriods?: string;
+  gender?: string;
+  secondPeriodSchoolName?: string;
+  thirdPeriodSchoolName?: string;
+  totalStudents?: number;
+  boysCount?: number;
+  girlsCount?: number;
+  landOwnership?: string;
+  annexesCount?: number;
+  fenceType?: string;
+  constructionSystem?: string;
+  constructionMethod?: string;
+  powerSource?: string;
+  sewerageSystem?: string;
+  waterSupply?: string;
+  classroomsCount?: number;
+  educationalSpacesCount?: number;
+  hostingStatus?: string;
+  complementarySpacesCount?: number;
 }
 
 /**

@@ -85,52 +85,8 @@
               </h3>
             </div>
 
-            <!-- Options Menu Section -->
-            <div class="options-menu-section">
-              <h3 class="options-title">
-                <span class="options-icon">📋</span>
-                الخيارات المتاحة
-              </h3>
-              <div class="options-grid">
-                <button 
-                  class="option-card"
-                  (click)="navigateToDataAvailability()"
-                  type="button">
-                  <div class="option-icon">📊</div>
-                  <div class="option-content">
-                    <h4 class="option-title">توافر البيانات</h4>
-                    <p class="option-description">التحقق من توافر البيانات والمستندات</p>
-                  </div>
-                  <div class="option-arrow">←</div>
-                </button>
-
-                <button 
-                  class="option-card"
-                  (click)="navigateToBuildingInquiry()"
-                  type="button">
-                  <div class="option-icon">🏗️</div>
-                  <div class="option-content">
-                    <h4 class="option-title">استعلام المبنى</h4>
-                    <p class="option-description">استعلام عن بيانات المبنى</p>
-                  </div>
-                  <div class="option-arrow">←</div>
-                </button>
-
-                <button 
-                  class="option-card full-width"
-                  (click)="showFullDisplay()"
-                  type="button">
-                  <div class="option-icon">📄</div>
-                  <div class="option-content">
-                    <h4 class="option-title">العرض الكامل</h4>
-                    <p class="option-description">عرض جميع التفاصيل والبيانات الكاملة</p>
-                  </div>
-                  <div class="option-arrow">←</div>
-                </button>
-              </div>
-            </div>
-            
-            <div class="result-card" [class.hidden]="!showFullData()">
+            <!-- Land Data Display (Direct Display After Search) -->
+            <div class="result-card">
               <div class="card-header">
                 <h4 class="card-title">
                   <span class="card-icon">🏢</span>
@@ -276,6 +232,51 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <!-- Options Menu Section -->
+            <div class="options-menu-section">
+              <h3 class="options-title">
+                <span class="options-icon">📋</span>
+                الخيارات المتاحة
+              </h3>
+              <div class="options-grid">
+                <button 
+                  class="option-card"
+                  (click)="navigateToDataAvailability()"
+                  type="button">
+                  <div class="option-icon">📊</div>
+                  <div class="option-content">
+                    <h4 class="option-title">توافر البيانات</h4>
+                    <p class="option-description">التحقق من توافر البيانات والمستندات</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+
+                <button 
+                  class="option-card"
+                  (click)="navigateToBuildingInquiry()"
+                  type="button">
+                  <div class="option-icon">🏗️</div>
+                  <div class="option-content">
+                    <h4 class="option-title">استعلام المبنى</h4>
+                    <p class="option-description">استعلام عن بيانات المبنى</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
+
+                <button 
+                  class="option-card full-width"
+                  (click)="showFullDisplay()"
+                  type="button">
+                  <div class="option-icon">📄</div>
+                  <div class="option-content">
+                    <h4 class="option-title">العرض الكامل</h4>
+                    <p class="option-description">عرض جميع التفاصيل والبيانات الكاملة</p>
+                  </div>
+                  <div class="option-arrow">←</div>
+                </button>
               </div>
             </div>
           } @else {
@@ -692,6 +693,205 @@
           <button 
             class="close-popup-btn"
             (click)="closeDataAvailabilityPopup()"
+            type="button">
+            <span class="btn-icon">✕</span>
+            <span>إغلاق</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Full Display Popup Modal (Empty) -->
+  @if (showFullDisplayPopup()) {
+    <div class="popup-overlay" (click)="closeFullDisplayPopup()">
+      <div class="popup-content full-display-popup" (click)="$event.stopPropagation()">
+        <div class="popup-header">
+          <h3 class="popup-title">
+            <span class="popup-icon">📄</span>
+            العرض الكامل - بيانات المبنى
+          </h3>
+          <button 
+            class="close-btn"
+            (click)="closeFullDisplayPopup()"
+            type="button">
+            <span>✕</span>
+          </button>
+        </div>
+        
+        <div class="popup-body">
+          @if (isLoadingBuilding()) {
+            <div class="loading-container">
+              <div class="spinner"></div>
+              <p>جاري تحميل بيانات المبنى...</p>
+            </div>
+          } @else if (buildingFullData()) {
+            <div class="building-full-display">
+              
+              <!-- Basic Information Section -->
+              <div class="data-section">
+                <h3 class="section-title">البيانات الأساسية</h3>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <label>رقم المبنى:</label>
+                    <span>{{ buildingFullData()?.buildingNumber || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>اسم المدرسة:</label>
+                    <span>{{ buildingFullData()?.schoolName || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>المرحلة:</label>
+                    <span>{{ buildingFullData()?.stage || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>الإدارة التعليمية:</label>
+                    <span>{{ buildingFullData()?.educationalAdministration || '-' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Usage & Students Section -->
+              <div class="data-section">
+                <h3 class="section-title">الاستخدام وأعداد الطلاب</h3>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <label>فترات الاستخدام:</label>
+                    <span>{{ buildingFullData()?.usagePeriods || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>النوع:</label>
+                    <span>{{ buildingFullData()?.gender || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>اسم مدرسة الفترة الثانية:</label>
+                    <span>{{ buildingFullData()?.secondPeriodSchoolName || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>اسم مدرسة الفترة الثالثة:</label>
+                    <span>{{ buildingFullData()?.thirdPeriodSchoolName || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>إجمالي عدد الطلاب:</label>
+                    <span>{{ buildingFullData()?.totalStudents || 0 }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>عدد الطلاب (بنين):</label>
+                    <span>{{ buildingFullData()?.boysCount || 0 }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>عدد الطلاب (بنات):</label>
+                    <span>{{ buildingFullData()?.girlsCount || 0 }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Land & Construction Section -->
+              <div class="data-section">
+                <h3 class="section-title">الأرض والإنشاءات</h3>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <label>ملكية الأرض:</label>
+                    <span>{{ buildingFullData()?.landOwnership || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>عدد الملاحق:</label>
+                    <span>{{ buildingFullData()?.annexesCount || 0 }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>نوع السور:</label>
+                    <span>{{ buildingFullData()?.fenceType || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>نظام الإنشاء:</label>
+                    <span>{{ buildingFullData()?.constructionSystem || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>طريقة الإنشاء:</label>
+                    <span>{{ buildingFullData()?.constructionMethod || '-' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Infrastructure Section -->
+              <div class="data-section">
+                <h3 class="section-title">المرافق والبنية التحتية</h3>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <label>مصدر الطاقة:</label>
+                    <span>{{ buildingFullData()?.powerSource || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>نظام الصرف الصحي:</label>
+                    <span>{{ buildingFullData()?.sewerageSystem || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>مصدر المياه:</label>
+                    <span>{{ buildingFullData()?.waterSupply || '-' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Facilities Count Section -->
+              <div class="data-section">
+                <h3 class="section-title">أعداد المرافق</h3>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <label>عدد الفصول:</label>
+                    <span>{{ buildingFullData()?.classroomsCount || 0 }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>عدد الفراغات التعليمية:</label>
+                    <span>{{ buildingFullData()?.educationalSpacesCount || 0 }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>الفراغات التكميلية:</label>
+                    <span>{{ buildingFullData()?.complementarySpacesCount || 0 }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>موقف الاستضافة:</label>
+                    <span>{{ buildingFullData()?.hostingStatus || '-' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location Details Section -->
+              <div class="data-section">
+                <h3 class="section-title">بيانات الموقع</h3>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <label>المحافظة:</label>
+                    <span>{{ buildingFullData()?.governorate || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>المديرية:</label>
+                    <span>{{ buildingFullData()?.directorate || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>القرية:</label>
+                    <span>{{ buildingFullData()?.village || '-' }}</span>
+                  </div>
+                  <div class="data-item">
+                    <label>العنوان:</label>
+                    <span>{{ buildingFullData()?.address || '-' }}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          } @else {
+            <div class="empty-message">
+              <div class="empty-icon">📭</div>
+              <h4 class="empty-title">لا توجد بيانات متاحة</h4>
+              <p class="empty-description">لم يتم العثور على بيانات المبنى</p>
+            </div>
+          }
+        </div>
+        
+        <div class="popup-footer">
+          <button 
+            class="close-popup-btn"
+            (click)="closeFullDisplayPopup()"
             type="button">
             <span class="btn-icon">✕</span>
             <span>إغلاق</span>

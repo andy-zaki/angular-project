@@ -75,6 +75,9 @@ export class RentalStatusReportComponent {
   ];
 
   protected totalCount = this.statistics.reduce((sum, stat) => sum + stat.value, 0);
+  protected maxCountInProgress = Math.max(...this.statistics.map(s => s.value)) + 1;
+  protected totalWorkingInProgress = this.statistics.reduce((sum, stat) => sum + stat.working, 0);
+  protected totalClosedInProgress = this.statistics.reduce((sum, stat) => sum + stat.closed, 0);
 
   protected completedStatistics: StatusStatistic[] = [
     {
@@ -176,6 +179,7 @@ export class RentalStatusReportComponent {
   ];
 
   protected completedTotalCount = this.completedStatistics.reduce((sum, stat) => sum + stat.value, 0);
+  protected maxCountCompleted = Math.max(...this.completedStatistics.map(s => s.value));
 
   protected finishedStatistics: StatusStatistic[] = [
     {
@@ -245,6 +249,7 @@ export class RentalStatusReportComponent {
   ];
 
   protected finishedTotalCount = this.finishedStatistics.reduce((sum, stat) => sum + stat.value, 0);
+  protected maxCountFinished = Math.max(...this.finishedStatistics.map(s => s.value)) + 3;
 
   protected notStudiedCount = 45; // لم تدرس
 

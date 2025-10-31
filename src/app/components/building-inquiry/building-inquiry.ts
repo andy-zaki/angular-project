@@ -222,9 +222,7 @@ export class BuildingInquiryComponent {
     const formData = this.buildingForm.value;
     
     // Convert numeric fields from strings to numbers or null
-    const numericFields = ['fenceHeight', 'northSide', 'southSide', 'eastSide', 'westSide', 
-                           'northEast', 'southEast', 'northWest', 'southWest', 
-                           'coordinateX', 'coordinateY', 'coordinateZ'];
+    const numericFields = ['fenceHeight', 'coordinateX', 'coordinateY', 'coordinateZ'];
     
     numericFields.forEach(field => {
       const value = formData[field];

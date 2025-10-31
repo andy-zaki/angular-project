@@ -106,18 +106,6 @@
 
                 <button 
                   class="option-card"
-                  (click)="navigateToLandCoordinates()"
-                  type="button">
-                  <div class="option-icon">📍</div>
-                  <div class="option-content">
-                    <h4 class="option-title">إحداثيات قطعة الأرض</h4>
-                    <p class="option-description">عرض الإحداثيات الجغرافية لقطعة الأرض</p>
-                  </div>
-                  <div class="option-arrow">←</div>
-                </button>
-
-                <button 
-                  class="option-card"
                   (click)="navigateToBuildingInquiry()"
                   type="button">
                   <div class="option-icon">🏗️</div>
@@ -153,13 +141,13 @@
                     class="status-badge approval"
                     [class.approved]="landData()?.approvalStatus === 'معتمد'"
                     [class.pending]="landData()?.approvalStatus === 'تحت المراجعة'">
-                    {{ landData()?.approvalStatus }}
+                    <strong>موقف الاعتماد:</strong> {{ landData()?.approvalStatus }}
                   </span>
                   <span 
                     class="status-badge usage"
                     [class.active]="landData()?.usageStatus === 'مستخدم'"
                     [class.inactive]="landData()?.usageStatus === 'غير مستخدم'">
-                    {{ landData()?.usageStatus }}
+                    <strong>موقف الاستخدام:</strong> {{ landData()?.usageStatus }}
                   </span>
                 </div>
               </div>

@@ -36,6 +36,12 @@ export class SchoolMapStudyPeriodComponent {
       console.log('Search Data:', this.searchForm.value);
       
       const buildingCode = this.searchForm.get('buildingCode')?.value;
+      const centerCode = this.searchForm.get('centerCode')?.value;
+      const branchCode = this.searchForm.get('branchCode')?.value;
+      
+      // Combine the codes or use buildingCode as primary identifier
+      // For now, we'll use buildingCode as the main identifier
+      // TODO: Backend might need to support searching by all three codes
       
       // Use mock database service to fetch study periods
       this.schoolMapDatabaseService.getStudyPeriodsByBuildingCode(buildingCode).subscribe({

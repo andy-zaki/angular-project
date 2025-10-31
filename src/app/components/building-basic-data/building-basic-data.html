@@ -167,15 +167,15 @@
           </div>
 
           <div class="form-group">
-            <label>مادة البناء <span class="required">*</span></label>
+            <label>الحالة <span class="required">*</span></label>
             <input 
               type="text" 
               formControlName="buildingMaterial"
               [class.error]="buildingForm.get('buildingMaterial')?.invalid && buildingForm.get('buildingMaterial')?.touched"
-              placeholder="أدخل مادة البناء"
+              placeholder="أدخل الحالة"
             />
             @if (buildingForm.get('buildingMaterial')?.invalid && buildingForm.get('buildingMaterial')?.touched) {
-              <span class="error-message">مادة البناء مطلوبة</span>
+              <span class="error-message">الحالة مطلوبة</span>
             }
           </div>
         </div>

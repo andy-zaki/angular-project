@@ -17,11 +17,11 @@ export class SchoolMapSpacesComponent {
   schoolName = signal<string>('مدرسة النور الابتدائية');
 
   spaces = [
-    { annex: 'ملحق 1', floor: 'الدور الأول', code: '001', serial: '1001', branchName: 'فرع النور', area: '50 م²' },
-    { annex: 'ملحق 1', floor: 'الدور الأول', code: '002', serial: '1002', branchName: 'فرع النور', area: '45 م²' },
-    { annex: 'ملحق 2', floor: 'الدور الثاني', code: '003', serial: '2001', branchName: 'فرع الأمل', area: '60 م²' },
-    { annex: 'ملحق 2', floor: 'الدور الثاني', code: '004', serial: '2002', branchName: 'فرع الأمل', area: '55 م²' },
-    { annex: 'ملحق 3', floor: 'الدور الأرضي', code: '005', serial: '0001', branchName: 'فرع الهدى', area: '70 م²' }
+    { annex: 1, floor: 1, code: '001', serial: '1001', branchName: 'فرع النور', area: '50 م²' },
+    { annex: 1, floor: 1, code: '002', serial: '1002', branchName: 'فرع النور', area: '45 م²' },
+    { annex: 2, floor: 2, code: '003', serial: '2001', branchName: 'فرع الأمل', area: '60 م²' },
+    { annex: 2, floor: 2, code: '004', serial: '2002', branchName: 'فرع الأمل', area: '55 م²' },
+    { annex: 3, floor: 0, code: '005', serial: '0001', branchName: 'فرع الهدى', area: '70 م²' }
   ];
 
   navigateBack() {

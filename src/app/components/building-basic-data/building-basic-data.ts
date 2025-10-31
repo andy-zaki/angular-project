@@ -22,19 +22,37 @@ export class BuildingBasicDataComponent {
   buildingForm: FormGroup;
 
   positiveEnvironments = [
-    { code: '1', name: 'حديقة عامة' },
-    { code: '2', name: 'مكتبة عامة' },
-    { code: '3', name: 'مركز رياضي' },
-    { code: '4', name: 'مسجد' },
-    { code: '5', name: 'مركز صحي' }
+    { code: '1', name: 'الفترات الدراسية' },
+    { code: '2', name: 'حدود الموقع العام' },
+    { code: '3', name: 'الملاعب' },
+    { code: '4', name: 'البوبات' },
+    { code: '5', name: 'الملاحق' },
+    { code: '6', name: 'المساحات' },
+    { code: '7', name: 'شبكات الحريق' },
+    { code: '8', name: 'المناسيب' },
+    { code: '9', name: 'التغذية بالمياه' },
+    { code: '10', name: 'الغاز الطبيعي' },
+    { code: '11', name: 'الصرف الصحي' },
+    { code: '12', name: 'التوصيلات الكهربائية' },
+    { code: '13', name: 'التجهيزات الصحية' },
+    { code: '14', name: 'الفراغات' }
   ];
 
   negativeEnvironments = [
-    { code: '1', name: 'طريق سريع' },
-    { code: '2', name: 'منطقة صناعية' },
-    { code: '3', name: 'مقلب قمامة' },
-    { code: '4', name: 'محطة وقود' },
-    { code: '5', name: 'ورشة صناعية' }
+    { code: '1', name: 'الفترات الدراسية' },
+    { code: '2', name: 'حدود الموقع العام' },
+    { code: '3', name: 'الملاعب' },
+    { code: '4', name: 'البوبات' },
+    { code: '5', name: 'الملاحق' },
+    { code: '6', name: 'المساحات' },
+    { code: '7', name: 'شبكات الحريق' },
+    { code: '8', name: 'المناسيب' },
+    { code: '9', name: 'التغذية بالمياه' },
+    { code: '10', name: 'الغاز الطبيعي' },
+    { code: '11', name: 'الصرف الصحي' },
+    { code: '12', name: 'التوصيلات الكهربائية' },
+    { code: '13', name: 'التجهيزات الصحية' },
+    { code: '14', name: 'الفراغات' }
   ];
 
   constructor() {

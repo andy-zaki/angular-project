@@ -84,8 +84,8 @@ export class RentalInquiryBuildingComponent {
     const building = this.buildingInfo();
     if (!building) return;
 
-    // Prepare the status string from selected flags
-    const newStatus = selectedFlags.map(f => f.label).join(', ');
+    // Get the selected status (only one now since we're using radio buttons)
+    const newStatus = selectedFlags[0]?.label || '';
     
     // First, get the complete building details
     this.rentalDatabaseService.getRentalBuildingById(building.id).subscribe({
@@ -94,7 +94,7 @@ export class RentalInquiryBuildingComponent {
         const updatedBuilding = {
           ...fullBuilding,
           status: newStatus,
-          substatus: selectedFlags[0]?.label || building.substatus
+          substatus: newStatus
         };
         
         // Update the building
@@ -106,7 +106,7 @@ export class RentalInquiryBuildingComponent {
                 // Update with fresh data from database
                 this.buildingInfo.set(refreshedBuilding);
                 
-                alert(`✅ تم تحديث موقف المبنى بنجاح\n\nالحالات الجديدة:\n${selectedFlags.map(f => f.label).join('\n')}`);
+                alert(`✅ تم تحديث موقف المبنى بنجاح\n\nالحالة الجديدة: ${newStatus}`);
                 this.closeEditPopup();
               },
               error: (error) => {
@@ -114,9 +114,9 @@ export class RentalInquiryBuildingComponent {
                 this.buildingInfo.set({
                   ...building,
                   status: newStatus,
-                  substatus: selectedFlags[0]?.label || building.substatus
+                  substatus: newStatus
                 });
-                alert(`✅ تم تحديث موقف المبنى بنجاح\n\nالحالات الجديدة:\n${selectedFlags.map(f => f.label).join('\n')}`);
+                alert(`✅ تم تحديث موقف المبنى بنجاح\n\nالحالة الجديدة: ${newStatus}`);
                 this.closeEditPopup();
               }
             });

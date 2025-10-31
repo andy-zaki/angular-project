@@ -85,9 +85,12 @@ export class RentalStatusEditComponent {
     this.closePopup.emit();
   }
 
-  protected toggleFlag(index: number): void {
+  protected selectFlag(index: number): void {
     const flags = [...this.statusFlags()];
-    flags[index].checked = !flags[index].checked;
+    // Uncheck all flags first
+    flags.forEach(flag => flag.checked = false);
+    // Check only the selected flag
+    flags[index].checked = true;
     this.statusFlags.set(flags);
   }
 
@@ -95,7 +98,7 @@ export class RentalStatusEditComponent {
     const selectedFlags = this.statusFlags().filter(flag => flag.checked);
 
     if (selectedFlags.length === 0) {
-      alert('الرجاء تحديد حالة واحدة على الأقل');
+      alert('الرجاء تحديد حالة واحدة');
       return;
     }
 

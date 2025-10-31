@@ -14,16 +14,17 @@
         }
 
         <div class="flags-container">
-          <p class="instructions">اختر جميع الحالات التي تنطبق على هذا المبنى:</p>
+          <p class="instructions">اختر الحالة التي تنطبق على هذا المبنى:</p>
           
           <div class="flags-grid">
             @for (flag of statusFlags(); let i = $index; track flag.id) {
               <label class="flag-item">
                 <input 
-                  type="checkbox" 
+                  type="radio" 
+                  name="statusFlag"
                   [checked]="flag.checked"
-                  (change)="toggleFlag(i)"
-                  class="flag-checkbox"
+                  (change)="selectFlag(i)"
+                  class="flag-radio"
                 />
                 <span class="flag-label">{{ flag.label }}</span>
               </label>

@@ -17,7 +17,7 @@ export interface RentalBuildingInfo {
 
 /**
  * Rental Building Details
- * Extended rental building information
+ * Extended rental building information with all fields
  */
 export interface RentalBuildingDetails extends RentalBuildingInfo {
   buildingType: string;
@@ -29,6 +29,39 @@ export interface RentalBuildingDetails extends RentalBuildingInfo {
   lastInspectionDate?: string;
   inspectionStatus?: string;
   maintenanceRequired?: boolean;
+  
+  // Additional fields from Buildings table
+  governorate?: string;
+  regionalCenter?: string;
+  educationalAdministration?: string;
+  educationType?: string;
+  affiliation?: string;
+  usageStatus?: string;
+  stage?: string;
+  buildingOwnership?: string;
+  
+  // Additional fields from BuildingBasicData table
+  usagePeriods?: string;
+  gender?: string;
+  secondPeriodSchoolName?: string;
+  thirdPeriodSchoolName?: string;
+  totalStudents?: number;
+  boysCount?: number;
+  girlsCount?: number;
+  landOwnership?: string;
+  landArea?: number;
+  builtArea?: number;
+  annexesCount?: number;
+  fenceType?: string;
+  constructionSystem?: string;
+  constructionMethod?: string;
+  powerSource?: string;
+  sewerageSystem?: string;
+  waterSupply?: string;
+  classroomsCount?: number;
+  educationalSpacesCount?: number;
+  hostingStatus?: string;
+  complementarySpacesCount?: number;
 }
 
 /**

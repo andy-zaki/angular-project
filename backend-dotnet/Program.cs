@@ -11,6 +11,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     // Ensure Arabic characters are returned as UTF-8 without escaping
     options.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+    // Use camelCase for JSON property names
+    options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

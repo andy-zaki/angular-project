@@ -60,71 +60,146 @@
 
       @if (showDetails()) {
         <div class="details-card">
-          <h3>تفاصيل المبنى</h3>
+          <h3>تفاصيل المبنى الكاملة</h3>
           <div class="details-grid">
+            <!-- Basic Identification -->
             <div class="detail-row">
-              <span class="detail-label">الرقم التعريفي:</span>
+              <span class="detail-label">كود المبني:</span>
               <span class="detail-value">{{ buildingDetails()?.identificationNumber || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">اسم المبنى:</span>
+              <span class="detail-label">اسم المدرسة:</span>
               <span class="detail-value">{{ buildingDetails()?.name || 'غير متوفر' }}</span>
             </div>
+            
+            <!-- Location Information -->
             <div class="detail-row">
-              <span class="detail-label">نوع المبنى:</span>
-              <span class="detail-value">{{ buildingDetails()?.buildingType || 'غير متوفر' }}</span>
+              <span class="detail-label">المحافظة:</span>
+              <span class="detail-value">{{ buildingDetails()?.governorate || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">المستأجر:</span>
-              <span class="detail-value">{{ buildingDetails()?.tenant || 'غير متوفر' }}</span>
+              <span class="detail-label">مركز:</span>
+              <span class="detail-value">{{ buildingDetails()?.regionalCenter || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">الموقع:</span>
-              <span class="detail-value">{{ buildingDetails()?.location || 'غير متوفر' }}</span>
+              <span class="detail-label">الادارة التعليمية:</span>
+              <span class="detail-value">{{ buildingDetails()?.educationalAdministration || 'غير متوفر' }}</span>
+            </div>
+            
+            <!-- Educational Information -->
+            <div class="detail-row">
+              <span class="detail-label">نوعية التعليم:</span>
+              <span class="detail-value">{{ buildingDetails()?.educationType || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">المساحة الكلية:</span>
-              <span class="detail-value">{{ buildingDetails()?.totalArea ? (buildingDetails()?.totalArea + ' م²') : 'غير متوفر' }}</span>
+              <span class="detail-label">التبعية:</span>
+              <span class="detail-value">{{ buildingDetails()?.affiliation || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">المساحة القابلة للاستخدام:</span>
-              <span class="detail-value">{{ buildingDetails()?.usableArea ? (buildingDetails()?.usableArea + ' م²') : 'غير متوفر' }}</span>
+              <span class="detail-label">موقف الاستخدام:</span>
+              <span class="detail-value">{{ buildingDetails()?.usageStatus || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">عدد الغرف:</span>
-              <span class="detail-value">{{ buildingDetails()?.numberOfRooms || 'غير متوفر' }}</span>
+              <span class="detail-label">المرحلة التعليمية:</span>
+              <span class="detail-value">{{ buildingDetails()?.stage || 'غير متوفر' }}</span>
+            </div>
+            
+            <!-- Usage and Students -->
+            <div class="detail-row">
+              <span class="detail-label">فترات الاستخدام:</span>
+              <span class="detail-value">{{ buildingDetails()?.usagePeriods || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">عدد الطوابق:</span>
-              <span class="detail-value">{{ buildingDetails()?.numberOfFloors || 'غير متوفر' }}</span>
+              <span class="detail-label">النوع (الجنس):</span>
+              <span class="detail-value">{{ buildingDetails()?.gender || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">سنة الإنشاء:</span>
-              <span class="detail-value">{{ buildingDetails()?.yearBuilt || 'غير متوفر' }}</span>
+              <span class="detail-label">اسم مدرسة الفترة الثانية:</span>
+              <span class="detail-value">{{ buildingDetails()?.secondPeriodSchoolName || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">الإيجار الشهري:</span>
-              <span class="detail-value">{{ buildingDetails()?.monthlyRent ? (buildingDetails()?.monthlyRent | number:'1.2-2') + ' ريال' : 'غير متوفر' }}</span>
+              <span class="detail-label">اسم مدرسة الفترة الثالثة:</span>
+              <span class="detail-value">{{ buildingDetails()?.thirdPeriodSchoolName || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">تاريخ بدء العقد:</span>
-              <span class="detail-value">{{ buildingDetails()?.contractStartDate ? (buildingDetails()?.contractStartDate | date:'dd/MM/yyyy') : 'غير متوفر' }}</span>
+              <span class="detail-label">اجمالي تلاميذ المدرسة:</span>
+              <span class="detail-value">{{ buildingDetails()?.totalStudents || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">تاريخ انتهاء العقد:</span>
-              <span class="detail-value">{{ buildingDetails()?.contractEndDate ? (buildingDetails()?.contractEndDate | date:'dd/MM/yyyy') : 'غير متوفر' }}</span>
+              <span class="detail-label">بنين:</span>
+              <span class="detail-value">{{ buildingDetails()?.boysCount || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">تاريخ آخر تفتيش:</span>
-              <span class="detail-value">{{ buildingDetails()?.lastInspectionDate ? (buildingDetails()?.lastInspectionDate | date:'dd/MM/yyyy') : 'غير متوفر' }}</span>
+              <span class="detail-label">بنات:</span>
+              <span class="detail-value">{{ buildingDetails()?.girlsCount || 'غير متوفر' }}</span>
+            </div>
+            
+            <!-- Ownership and Areas -->
+            <div class="detail-row">
+              <span class="detail-label">ملكية الارض:</span>
+              <span class="detail-value">{{ buildingDetails()?.landOwnership || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">حالة التفتيش:</span>
-              <span class="detail-value">{{ buildingDetails()?.inspectionStatus || 'غير متوفر' }}</span>
+              <span class="detail-label">ملكية المبني:</span>
+              <span class="detail-value">{{ buildingDetails()?.buildingOwnership || 'غير متوفر' }}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">الصيانة مطلوبة:</span>
-              <span class="detail-value">{{ buildingDetails()?.maintenanceRequired ? 'نعم' : 'لا' }}</span>
+              <span class="detail-label">اجمالي مساحة الموقع:</span>
+              <span class="detail-value">{{ buildingDetails()?.landArea ? (buildingDetails()?.landArea + ' م²') : 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">مسطح المبني:</span>
+              <span class="detail-value">{{ buildingDetails()?.builtArea ? (buildingDetails()?.builtArea + ' م²') : 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">عدد الملاحق:</span>
+              <span class="detail-value">{{ buildingDetails()?.annexesCount || 'غير متوفر' }}</span>
+            </div>
+            
+            <!-- Building Features -->
+            <div class="detail-row">
+              <span class="detail-label">السور:</span>
+              <span class="detail-value">{{ buildingDetails()?.fenceType || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">نظام الانشاء:</span>
+              <span class="detail-value">{{ buildingDetails()?.constructionSystem || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">طريقة الانشاء:</span>
+              <span class="detail-value">{{ buildingDetails()?.constructionMethod || 'غير متوفر' }}</span>
+            </div>
+            
+            <!-- Utilities -->
+            <div class="detail-row">
+              <span class="detail-label">مصدر التيار:</span>
+              <span class="detail-value">{{ buildingDetails()?.powerSource || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">الصرف الصحي:</span>
+              <span class="detail-value">{{ buildingDetails()?.sewerageSystem || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">التغذية:</span>
+              <span class="detail-value">{{ buildingDetails()?.waterSupply || 'غير متوفر' }}</span>
+            </div>
+            
+            <!-- Spaces -->
+            <div class="detail-row">
+              <span class="detail-label">عدد الفصول:</span>
+              <span class="detail-value">{{ buildingDetails()?.classroomsCount || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">عدد الفراغات التعليمية:</span>
+              <span class="detail-value">{{ buildingDetails()?.educationalSpacesCount || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">حالة الاستضافة:</span>
+              <span class="detail-value">{{ buildingDetails()?.hostingStatus || 'غير متوفر' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">عدد الفراغات التكميلية:</span>
+              <span class="detail-value">{{ buildingDetails()?.complementarySpacesCount || 'غير متوفر' }}</span>
             </div>
           </div>
         </div>
@@ -134,7 +209,7 @@
 </div>
 
 <app-rental-status-edit
-  [buildingId]="buildingInfo()?.id || ''"
+  [buildingId]="buildingInfo()?.identificationNumber || ''"
   [currentStatus]="buildingInfo()?.status || ''"
   [currentSubstatus]="buildingInfo()?.substatus || ''"
   [isOpen]="showEditPopup()"

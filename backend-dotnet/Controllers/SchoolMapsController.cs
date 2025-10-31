@@ -13,9 +13,9 @@ public class SchoolMapsController : ControllerBase
 
     public SchoolMapsController(ApplicationDbContext context) => _context = context;
 
-    [HttpGet("study-periods/{buildingCode}")]
-    public async Task<ActionResult<IEnumerable<StudyPeriod>>> GetStudyPeriods(string buildingCode)
-        => await _context.StudyPeriods.Where(s => s.BuildingCode == buildingCode).OrderBy(s => s.Period).ToListAsync();
+    [HttpGet("study-periods/{buildingNumber}")]
+    public async Task<ActionResult<IEnumerable<StudyPeriod>>> GetStudyPeriods(string buildingNumber)
+        => await _context.StudyPeriods.Where(s => s.BuildingNumber == buildingNumber).OrderBy(s => s.Period).ToListAsync();
 
     [HttpGet("roads/{buildingId}")]
     public async Task<ActionResult<IEnumerable<SchoolRoad>>> GetSchoolRoads(string buildingId)
@@ -29,16 +29,16 @@ public class SchoolMapsController : ControllerBase
     public async Task<ActionResult<IEnumerable<SchoolSpace>>> GetSchoolSpaces(string buildingId)
         => await _context.SchoolSpaces.Where(s => s.BuildingId == buildingId).ToListAsync();
 
-    [HttpGet("educational-buildings/{buildingCode}")]
-    public async Task<ActionResult<EducationalBuilding>> GetEducationalBuilding(string buildingCode)
+    [HttpGet("educational-buildings/{buildingNumber}")]
+    public async Task<ActionResult<EducationalBuilding>> GetEducationalBuilding(string buildingNumber)
     {
-        var building = await _context.EducationalBuildings.FirstOrDefaultAsync(e => e.BuildingCode == buildingCode);
+        var building = await _context.EducationalBuildings.FirstOrDefaultAsync(e => e.BuildingNumber == buildingNumber);
         return building == null ? NotFound() : building;
     }
 
     [HttpGet("educational-buildings")]
     public async Task<ActionResult<IEnumerable<EducationalBuilding>>> GetEducationalBuildings()
-        => await _context.EducationalBuildings.OrderBy(e => e.BuildingName).ToListAsync();
+        => await _context.EducationalBuildings.OrderBy(e => e.BuildingNumber).ToListAsync();
 
     [HttpPost("study-periods")]
     public async Task<ActionResult<StudyPeriod>> AddStudyPeriod(StudyPeriod period)
@@ -47,7 +47,7 @@ public class SchoolMapsController : ControllerBase
         period.CreatedAt = period.UpdatedAt = DateTime.UtcNow;
         _context.StudyPeriods.Add(period);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetStudyPeriods), new { buildingCode = period.BuildingCode }, period);
+        return CreatedAtAction(nameof(GetStudyPeriods), new { buildingNumber = period.BuildingNumber }, period);
     }
 
     [HttpPost("roads")]
@@ -87,7 +87,7 @@ public class SchoolMapsController : ControllerBase
         building.CreatedAt = building.UpdatedAt = DateTime.UtcNow;
         _context.EducationalBuildings.Add(building);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetEducationalBuilding), new { buildingCode = building.BuildingCode }, building);
+        return CreatedAtAction(nameof(GetEducationalBuilding), new { buildingNumber = building.BuildingNumber }, building);
     }
 
     [HttpPut("educational-buildings/{id}")]

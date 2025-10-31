@@ -13,7 +13,7 @@ public class StudyPeriod
     
     [Required]
     [MaxLength(50)]
-    public string BuildingCode { get; set; } = string.Empty;
+    public string BuildingNumber { get; set; } = string.Empty;
     
     [MaxLength(255)]
     public string? SchoolName { get; set; }
@@ -143,33 +143,76 @@ public class EducationalBuilding
     
     [Required]
     [MaxLength(50)]
-    public string BuildingCode { get; set; } = string.Empty;
-    
-    [MaxLength(255)]
-    public string? BuildingName { get; set; }
+    public string BuildingNumber { get; set; } = string.Empty;
     
     [MaxLength(100)]
-    public string? EducationType { get; set; }
+    public string? UsageStatus { get; set; }
     
     [MaxLength(50)]
-    public string? BuildingStatus { get; set; }
+    public string? AddressNumber { get; set; }
     
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal? TotalArea { get; set; }
+    [MaxLength(255)]
+    public string? Street { get; set; }
     
-    public int? NumberOfClassrooms { get; set; }
+    [MaxLength(50)]
+    public string? PhoneNumber { get; set; }
     
-    public int? NumberOfLabs { get; set; }
+    [MaxLength(100)]
+    public string? LandOwnership { get; set; }
     
-    public bool HasLibrary { get; set; } = false;
+    [MaxLength(100)]
+    public string? BuildingOwnership { get; set; }
     
-    public bool HasGym { get; set; } = false;
+    [MaxLength(50)]
+    public string? FenceCode { get; set; }
     
-    public bool HasCafeteria { get; set; } = false;
+    [Column(TypeName = "decimal(10,2)")]
+    public decimal? FenceHeight { get; set; }
     
-    public int? ConstructionYear { get; set; }
+    [MaxLength(100)]
+    public string? FenceCondition { get; set; }
     
-    public int? LastRenovationYear { get; set; }
+    [MaxLength(255)]
+    public string? NorthSide { get; set; }
+    
+    [MaxLength(255)]
+    public string? SouthSide { get; set; }
+    
+    [MaxLength(255)]
+    public string? EastSide { get; set; }
+    
+    [MaxLength(255)]
+    public string? WestSide { get; set; }
+    
+    [MaxLength(255)]
+    public string? NorthEast { get; set; }
+    
+    [MaxLength(255)]
+    public string? SouthEast { get; set; }
+    
+    [MaxLength(255)]
+    public string? NorthWest { get; set; }
+    
+    [MaxLength(255)]
+    public string? SouthWest { get; set; }
+    
+    [MaxLength(100)]
+    public string? BuildingMaterial { get; set; }
+    
+    [Column(TypeName = "decimal(18,6)")]
+    public decimal? CoordinateX { get; set; }
+    
+    [Column(TypeName = "decimal(18,6)")]
+    public decimal? CoordinateY { get; set; }
+    
+    [Column(TypeName = "decimal(18,6)")]
+    public decimal? CoordinateZ { get; set; }
+    
+    [MaxLength(255)]
+    public string? PositiveEnvironment { get; set; }
+    
+    [MaxLength(255)]
+    public string? NegativeEnvironment { get; set; }
     
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

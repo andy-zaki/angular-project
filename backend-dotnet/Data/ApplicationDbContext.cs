@@ -83,7 +83,7 @@ public class ApplicationDbContext : DbContext
             .IsUnique();
 
         modelBuilder.Entity<EducationalBuilding>()
-            .HasIndex(e => e.BuildingCode)
+            .HasIndex(e => e.BuildingNumber)
             .IsUnique();
 
         modelBuilder.Entity<DisplacementRecord>()

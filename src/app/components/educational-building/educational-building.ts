@@ -139,6 +139,9 @@ export class EducationalBuildingComponent {
   private navigateToOption(optionKey: string): void {
     // Navigate based on the option key
     switch (optionKey) {
+      case 'building-inquiry':
+        this.router.navigate(['/building-inquiry']);
+        break;
       case 'land-data':
         this.router.navigate(['/land-inquiry']);
         break;

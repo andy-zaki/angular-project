@@ -69,16 +69,29 @@ export interface SchoolSpaceData {
  * Comprehensive educational building information
  */
 export interface EducationalBuildingData {
-  id: string;
-  buildingNumber: string;
-  schoolName: string;
-  educationalLevel: string; // 'elementary' | 'middle' | 'high'
-  gender: string; // 'boys' | 'girls' | 'mixed'
-  totalStudents: number;
-  totalTeachers: number;
-  totalClassrooms: number;
-  hasLibrary: boolean;
-  hasLab: boolean;
-  hasSportsField: boolean;
-  hasCafeteria: boolean;
+  id?: string;
+  buildingNumber?: string;
+  usageStatus?: string;
+  addressNumber?: string;
+  street?: string;
+  phoneNumber?: string;
+  landOwnership?: string;
+  buildingOwnership?: string;
+  fenceCode?: string;
+  fenceHeight?: number;
+  fenceCondition?: string;
+  northSide?: number;
+  southSide?: number;
+  eastSide?: number;
+  westSide?: number;
+  northEast?: number;
+  southEast?: number;
+  northWest?: number;
+  southWest?: number;
+  buildingMaterial?: string;
+  coordinateX?: number;
+  coordinateY?: number;
+  coordinateZ?: number;
+  positiveEnvironment?: string;
+  negativeEnvironment?: string;
 }

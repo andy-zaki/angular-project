@@ -91,13 +91,50 @@ public class SchoolMapsController : ControllerBase
     }
 
     [HttpPut("educational-buildings/{id}")]
-    public async Task<IActionResult> UpdateEducationalBuilding(Guid id, EducationalBuilding building)
+    public async Task<ActionResult<EducationalBuilding>> UpdateEducationalBuilding(Guid id, EducationalBuilding building)
     {
-        if (id != building.Id) return BadRequest();
-        building.UpdatedAt = DateTime.UtcNow;
-        _context.Entry(building).State = EntityState.Modified;
-        try { await _context.SaveChangesAsync(); }
-        catch (DbUpdateConcurrencyException) { if (!_context.EducationalBuildings.Any(e => e.Id == id)) return NotFound(); throw; }
-        return NoContent();
+        if (id != building.Id) return BadRequest("معرف المبنى غير متطابق");
+        
+        var existingBuilding = await _context.EducationalBuildings.FindAsync(id);
+        if (existingBuilding == null) return NotFound("المبنى غير موجود");
+        
+        // Update all fields
+        existingBuilding.BuildingNumber = building.BuildingNumber;
+        existingBuilding.UsageStatus = building.UsageStatus;
+        existingBuilding.AddressNumber = building.AddressNumber;
+        existingBuilding.Street = building.Street;
+        existingBuilding.PhoneNumber = building.PhoneNumber;
+        existingBuilding.LandOwnership = building.LandOwnership;
+        existingBuilding.BuildingOwnership = building.BuildingOwnership;
+        existingBuilding.FenceCode = building.FenceCode;
+        existingBuilding.FenceHeight = building.FenceHeight;
+        existingBuilding.FenceCondition = building.FenceCondition;
+        existingBuilding.NorthSide = building.NorthSide;
+        existingBuilding.SouthSide = building.SouthSide;
+        existingBuilding.EastSide = building.EastSide;
+        existingBuilding.WestSide = building.WestSide;
+        existingBuilding.NorthEast = building.NorthEast;
+        existingBuilding.SouthEast = building.SouthEast;
+        existingBuilding.NorthWest = building.NorthWest;
+        existingBuilding.SouthWest = building.SouthWest;
+        existingBuilding.BuildingMaterial = building.BuildingMaterial;
+        existingBuilding.CoordinateX = building.CoordinateX;
+        existingBuilding.CoordinateY = building.CoordinateY;
+        existingBuilding.CoordinateZ = building.CoordinateZ;
+        existingBuilding.PositiveEnvironment = building.PositiveEnvironment;
+        existingBuilding.NegativeEnvironment = building.NegativeEnvironment;
+        existingBuilding.UpdatedAt = DateTime.UtcNow;
+        
+        try 
+        { 
+            await _context.SaveChangesAsync(); 
+            return Ok(existingBuilding);
+        }
+        catch (DbUpdateConcurrencyException) 
+        { 
+            if (!_context.EducationalBuildings.Any(e => e.Id == id)) 
+                return NotFound("المبنى غير موجود");
+            throw; 
+        }
     }
 }

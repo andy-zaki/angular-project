@@ -220,6 +220,20 @@ export class BuildingInquiryComponent {
     }
 
     const formData = this.buildingForm.value;
+    
+    // Convert numeric fields from strings to numbers or null
+    const numericFields = ['fenceHeight', 'northSide', 'southSide', 'eastSide', 'westSide', 
+                           'northEast', 'southEast', 'northWest', 'southWest', 
+                           'coordinateX', 'coordinateY', 'coordinateZ'];
+    
+    numericFields.forEach(field => {
+      const value = formData[field];
+      if (value === '' || value === null || value === undefined) {
+        formData[field] = null;
+      } else {
+        formData[field] = Number(value);
+      }
+    });
 
     if (this.viewMode() === 'create') {
       this.schoolMapService.createEducationalBuilding(formData).subscribe({
@@ -230,7 +244,6 @@ export class BuildingInquiryComponent {
         },
         error: (error) => {
           console.error('Error creating building:', error);
-          console.error('Error creating building:', error);
           const errorMessage = this.errorHandler.getUserFriendlyMessage(
             error,
             'إضافة المبنى'
@@ -239,12 +252,18 @@ export class BuildingInquiryComponent {
         }
       });
     } else if (this.viewMode() === 'edit') {
-      const buildingId = this.selectedBuilding()?.id;
-      if (buildingId) {
-        this.schoolMapService.updateEducationalBuilding(buildingId, formData).subscribe({
-          next: (building) => {
+      const building = this.selectedBuilding();
+      if (building?.id) {
+        // Include the id in the update data
+        const updateData = {
+          ...formData,
+          id: building.id
+        };
+        
+        this.schoolMapService.updateEducationalBuilding(building.id, updateData).subscribe({
+          next: (updatedBuilding) => {
             alert('✅ تم تحديث المبنى بنجاح');
-            this.selectedBuilding.set(building);
+            this.selectedBuilding.set(updatedBuilding);
             this.viewMode.set('view');
           },
           error: (error) => {
@@ -256,6 +275,8 @@ export class BuildingInquiryComponent {
             alert(`❌ فشل في تحديث المبنى:\n${errorMessage}`);
           }
         });
+      } else {
+        alert('❌ خطأ: معرف المبنى غير موجود');
       }
     }
   }

@@ -603,7 +603,7 @@
                 >
                   <option value="">-- اختر --</option>
                   @for (env of positiveEnvironments; track env.code) {
-                    <option [value]="env.code">{{ env.code }} - {{ env.name }}</option>
+                    <option [value]="env.name">{{ env.name }}</option>
                   }
                 </select>
                 @if (buildingForm.get('positiveEnvironment')?.invalid && buildingForm.get('positiveEnvironment')?.touched) {
@@ -619,7 +619,7 @@
                 >
                   <option value="">-- اختر --</option>
                   @for (env of negativeEnvironments; track env.code) {
-                    <option [value]="env.code">{{ env.code }} - {{ env.name }}</option>
+                    <option [value]="env.name">{{ env.name }}</option>
                   }
                 </select>
                 @if (buildingForm.get('negativeEnvironment')?.invalid && buildingForm.get('negativeEnvironment')?.touched) {

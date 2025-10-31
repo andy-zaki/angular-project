@@ -107,18 +107,35 @@ SELECT TOP 1 @MenuId = Id FROM Menus WHERE Name LIKE '%القائمة الرئي
 SELECT TOP 1 @LibraryId = Id FROM Libraries WHERE Name LIKE '%المكتبة المركزية%';
 
 -- Insert Educational Buildings (المباني التعليمية - المركز الرئيسي)
-INSERT INTO [EducationalBuildings] ([Id], [BuildingCode], [BuildingName], [EducationType], [BuildingStatus], 
-    [TotalArea], [NumberOfClassrooms], [NumberOfLabs], [HasLibrary], [HasGym], [HasCafeteria], 
-    [ConstructionYear], [LastRenovationYear], [CreatedAt], [UpdatedAt])
+INSERT INTO [EducationalBuildings] ([Id], [BuildingNumber], [UsageStatus], [AddressNumber], [Street], 
+    [PhoneNumber], [LandOwnership], [BuildingOwnership], [FenceCode], [FenceHeight], [FenceCondition],
+    [NorthSide], [SouthSide], [EastSide], [WestSide], [NorthEast], [SouthEast], [NorthWest], [SouthWest],
+    [BuildingMaterial], [CoordinateX], [CoordinateY], [CoordinateZ], [PositiveEnvironment], [NegativeEnvironment],
+    [CreatedAt], [UpdatedAt])
 VALUES 
-    (@EduBuilding1, N'101234', N'مدرسة النيل الابتدائية', N'ابتدائي', N'نشط', 2500.00, 20, 2, 1, 1, 1, 2015, 2022, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding2, N'102456', N'مدرسة التحرير الإعدادية', N'إعدادي', N'نشط', 3000.00, 24, 3, 1, 1, 1, 2018, NULL, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding3, N'103789', N'مدرسة المنار الثانوية', N'ثانوي', N'نشط', 3500.00, 30, 5, 1, 1, 1, 2020, NULL, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding4, N'104512', N'مدرسة الورد الأولى', N'روضة', N'قيد الصيانة', 1500.00, 10, 0, 0, 0, 1, 2010, 2021, GETUTCDATE(), GETUTCDATE()),
-    (@EduBuilding5, N'105678', N'مدرسة الشروق الابتدائية', N'ابتدائي', N'نشط', 2800.00, 22, 2, 1, 1, 1, 2019, NULL, GETUTCDATE(), GETUTCDATE());
+    (@EduBuilding1, N'101234', N'نشط', N'15', N'شارع النيل الرئيسي', N'02-12345678', N'ملك حكومي', N'حكومي', 
+     N'F001', 3.50, N'جيد', N'شارع النيل', N'شارع التحرير', N'شارع الزمالك', N'شارع الجلاء', 
+     N'ميدان التحرير', N'شارع قصر النيل', N'شارع 26 يوليو', N'كورنيش النيل', N'خرسانة مسلحة',
+     30.044200, 31.235700, 25.50, N'الفترات الدراسية', N'التوصيلات الكهربائية', GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding2, N'102456', N'نشط', N'28', N'شارع التحرير', N'02-23456789', N'ملك حكومي', N'حكومي',
+     N'F002', 3.80, N'ممتاز', N'شارع الثورة', N'شارع الجمهورية', N'شارع رمسيس', N'شارع العباسية',
+     N'ميدان رمسيس', N'شارع الأزهر', N'شارع الجيش', N'شارع صلاح سالم', N'طوب أحمر',
+     30.060000, 31.240000, 28.00, N'حدود الموقع العام', N'الصرف الصحي', GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding3, N'103789', N'نشط', N'42', N'طريق الكورنيش', N'03-34567890', N'ملك حكومي', N'حكومي',
+     N'F003', 4.00, N'ممتاز', N'شارع الكورنيش', N'شارع البحر', N'شارع سعد زغلول', N'شارع الرمل',
+     N'ميدان سعد زغلول', N'شارع الفاروقية', N'شارع الجيش', N'الطريق الساحلي', N'خرسانة مسلحة',
+     31.185300, 29.955200, 5.50, N'الملاعب', N'شبكات الحريق', GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding4, N'104512', N'قيد الصيانة', N'10', N'شارع الهرم', N'02-45678901', N'ملك حكومي', N'حكومي',
+     N'F004', 3.00, N'يحتاج صيانة', N'شارع الهرم', N'شارع الجيزة', N'شارع السودان', N'شارع النيل',
+     N'ميدان الجيزة', N'شارع الأهرام', N'طريق الفيوم', N'الطريق الدائري', N'طوب أحمر',
+     30.007900, 31.208900, 85.50, N'البوبات', N'التغذية بالمياه', GETUTCDATE(), GETUTCDATE()),
+    (@EduBuilding5, N'105678', N'نشط', N'33', N'طريق السادس من أكتوبر', N'02-56789012', N'ملك حكومي', N'حكومي',
+     N'F005', 3.60, N'جيد', N'طريق السادس من أكتوبر', N'شارع الشيخ زايد', N'طريق الواحات', N'شارع الرماية',
+     N'ميدان لبنان', N'شارع البطل أحمد عبد العزيز', N'شارع جامعة الدول العربية', N'محور 26 يوليو', N'خرسانة مسلحة',
+     30.050000, 31.220000, 30.00, N'الملاحق', N'الغاز الطبيعي', GETUTCDATE(), GETUTCDATE());
 
 -- 6. Insert Study Periods (الفترات الدراسية)
-INSERT INTO [StudyPeriods] ([Id], [EducationalBuildingId], [BuildingCode], [SchoolName], [Period], 
+INSERT INTO [StudyPeriods] ([Id], [EducationalBuildingId], [BuildingNumber], [SchoolName], [Period], 
     [StudentCount], [ClassroomCount], [TeacherCount], [EducationalLevel], [CreatedAt], [UpdatedAt])
 VALUES 
     (NEWID(), @EduBuilding1, N'101234', N'مدرسة النيل الابتدائية', N'الفترة الصباحية', 450, 20, 35, N'ابتدائي', GETUTCDATE(), GETUTCDATE()),

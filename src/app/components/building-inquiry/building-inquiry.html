@@ -282,7 +282,12 @@
                   placeholder="أدخل رقم المبني"
                 />
                 @if (buildingForm.get('buildingNumber')?.invalid && buildingForm.get('buildingNumber')?.touched) {
-                  <span class="error-message">رقم المبني مطلوب</span>
+                  @if (buildingForm.get('buildingNumber')?.hasError('required')) {
+                    <span class="error-message">رقم المبني مطلوب</span>
+                  }
+                  @if (buildingForm.get('buildingNumber')?.hasError('maxlength')) {
+                    <span class="error-message">رقم المبني يجب أن يكون أقل من 50 حرف</span>
+                  }
                 }
               </div>
 

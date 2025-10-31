@@ -82,30 +82,30 @@ export class BuildingInquiryComponent {
 
     // Building form for create/edit - matching building-basic-data fields
     this.buildingForm = this.fb.group({
-      buildingNumber: ['', Validators.required],
-      usageStatus: ['', Validators.required],
-      addressNumber: ['', Validators.required],
-      street: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      landOwnership: ['', Validators.required],
-      buildingOwnership: ['', Validators.required],
-      fenceCode: ['', Validators.required],
+      buildingNumber: ['', [Validators.required, Validators.maxLength(50)]],
+      usageStatus: ['', [Validators.required, Validators.maxLength(100)]],
+      addressNumber: ['', [Validators.required, Validators.maxLength(50)]],
+      street: ['', [Validators.required, Validators.maxLength(255)]],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(50)]],
+      landOwnership: ['', [Validators.required, Validators.maxLength(100)]],
+      buildingOwnership: ['', [Validators.required, Validators.maxLength(100)]],
+      fenceCode: ['', [Validators.required, Validators.maxLength(50)]],
       fenceHeight: ['', Validators.required],
-      fenceCondition: ['', Validators.required],
-      northSide: ['', Validators.required],
-      southSide: ['', Validators.required],
-      eastSide: ['', Validators.required],
-      westSide: ['', Validators.required],
-      northEast: ['', Validators.required],
-      southEast: ['', Validators.required],
-      northWest: ['', Validators.required],
-      southWest: ['', Validators.required],
-      buildingMaterial: ['', Validators.required],
+      fenceCondition: ['', [Validators.required, Validators.maxLength(100)]],
+      northSide: ['', [Validators.required, Validators.maxLength(255)]],
+      southSide: ['', [Validators.required, Validators.maxLength(255)]],
+      eastSide: ['', [Validators.required, Validators.maxLength(255)]],
+      westSide: ['', [Validators.required, Validators.maxLength(255)]],
+      northEast: ['', [Validators.required, Validators.maxLength(255)]],
+      southEast: ['', [Validators.required, Validators.maxLength(255)]],
+      northWest: ['', [Validators.required, Validators.maxLength(255)]],
+      southWest: ['', [Validators.required, Validators.maxLength(255)]],
+      buildingMaterial: ['', [Validators.required, Validators.maxLength(100)]],
       coordinateX: ['', Validators.required],
       coordinateY: ['', Validators.required],
       coordinateZ: ['', Validators.required],
-      positiveEnvironment: ['', Validators.required],
-      negativeEnvironment: ['', Validators.required]
+      positiveEnvironment: ['', [Validators.required, Validators.maxLength(255)]],
+      negativeEnvironment: ['', [Validators.required, Validators.maxLength(255)]]
     });
   }
 
@@ -223,13 +223,33 @@ export class BuildingInquiryComponent {
     
     // Convert numeric fields from strings to numbers or null
     const numericFields = ['fenceHeight', 'coordinateX', 'coordinateY', 'coordinateZ'];
+    const conversionErrors: string[] = [];
     
     numericFields.forEach(field => {
       const value = formData[field];
       if (value === '' || value === null || value === undefined) {
         formData[field] = null;
       } else {
-        formData[field] = Number(value);
+        const numValue = Number(value);
+        if (isNaN(numValue)) {
+          conversionErrors.push(this.getFieldLabel(field));
+        } else {
+          formData[field] = numValue;
+        }
+      }
+    });
+
+    if (conversionErrors.length > 0) {
+      alert(`❌ القيم المدخلة في الحقول التالية غير صحيحة. يرجى إدخال أرقام صحيحة:\n\n${conversionErrors.join('\n')}`);
+      return;
+    }
+
+    // Ensure side fields are strings
+    const sideFields = ['northSide', 'southSide', 'eastSide', 'westSide', 'northEast', 'southEast', 'northWest', 'southWest'];
+    sideFields.forEach(field => {
+      const value = formData[field];
+      if (value !== null && value !== undefined) {
+        formData[field] = String(value);
       }
     });
 
